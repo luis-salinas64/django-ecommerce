@@ -4,12 +4,13 @@ from e_shop.models import *
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
-    pass
+    
+    
+    list_display = ('id','categoria')
     '''
-    list_display = ('categ_id','categoria')
     fieldsets = (
         (None, {
-            'fields': ('categ_id','categoria')
+            'fields': ('id','categoria')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
@@ -21,17 +22,20 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Talle)
 class TalleAdmin(admin.ModelAdmin):
     
-    list_display = ('id_talle','talle')
+    
+    list_display = ('id','talle')
+    '''
     fieldsets = (
         (None, {
-            'fields': ('id_talle','talle')
+            'fields': ('id','talle')
         }),
+    
         ('Advanced options', {
             'classes': ('collapse',),
             'fields': (),
         }),
     )
-    
+    '''
 
 @admin.register(Articulo)
 class ArticuloAdmin(admin.ModelAdmin):
@@ -50,10 +54,11 @@ class ArticuloAdmin(admin.ModelAdmin):
     # NOTE: Genera un campo desplegable con los registros seleccionados.
     fieldsets = (
         (None, {
-            'fields': ('art_id','nombre', 'stock_qty')
+            'fields': ('art_id','categoria_id','nombre')
         }),
         ('Advanced options', {
             'classes': ('collapse',),
-            'fields': ('precio','color','picture'),
+            'fields': ('talle_id','color','precio','stock_qty','picture'),
         }),
     )
+    
