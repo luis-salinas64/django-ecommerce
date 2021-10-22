@@ -13,7 +13,7 @@ class Categoria(models.Model):
         db_table = 'e_shop_categoria'
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.categoria}'
 
 
 class Talle(models.Model):
@@ -26,9 +26,7 @@ class Talle(models.Model):
         db_table = 'e_shop_talle'
 
     def __str__(self):
-        return f'{self.id}'
-
-
+        return f'{self.talle}'
 
 class Articulo(models.Model):
     '''
@@ -37,15 +35,15 @@ class Articulo(models.Model):
     '''
     id = models.BigAutoField(db_column='ID', primary_key=True)
 
-    art_id = models.PositiveIntegerField(verbose_name='codigo_art', default=0, unique=True)
+    art_id = models.PositiveIntegerField(verbose_name='codigo_art', default='', unique=True)
 
     categoria_id = models.ForeignKey(Categoria,on_delete=models.DO_NOTHING,
-        verbose_name='categoria', max_length=5, blank=True)
+                                    verbose_name='categoria', max_length=5,blank=True)
 
     nombre = models.CharField(verbose_name='nombre', max_length=80, default='')
 
     talle_id = models.ForeignKey(Talle,on_delete=models.DO_NOTHING,
-                                verbose_name='talle',max_length=5, blank=True)
+                                verbose_name='talle',max_length=3, blank=True)
 
     color = models.CharField(verbose_name='color', max_length=20, default='')
     
@@ -53,7 +51,7 @@ class Articulo(models.Model):
 
     stock_qty = models.PositiveIntegerField(verbose_name='stock qty', default=0)
     
-    picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None,
+    picture = models.ImageField(upload_to='picture/.', height_field=None, width_field=None, max_length=None,
                                 verbose_name='picture', default='')
 
     class Meta:

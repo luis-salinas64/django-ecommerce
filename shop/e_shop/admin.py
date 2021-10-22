@@ -42,7 +42,7 @@ class ArticuloAdmin(admin.ModelAdmin):
     
 
 # NOTE: Para seleccionar los campos en la tabla de registros
-    list_display = ('art_id','nombre', 'precio','stock_qty')
+    list_display = ('art_id','nombre','color','stock_qty')
 
     # NOTE: Filtro lateral de elementos:
     list_filter= ('nombre','art_id')
