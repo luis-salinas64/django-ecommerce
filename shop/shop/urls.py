@@ -15,7 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# NOTE: importamos Templateview para darle una view a Swagger 
+from django.views.generic import TemplateView
+from rest_framework.schemas import get_schema_view
+
+# Django defaults urls:
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+# e-shop urls:
+    path('e-shop/',include ('e_shop.urls') ),
+
+# swagger app urls:
+    path('api-docs/', TemplateView.as_view(
+        template_name='api-docs/swagger-ui.html',
+        extra_context={'schema_url':'openapi-schema'}
+    ), name='swagger-ui'),
+    path('openapi', get_schema_view(
+        title=" Luiggi API",
+        version="1.0.0"
+    ), name='openapi-schema'),
+
 ]
