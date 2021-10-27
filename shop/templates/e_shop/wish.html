@@ -1,0 +1,52 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}Favoritos{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+<h1>{{user.username}} esta es tu lista de favoritos.</h1>
+
+<table>
+
+    {% for articulo in fav_items %}
+    <tr class="articulo-item">
+        <td>
+            <a href="/e_shop/detail?art_id={{articulo.art_id}}">
+                <img class="articulo_img" src="{{articulo.picture}}" alt="Not found">
+            </a>
+        </td>
+        <td>
+            <ul>
+                <li>
+                    <h2>{{articulo.nombre}}</h2>
+                </li>
+                <li>
+                    <h2>Precio: $ {{articulo.precio}}</h2>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+
+                <input type="hidden" name="username" value="{{user.username}}">
+                <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
+                <input type="hidden" name="type_button" value="favorite">
+                <input type="hidden" name="actual_value" value="True">
+                <input type="hidden" name="path" value="wish">
+                <input type="hidden" name="path" value="{% url 'wish' %}">
+
+                <input type="image" src="{% static 'e-shop/img/favs-true.png' %}" width="60%">
+            </form>
+            <p>(Quitar de favoritos)</p>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+
+</table>
+
+{% endblock %}

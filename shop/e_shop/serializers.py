@@ -1,4 +1,4 @@
-from e_shop.models import Categoria,Talle,Articulo
+from e_shop.models import Categoria,Talle,Articulo, WishList
 from django.contrib.auth.models import User
 # Luego importamos todos los serializadores de django rest framework.
 from rest_framework import serializers
@@ -30,5 +30,17 @@ class ArticuloSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Articulo
+        fields = ("__all__")
+
+class WishListSerializer(serializers.ModelSerializer):
+    
+    user_id = serializers.PrimaryKeyRelatedField(write_only=True,
+            queryset=User.objects.all())
+    
+    art_id = serializers.PrimaryKeyRelatedField(write_only=True,
+            queryset=Articulo.objects.all())
+    
+    class Meta:
+        model = WishList
         fields = ("__all__")
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Categoria(models.Model):
@@ -52,7 +53,7 @@ class Articulo(models.Model):
     stock_qty = models.PositiveIntegerField(verbose_name='stock qty', default=0)
     
     picture = models.ImageField(upload_to='picture/.', height_field=None, width_field=None, max_length=None,
-                                verbose_name='picture', default='')
+                                verbose_name='picture', default='No disponible')
 
     class Meta:
         '''
@@ -66,5 +67,34 @@ class Articulo(models.Model):
         es lo que retorna cuando llamamos al objeto.
         '''
         return f'{self.id}'
+
+class WishList(models.Model):
+    id = models.BigAutoField(db_column='ID', primary_key=True)
+    user_id = models.ForeignKey(User,
+                                verbose_name='User',
+                                on_delete=models.DO_NOTHING,
+                                default=1, blank=True
+                                )
+    art_id = models.ForeignKey(Articulo,
+                                 verbose_name='Articulo',
+                                 on_delete=models.DO_NOTHING,
+                                 default=0, blank=True
+                                 )
+    favorite = models.BooleanField(
+        verbose_name='Favorite', default=False)
+    cart = models.BooleanField(
+        verbose_name='carts', default=False)
+    wished_qty = models.PositiveIntegerField(
+        verbose_name='wished qty', default=0)
+    buied_qty = models.PositiveIntegerField(
+        verbose_name='buied qty', default=0)
+
+    class Meta:
+        db_table = 'e_shop_wish_list'
+
+    def __str__(self):
+        return f'{self.id}'
+
+
 
 

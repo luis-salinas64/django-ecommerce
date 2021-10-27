@@ -1,0 +1,77 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}Detalle de producto{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="articulo-grid">
+
+    <div class="articulo-item">
+        <img src="{{articulo_picture_full}}" alt="Not Found ...">
+    </div>
+    <div class="articulo-item">
+        <h1>
+            {{articulo.nombre}}
+        </h1>
+        <h2>
+            {% if articulo_nombre == "None" %}
+            Descripción no disponible.
+            {% else %}
+            {{articulo_nombre}}
+            {% endif %}
+        </h2>
+        <div class="price-item">
+            Precio: $ {{articulo.precio}}
+        </div>
+        <div id="grid-buttons">
+            <div class="grid-button-item">
+
+                <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+
+                    <input type="hidden" name="username" value="{{user.username}}">
+                    <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                    <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
+                    <input type="hidden" name="type_button" value="cart">
+                    <input type="hidden" name="actual_value" value="{{cart}}">  
+                    <input type="hidden" name="path" value="{% url 'detail' %}">  
+                    
+                    {% if cart %}
+                    <input type="image" src="{% static 'e-shop/img/cart-true.png' %}">
+                    {% else %}
+                    <input type="image" src="{% static 'e-shop/img/cart-false.png' %}">
+                    {% endif %}
+                    
+                </form>
+                
+            </div>
+            <div class="grid-button-item">
+                
+                <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+                    
+                    <input type="hidden" name="username" value="{{user.username}}">
+                    <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                    <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
+                    <input type="hidden" name="type_button" value="favorite">
+                    <input type="hidden" name="actual_value" value="{{favorite}}">  
+                    <input type="hidden" name="path" value="{% url 'detail' %}">  
+                    
+                    {% if favorite %}
+                        <input type="image" src="{% static 'e-shop/img/favs-true.png' %}">
+                    {% else %}
+                        <input type="image" src="{% static 'e-shop/img/favs-false.png' %}">
+                    {% endif %}
+                
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

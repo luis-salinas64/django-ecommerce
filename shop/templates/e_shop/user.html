@@ -1,0 +1,14 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}Datos de usuario{% endblock %}
+
+{% block content %}
+<h1 style="font-size:40px;color:red;">DATOS DEL USUARIO</h1>
+
+<h1>Usuario : {{user.username}}</h1>
+<h3>Firstname: {{user.first_name}}</h3>
+<h3>Lastname: {{user.last_name}}</h3>
+<h3>E-mail: {{user.email}}</h3>
+
+
+{% endblock %}
