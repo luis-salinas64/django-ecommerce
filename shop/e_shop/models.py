@@ -48,12 +48,11 @@ class Articulo(models.Model):
 
     color = models.CharField(verbose_name='color', max_length=20, default='')
     
-    precio = models.FloatField(verbose_name='precio', max_length=5, default=0.00)
+    precio = models.FloatField(verbose_name='precio', max_length=10, default=0.00)
 
     stock_qty = models.PositiveIntegerField(verbose_name='stock qty', default=0)
     
-    picture = models.ImageField(upload_to='picture/.', height_field=None, width_field=None, max_length=None,
-                                verbose_name='picture', default='No disponible')
+    picture = models.ImageField(null=True, blank=True)
 
     class Meta:
         '''
@@ -77,7 +76,7 @@ class WishList(models.Model):
                                 )
     art_id = models.ForeignKey(Articulo,
                                  verbose_name='Articulo',
-                                 on_delete=models.DO_NOTHING,
+                                 on_delete=models.CASCADE,
                                  default=0, blank=True
                                  )
     favorite = models.BooleanField(

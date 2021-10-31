@@ -16,21 +16,22 @@
 <body>
     <div id="sidebar">
         <center>
-            <img id="logo" src= "{% static 'e-shop/img/flores.jpg' %}" alt="" width="50%" height="50%">
+            <img id="logo" src= "{% static 'e-shop/img/e-shop.png' %}" alt="My image" width="20%" height="60%">
         </center>
+        <br>
         <br>
 
         {% block sidebar %}
         <center>
-        | <a href="/e-shop/index">Articulos</a>
+        | <a href="/e-shop/index"><img src="{% static 'e-shop/img/ropa.png' %}" with="50px" height="50px"></a>
         {% if user.is_authenticated %}
-        | <a href="/e-shop/logout">Salir</a>
-        | <a href="/e-shop/user">Usuario</a>
-        | <a href="/e-shop/cart">Carrito</a>
-        | <a href="/e-shop/wish">Favoritos</a>
+        | <a href="/e-shop/user"><img src="{% static 'e-shop/img/perfil.png' %}" with="50px" height="50px"></a>
+        | <a href="/e-shop/cart"><img src="{% static 'e-shop/img/bolsa.png' %}" with="50px" height="50px"></a>
+        | <a href="/e-shop/wish"><img src="{% static 'e-shop/img/favs.png' %}" with="50px" height="50px"></a></a>
+        | <a href="/e-shop/logout"><img src="{% static 'e-shop/img/exit.jpg' %}" with="50px" height="50px"></a>
         {% else %}
-        | <a href="/e-shop/login">Ingresar</a>
-        | <a href="/e-shop/signup">Registrate</a>
+        | <a href="/e-shop/login"><img src="{% static 'e-shop/img/entrar.png' %}" with="50px" height="50px"></a>
+        | <a href="/e-shop/signup"><img src="{% static 'e-shop/img/registrarse.jpeg' %}" with="50px" height="50px"></a>
         {% endif %}
         </center>
         {% endblock %}
@@ -48,7 +49,7 @@
                    
                     </center>
                     <h5>Esta aplicación fue desarrollada como parte del curso "Python Django" en <a
-                        href="https://www.inove.com.ar">  Inove - coding school</a></h5>
+                        href="https://www.inove.com.ar">  Inove - Coding School</a></h5>
         </div>
 
     </footer>

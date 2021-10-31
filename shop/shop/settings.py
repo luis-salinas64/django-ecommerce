@@ -149,7 +149,17 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('staticfiles')),)
 
+# Manejo de imagenes
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
+MEDIA_URL= 'images/'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# NOTE: Para manejo de sesión.
+LOGIN_REDIRECT_URL = '/e-shop/index'
+LOGIN_URL = '/e-shop/'

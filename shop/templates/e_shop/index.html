@@ -10,15 +10,16 @@
         <div class="articulo-block">
 
             <a href="detail?art_id={{articulo.art_id}} ">
-                <img class='picture' src="{{articulo.picture}}" alt="Not found">
+                <img class='articulo-img' src="{{articulo.picture.url}}" alt="Not found">
             </a>
             <h3>
                 {{articulo.nombre}}
             </h3>
             <div class="precio">
                 <p>
-                    Precio: $ {{articulo.precio}} -
-                    Color: {{articulo.color}}
+                    Precio: $ {{articulo.precio}}
+                <p> Color : {{articulo.color}}
+                    
                     
             </div>
         </div>

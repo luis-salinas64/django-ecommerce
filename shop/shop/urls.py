@@ -18,11 +18,17 @@ from django.urls import path, include
 # NOTE: importamos Templateview para darle una view a Swagger 
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
+from django.conf import settings
+from django.conf.urls.static import static
+
+from shop.settings import MEDIA_ROOT
 
 # Django defaults urls:
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    
 
 # e-shop urls:
     path('e-shop/',include ('e_shop.urls') ),
@@ -38,3 +44,5 @@ urlpatterns = [
     ), name='openapi-schema'),
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

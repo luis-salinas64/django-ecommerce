@@ -5,19 +5,20 @@
 
 /* Establecemos las variables globales:  */
 :root {
-    --main-bg-color: rgb(242, 235, 235);
-    --main-content-color: rgba(245, 240, 240, 0.981);
-    --font-color-white: rgb(248, 244, 244);
+    --main-bg-color: rgba(49, 72, 73, 0.563);
+    --main-content-color: rgba(73, 70, 70, 0.823);
+    --font-color-white: rgb(207, 207, 207);
     --font-color-red: rgb(255, 0, 0);
     --font-color-yellow: rgb(255, 255, 0);
+    --font-color-black: rgba(63, 63, 63, 0.568);
     --link-color:rgba(255, 255, 255, 0.822);
     --font-color-tarea:rgb(16, 209, 16);
 }
 body{
-    /* background-color: var(--main-bg-color); */
+    /*background-color: var(--main-bg-color);*/
     color: var(--font-color-white);
-    background-image: url('../img/background.jpg');
-    background-size:cover;
+    /*background-image: url('../img/pink.jpg');*/
+    background-size:contain;
     font-family: 'Marvel', sans-serif;
 }
 
@@ -28,49 +29,48 @@ a{
 }
 
 #content{
-    color: var(--font-color-white);
+    color: var(--font-color-black);
     padding: 2%;
     border-radius: 5px;
     background-color: var(--main-content-color);
 }
 #logo{
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 
 
 #sidebar{
 padding: 10px;
-color: burlywood;
 
 }
 
 .grid-container{
     text-align: center;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    padding: 5px 0;
+    grid-template-columns: auto auto auto;
 }
 
 .grid-item {
     padding: 5px;
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
     
 }
 
-.articulo_img{
+.articulo-img{
     object-fit: cover;
-    width: 100%
+    width: 100%;
+    height: 70%;
     
 }
 
 .articulo-block{
-    /* background-color: rgb(194, 194, 194); */
+    background-color: rgb(235, 226, 226); 
     border-radius: 5px;
     border: 2px solid rgba(90, 90, 90, 0.925);
-    height: 100%;    
-    background-image: url('../img/background.jpg');
-    /* background-image: url("https://cdn.pixabay.com/photo/2015/07/08/07/54/tunnel-835461_1280.jpg"); */
+    height: 80%;        
     background-size:cover;
 }   
 
@@ -99,12 +99,12 @@ font-size: 20px;
     padding: 2%;
     font-size: 20px;
     text-align: center;
-    border: 3px solid rgba(168, 3, 44, 0.719); 
+    border: 3px solid rgba(36, 34, 35, 0.719); 
 }
 
 .articulo-item img{
-    width: 100%;
-    border-radius: 10px;
+    width: 80%;
+    border-radius: 1px;
 
 }
 
@@ -114,7 +114,7 @@ font-size: 20px;
 .articulo-item h2{
     font-size: 20px;
     text-align:justify;
-    color:var(--font-color-white);
+    color:var(--font-color-black);
 }
 .precio-item{
     font-family: 'Permanent Marker', cursive;
@@ -135,5 +135,5 @@ font-size: 20px;
 }
 
 a[href*="inove"]{
-    color:rgb(54, 158, 190);
+    color:rgb(54, 190, 88);
 }

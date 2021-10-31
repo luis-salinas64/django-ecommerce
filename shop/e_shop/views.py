@@ -45,8 +45,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username',
-                  'email','password1','password2')
+        fields = ('__all__')
 
 
 def register(request):
@@ -90,10 +89,11 @@ class IndexView(ListView):
     \n'''
     
     queryset = Articulo.objects.all().order_by('-id')
+    
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
     template_name = 'e_shop/index.html'
-    paginate_by = 15
+    paginate_by = 6
     
 
     # NOTE: Examinamos qué incluye nuestro contexto:
@@ -217,7 +217,7 @@ class CartView(TemplateView):
         username = self.request.user
         user_obj = User.objects.get(username=username)
         wish_obj = WishList.objects.filter(user_id=user_obj, cart=True)
-        cart_items = [obj.comic_id for obj in wish_obj]
+        cart_items = [obj.art_id for obj in wish_obj]
         context['cart_items'] = cart_items
         context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])), 2)
         print(context['cart_items'])
@@ -226,7 +226,7 @@ class CartView(TemplateView):
 
 class WishView(TemplateView):
     '''
-    En esta vista vamos a traer todos los comics favoritos de un usuario en particular.
+    En esta vista vamos a traer todos los articulos favoritos de un usuario en particular.
     Luego en el Template vamos a colocar un formulario por cada favorito, 
     para eliminarlo de la lista de favoritos.
     '''
@@ -278,7 +278,7 @@ class UserView(TemplateView):
 
     template_name = 'e_shop/user.html'
 
-    # Preparamos en nuestro contexto la lista de comics del usuario registrado.
+    # Preparamos en nuestro contexto la lista de articulos del usuario registrado.
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
@@ -287,8 +287,7 @@ class UserView(TemplateView):
         
         
 
-        # TODO: Realizar la lógica que lista los datos del usuario, 
-        # incluyendo los datos de la tabla de datos adicionales de usuario.
+     
 
 # NOTE: Vistas con Bootstrap:
 

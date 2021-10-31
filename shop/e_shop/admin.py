@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from e_shop.models import *
 # Register your models here.
 
@@ -42,7 +43,7 @@ class ArticuloAdmin(admin.ModelAdmin):
     
 
 # NOTE: Para seleccionar los campos en la tabla de registros
-    list_display = ('art_id','nombre','color','stock_qty')
+    list_display = ('art_id','nombre','stock_qty', 'imagen')
 
     # NOTE: Filtro lateral de elementos:
     list_filter= ('nombre','art_id')
@@ -61,4 +62,5 @@ class ArticuloAdmin(admin.ModelAdmin):
             'fields': ('talle_id','color','precio','stock_qty','picture'),
         }),
     )
-    
+    def imagen(self,obj):
+        return format_html('<img src={} width="100" height="70" /> ', obj.picture.url)
