@@ -63,4 +63,4 @@ class ArticuloAdmin(admin.ModelAdmin):
         }),
     )
     def imagen(self,obj):
-        return format_html('<img src={} width="100" height="70" /> ', obj.picture.url)
+        return format_html('<img src={} width="100" height="130" /> ', obj.picture.url)

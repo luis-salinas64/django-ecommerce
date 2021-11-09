@@ -93,7 +93,7 @@ class IndexView(ListView):
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
     template_name = 'e_shop/index.html'
-    paginate_by = 6
+    paginate_by = 9
     
 
     # NOTE: Examinamos qué incluye nuestro contexto:

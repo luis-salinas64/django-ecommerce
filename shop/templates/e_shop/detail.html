@@ -7,24 +7,24 @@
 <div class="articulo-grid">
 
     <div class="articulo-item">
-        <img src="{{articulo_picture_full}}" alt="Not Found ...">
+        <img src="{{articulo.picture.url}}" alt="Not Found">
     </div>
     <div class="articulo-item">
         <h1>
             {{articulo.nombre}}
         </h1>
-        <h2>
-            {% if articulo_nombre == "None" %}
-            Descripción no disponible.
-            {% else %}
-            {{articulo_nombre}}
-            {% endif %}
+        
+           
         </h2>
-        <div class="price-item">
+        <div class="precio-item">
             Precio: $ {{articulo.precio}}
         </div>
+        <h2>
+        
+
+
         <div id="grid-buttons">
-            <div class="grid-button-item">
+            
 
                 <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
 
@@ -36,15 +36,15 @@
                     <input type="hidden" name="path" value="{% url 'detail' %}">  
                     
                     {% if cart %}
-                    <input type="image" src="{% static 'e-shop/img/cart-true.png' %}">
+                    <h3>Agregar al carrito</h3><input type="image" src="{% static 'e-shop/img/cart-true.png' %}" width="60px" height="60px">
                     {% else %}
-                    <input type="image" src="{% static 'e-shop/img/cart-false.png' %}">
+                    <input type="image" src="{% static 'e-shop/img/cart-false.png' %}"width="60px" height="60px">
                     {% endif %}
                     
                 </form>
                 
             </div>
-            <div class="grid-button-item">
+            <div id="grid-buttons">
                 
                 <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
                     
@@ -56,9 +56,9 @@
                     <input type="hidden" name="path" value="{% url 'detail' %}">  
                     
                     {% if favorite %}
-                        <input type="image" src="{% static 'e-shop/img/favs-true.png' %}">
+                        <input type="image" src="{% static 'e-shop/img/favs-true.png' %}" width="60px" height="60px">
                     {% else %}
-                        <input type="image" src="{% static 'e-shop/img/favs-false.png' %}">
+                        <input type="image" src="{% static 'e-shop/img/favs-false.png' %}" width="60px" height="60px">
                     {% endif %}
                 
                 </form>

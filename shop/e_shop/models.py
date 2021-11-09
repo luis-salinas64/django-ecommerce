@@ -48,7 +48,7 @@ class Articulo(models.Model):
 
     color = models.CharField(verbose_name='color', max_length=20, default='')
     
-    precio = models.FloatField(verbose_name='precio', max_length=10, default=0.00)
+    precio = models.FloatField(verbose_name='precio', max_length=10, default=0)
 
     stock_qty = models.PositiveIntegerField(verbose_name='stock qty', default=0)
     

@@ -4,78 +4,68 @@
 
 
 /* Establecemos las variables globales:  */
-:root {
-    --main-bg-color: rgba(49, 72, 73, 0.563);
-    --main-content-color: rgba(73, 70, 70, 0.823);
-    --font-color-white: rgb(207, 207, 207);
-    --font-color-red: rgb(255, 0, 0);
-    --font-color-yellow: rgb(255, 255, 0);
-    --font-color-black: rgba(63, 63, 63, 0.568);
-    --link-color:rgba(255, 255, 255, 0.822);
-    --font-color-tarea:rgb(16, 209, 16);
-}
+
+
 body{
     /*background-color: var(--main-bg-color);*/
-    color: var(--font-color-white);
-    /*background-image: url('../img/pink.jpg');*/
+    color:rgb(143, 140, 140);
     background-size:contain;
-    font-family: 'Marvel', sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-a{
-    color:var(--link-color);
-    font-family: 'Permanent Marker', cursive;
-    font-size: 25px;
-}
 
 #content{
-    color: var(--font-color-black);
-    padding: 2%;
+    color:black;
+    padding: 1%;
     border-radius: 5px;
-    background-color: var(--main-content-color);
+    background-color: rgb(250, 248, 248);
+    /* background-color: var(--main-content-color); */
 }
 #logo{
-    border-radius: 10px;
+    border-radius: 5px;
+    font-size: 40px;
+    font-style: helvetica;
+    text-align: center;
+    
 }
 
 
-
-#sidebar{
-padding: 10px;
-
-}
 
 .grid-container{
     text-align: center;
     display: grid;
     padding: 5px 0;
-    grid-template-columns: auto auto auto;
+    grid-gap: 10px 30px ;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
 }
 
+
 .grid-item {
-    padding: 5px;
-    font-size: 12px;
+    padding: 3px;
+    font-size: 15px;
     text-align: center;
+    
     
 }
 
 .articulo-img{
     object-fit: cover;
-    width: 100%;
-    height: 70%;
+    width:100%;
+    height:73%;
     
 }
 
 .articulo-block{
     background-color: rgb(235, 226, 226); 
     border-radius: 5px;
-    border: 2px solid rgba(90, 90, 90, 0.925);
+    border: 2px solid rgba(138, 136, 136, 0.925);
     height: 80%;        
     background-size:cover;
 }   
 
 form{
-font-size: 20px;
+font-size: 15px;
 }
 
 .paginator-content{
@@ -87,13 +77,13 @@ font-size: 20px;
     padding: 5px;
     font-size: 15px;
     text-align: center;
-    /* border: 3px solid green; */
+    
 }
 
 .articulo-grid{
     text-align: center;
     display: grid;
-    grid-template-columns: 30% 70% ;
+    grid-template-columns: 2fr 2fr ;
 }
 .articulo-item{
     padding: 2%;
@@ -103,29 +93,31 @@ font-size: 20px;
 }
 
 .articulo-item img{
-    width: 80%;
-    border-radius: 1px;
+    width: 100%;
+    border-radius: 10px;
 
 }
 
 .articulo-item h1{
-    font-family: 'Permanent Marker', cursive;
+    font-family:Arial, Helvetica, sans-serif;
+    color:dimgrey;
 }
 .articulo-item h2{
+
     font-size: 20px;
-    text-align:justify;
-    color:var(--font-color-black);
+    text-align:center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .precio-item{
     font-family: 'Permanent Marker', cursive;
-    color:var(--font-color-yellow);
-    font-size: 60px;
-    text-align:right;
+    color:rgb(29, 29, 29);
+    font-size: 30px;
+    text-align:center;
 }
 #grid-buttons{ 
-    text-align: left;
-    display: grid;
-    grid-template-columns: 30% 70%;
+    text-align: right;
+    display:block;
+    grid-template-columns: 100% 100%;
 }
 
 .tarea{
@@ -135,5 +127,54 @@ font-size: 20px;
 }
 
 a[href*="inove"]{
-    color:rgb(54, 190, 88);
+    color:rgb(106, 125, 231);
+}
+
+.navegacion {
+    width: 1000px;
+    margin:auto;
+    
+}
+
+.navegacion ul{
+    list-style: none;
+    text-align:center;
+}
+
+.menu > li {
+    position: relative;
+    display: inline-block;
+}
+.menu > li > a{
+    display: block;
+    padding: 15px 20px;
+    color: #353535;
+    font-family: 'Open sans';
+    text-decoration: none;
+}
+.menu li a:hover{
+    color: rgb(32, 32, 228);
+    transition: 
+    all ,2s;
+}
+
+/* Submenu */
+
+.submenu {
+    position:absolute;
+    background:white;
+    width: 100%;
+    display: none;
+}
+.submenu li a {
+    display: block;
+    padding: 15px;
+    color: rgb(95, 93, 93);
+    font-family:Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    
+}
+
+.menu li:hover .submenu {
+    display: block;
 }

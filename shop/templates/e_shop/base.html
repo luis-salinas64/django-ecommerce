@@ -8,51 +8,65 @@
 
     {% endblock head %}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'e-shop/css/base.css' %}">
+    
+
     <title>{% block title %}E-SHOP{% endblock %}</title>
 </head>
 
-<body>
-    <div id="sidebar">
-        <center>
-            <img id="logo" src= "{% static 'e-shop/img/e-shop.png' %}" alt="My image" width="20%" height="60%">
+    
+    <body>
+        <div id="logo">    
+    
         </center>
-        <br>
-        <br>
-
-        {% block sidebar %}
-        <center>
-        | <a href="/e-shop/index"><img src="{% static 'e-shop/img/ropa.png' %}" with="50px" height="50px"></a>
-        {% if user.is_authenticated %}
-        | <a href="/e-shop/user"><img src="{% static 'e-shop/img/perfil.png' %}" with="50px" height="50px"></a>
-        | <a href="/e-shop/cart"><img src="{% static 'e-shop/img/bolsa.png' %}" with="50px" height="50px"></a>
-        | <a href="/e-shop/wish"><img src="{% static 'e-shop/img/favs.png' %}" with="50px" height="50px"></a></a>
-        | <a href="/e-shop/logout"><img src="{% static 'e-shop/img/exit.jpg' %}" with="50px" height="50px"></a>
-        {% else %}
-        | <a href="/e-shop/login"><img src="{% static 'e-shop/img/entrar.png' %}" with="50px" height="50px"></a>
-        | <a href="/e-shop/signup"><img src="{% static 'e-shop/img/registrarse.jpeg' %}" with="50px" height="50px"></a>
-        {% endif %}
+         <img src="{% static 'e-shop/img/corazon.png' %}"width="28px" height="28px" >DANIEL CASSIN<img src="{% static 'e-shop/img/corazon.png' %}" width="28px" height="28px"> 
+         
         </center>
-        {% endblock %}
-    </div>
+        
+        </div>
+    
+    <header>
+        
+        <nav class="navegacion">   
+            <ul class="menu">
+                <li><a href = "/e-shop/index">Inicio</a></li>    
+            <li><a href = "">Productos</a>
+                <ul class="submenu">  
+                    <left>
+                    <li><a href = "/e-shop/index">Todos</a></li>
+                    <li><a href = "">Jeans</a></li>
+                    <li><a href = "">Pantalones</a></li>
+                    <li><a href = "">Camisas</a></li>
+                    <li><a href = "">Remeras</a></li>
+                    <li><a href = "">Sweaters</a></li>
+                    <li><a href = "">Camperas</a></li>
+                    <li><a href = "">Sacos</a></li>
+                    <li><a href = "">Faldas</a></li>
+                    <li><a href = "">Vestidos</a></li>
+                    </left>
+                </ul>         
+                
+            <li><a href = "/e-shop/login">Login</a></li>
+            <li><a href = "/e-shop/wish">Favoritos</a></li>
+            <li><a href = "/e-shop/cart">Carrito</a></li>
+            <li><a href = "/e-shop/logout">Salir</a></li>
 
+            </ul>
+        </nav>
+    </header>
+    
     <div id="content">
         {% block content %}{% endblock %}
     </div>
+
     <footer>
-
-        <div id="footer">
+        <div>
             
-
-            
-                   
-                    </center>
-                    <h5>Esta aplicación fue desarrollada como parte del curso "Python Django" en <a
-                        href="https://www.inove.com.ar">  Inove - Coding School</a></h5>
+            <h5>Esta aplicación fue desarrollada como parte del curso "Python Django" en <a
+                href="https://www.inove.com.ar">  Inove - Coding School</a></h5>
         </div>
-
     </footer>
-</body>
 
+</body>
 </html>
