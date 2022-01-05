@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 
-<h3>{{user.username.upper}} este es tu carrito de compras, puedes confirmar el pedido o eliminar elementos de tu carrito.</h3>
+<h3>Este es tu carrito de compras, puedes confirmar el pedido o eliminar elementos de tu carrito.</h3>
 
 <table>
 
@@ -22,6 +22,10 @@
                 <li>
                     <h2>Precio unitario: $ {{articulo.precio}}</h2>
                 </li>
+
+                <li>
+                    <h2>Talle: {{articulo.talle_id}}</h2>
+                </li>
             </ul>
         </td>
         <td>
@@ -35,8 +39,8 @@
                 <input type="hidden" name="path" value="{% url 'cart' %}">
                 <input type="image" src="{% static 'e-shop/img/cart-true.png' %}" width="60%">
             </form>
-
-            <p>(Quitar de carrito)</p>
+        
+            <p>Quitar del carrito</p>
         </td>
     </tr>
 
@@ -45,9 +49,9 @@
     <td>
         <h1>Precio total: $ {{precio_total}}</h1>
     </td>
-    <td style="text-align: center;">
+    <td style="border-bottom: orange;">
         <a  href="{% url 'gracias' %}">
-            <h1>-> Confirmar pedido <- </h1>
+            <h1>Confirmar pedido</h1>
         </a>
     </td>
 </table>

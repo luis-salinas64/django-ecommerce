@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.contrib.postgres.fields import ArrayField
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
@@ -8,7 +10,7 @@ class Categoria(models.Model):
 
     id = models.BigAutoField(db_column='ID', primary_key=True)
     
-    categoria = models.CharField(verbose_name='categorias', max_length=20, default='')
+    categoria = models.CharField(verbose_name='categoria', max_length=20, default='')
 
     class Meta:
         db_table = 'e_shop_categoria'
@@ -16,43 +18,63 @@ class Categoria(models.Model):
     def __str__(self):
         return f'{self.categoria}'
 
+class Color(models.Model):
 
+    id = models.BigAutoField(db_column='ID', primary_key=True)
+    
+    color = models.CharField(verbose_name='color', max_length=20, default='')
+
+    picture = models.ImageField(verbose_name='picture',null=True, blank=True)
+
+    class Meta:
+        db_table = 'e_shop_color'
+
+    def __str__(self):
+        return f'{self.color}'
+'''
 class Talle(models.Model):
 
+   
     id = models.BigAutoField(db_column='ID',primary_key=True)
     
-    talle = models.CharField(verbose_name='talles', max_length=5, default='', blank=True)
+    talle = models.CharField(verbose_name= 'talle', max_length=4)
 
     class Meta:
         db_table = 'e_shop_talle'
 
     def __str__(self):
         return f'{self.talle}'
+'''
 
 class Articulo(models.Model):
     '''
     Esta clase hereda de Django models.Model y crea una tabla llamada
     Articulos. Las columnas toman el nombre especificado de cada objeto.
     '''
-    id = models.BigAutoField(db_column='ID', primary_key=True)
+    id = models.BigAutoField(db_column='ID',primary_key=True)
 
-    art_id = models.PositiveIntegerField(verbose_name='codigo_art', default='', unique=True)
+    art_id = models.PositiveIntegerField(verbose_name='codigo_art', default=0,unique=False)
 
-    categoria_id = models.ForeignKey(Categoria,on_delete=models.DO_NOTHING,
+    categoria_id = models.ForeignKey(Categoria,on_delete=models.CASCADE,
                                     verbose_name='categoria', max_length=5,blank=True)
 
     nombre = models.CharField(verbose_name='nombre', max_length=80, default='')
 
-    talle_id = models.ForeignKey(Talle,on_delete=models.DO_NOTHING,
-                                verbose_name='talle',max_length=3, blank=True)
+    talle_xs = models.PositiveIntegerField(verbose_name='xs', default=0)
+    talle_s = models.PositiveIntegerField(verbose_name='s',default=0)
+    talle_m = models.PositiveIntegerField(verbose_name='m',default=0)
+    talle_l = models.PositiveIntegerField(verbose_name='l',default=0)
+    talle_xl = models.PositiveIntegerField(verbose_name='xl',default=0)
 
-    color = models.CharField(verbose_name='color', max_length=20, default='')
+    color_id = models.ForeignKey(Color, on_delete=models.CASCADE,
+                                verbose_name='color_id', max_length=20, default='')
     
-    precio = models.FloatField(verbose_name='precio', max_length=10, default=0)
-
-    stock_qty = models.PositiveIntegerField(verbose_name='stock qty', default=0)
+    precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=2 )
     
     picture = models.ImageField(null=True, blank=True)
+    picture_1 = models.ImageField(null=True, blank=True)
+    picture_2 = models.ImageField(null=True, blank=True)
+    picture_3 = models.ImageField(null=True, blank=True)
 
     class Meta:
         '''
@@ -65,7 +87,7 @@ class Articulo(models.Model):
         La función __str__ cumple la misma función que __repr__ en SQL Alchemy, 
         es lo que retorna cuando llamamos al objeto.
         '''
-        return f'{self.id}'
+        return f'{self.art_id}'
 
 class WishList(models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)

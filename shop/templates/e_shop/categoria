@@ -19,11 +19,10 @@
                 <p>
                     Precio: $ {{articulo.precio}}
                 <p> 
-                <!--
                 <p>
-                    Color : {{articulo.color_id}}
+                    Color : {{articulo.color}}
                 <p>
-                -->
+                    
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@
 body{
     /*background-color: var(--main-bg-color);*/
     color:rgb(143, 140, 140);
-    background-size:contain;
+    background-size:auto;
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -37,7 +37,7 @@ body{
     padding: 5px 0;
     grid-gap: 10px 30px ;
     grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
+    
 }
 
 
@@ -57,7 +57,7 @@ body{
 }
 
 .articulo-block{
-    background-color: rgb(235, 226, 226); 
+    background-color: rgb(248, 239, 239); 
     border-radius: 5px;
     border: 2px solid rgba(138, 136, 136, 0.925);
     height: 80%;        
@@ -68,28 +68,17 @@ form{
 font-size: 15px;
 }
 
-.paginator-content{
-    text-align: center;
-    display: grid;
-    grid-template-columns: 35% 10% 10% 10% 35%;
-}
-.paginator-item{
-    padding: 5px;
-    font-size: 15px;
-    text-align: center;
-    
-}
-
 .articulo-grid{
     text-align: center;
     display: grid;
-    grid-template-columns: 2fr 2fr ;
+    grid-template-columns: auto auto ;
+    margin:inherit;
 }
 .articulo-item{
     padding: 2%;
     font-size: 20px;
-    text-align: center;
-    border: 3px solid rgba(36, 34, 35, 0.719); 
+    
+    border: 3px solid rgba(36, 34, 35, 0.884);
 }
 
 .articulo-item img{
@@ -107,17 +96,22 @@ font-size: 15px;
     font-size: 20px;
     text-align:center;
     font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
 }
 .precio-item{
-    font-family: 'Permanent Marker', cursive;
-    color:rgb(29, 29, 29);
+    font-family:Arial, Helvetica, sans-serif;
+    color:rgb(105, 100, 100);
     font-size: 30px;
     text-align:center;
 }
 #grid-buttons{ 
-    text-align: right;
-    display:block;
-    grid-template-columns: 100% 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    border: navy;
+    background: rgb(250, 251, 252);
+    display:grid;
+    padding: auto;
+
+    
 }
 
 .tarea{
@@ -126,13 +120,12 @@ font-size: 15px;
 
 }
 
-a[href*="inove"]{
-    color:rgb(106, 125, 231);
-}
+
 
 .navegacion {
     width: 1000px;
     margin:auto;
+    background-color:rgba(245, 235, 226, 0.891);
     
 }
 
@@ -155,7 +148,7 @@ a[href*="inove"]{
 .menu li a:hover{
     color: rgb(32, 32, 228);
     transition: 
-    all ,2s;
+    all ,3s;
 }
 
 /* Submenu */
@@ -164,7 +157,9 @@ a[href*="inove"]{
     position:absolute;
     background:white;
     width: 100%;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition:opacity 1s;
 }
 .submenu li a {
     display: block;
@@ -176,5 +171,18 @@ a[href*="inove"]{
 }
 
 .menu li:hover .submenu {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.talles{
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(102, 102, 110);
+}
+
+.mt-2{
+    display: grid;
+    justify-content: center;
+    
 }

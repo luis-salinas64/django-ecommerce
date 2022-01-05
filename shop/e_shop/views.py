@@ -2,6 +2,7 @@ from django.shortcuts import render
 # Create your views here.
 # Importo vistas genericas:
 from django.db.models.query import QuerySet
+from django.db.models import Count
 from django.views.generic import TemplateView, ListView
 
 # Importamos los modelos que vamos a usar:
@@ -88,12 +89,13 @@ class IndexView(ListView):
     Para ello tenemos que utilizar sus atributos:
     \n'''
     
-    queryset = Articulo.objects.all().order_by('-id')
-    
+    queryset = Articulo.objects.all().order_by('-art_id')
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
+    
+
     template_name = 'e_shop/index.html'
-    paginate_by = 9
+    paginate_by = 6
     
 
     # NOTE: Examinamos qué incluye nuestro contexto:
@@ -109,24 +111,49 @@ class DetailsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            articulo_obj = Articulo.objects.get(
-                art_id=self.request.GET.get('art_id'))
+            # Buscar el articulo en la base de datos TUYA, usas la funcion Articulo.objects.get y le 
+            # mandas la id del articulo, por eso art_id=self.request.GET.get('art_id')
+            # eso te devuelve el artículo que esté en la db que coincida con el id 
+
+            articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
+
+            if articulo_obj.talle_xs > 0:
+                articulo_obj.talle_xs = 'xs'        
+            if articulo_obj.talle_s > 0:
+                articulo_obj.talle_s = 's'
+            if articulo_obj.talle_m > 0:
+                articulo_obj.talle_m = 'm'
+            if articulo_obj.talle_l > 0:
+                articulo_obj.talle_l = 'l'
+            if articulo_obj.talle_xl > 0:
+                articulo_obj.talle_xl = 'xl'
+            
+            # A partir de acá, articulo_obj es un objeto articulo con todos los datos del articulo
+            
+            # context es lo que muestra el articulo al usuario, le tenemos que dar todos los valores
+            # que necesita
+
             context["articulo"] = articulo_obj
-            context['articulo_picture_full'] = str(
-                articulo_obj.picture)
-            context['articulo_nombre'] = str(
-                articulo_obj.nombre).replace('<br>', '\n')
-            context['articulo_color'] = str(
-                articulo_obj.color)
-            context['articulo_talle'] = str(
-                articulo_obj.talle_id)
+
+            context['articulo_picture_full'] = str(articulo_obj.picture)
+
+            context['articulo_nombre'] = str(articulo_obj.nombre).replace('<br>', '\n')
+            
+            context['articulo_color'] = str(articulo_obj.color_id)
+            
+            context['articulo_talle_xs'] = str(articulo_obj.talle_xs)
+            context['articulo_talle_s'] = str(articulo_obj.talle_s)
+            context['articulo_talle_m'] = str(articulo_obj.talle_m)
+            context['articulo_talle_l'] = str(articulo_obj.talle_l)
+            context['articulo_talle_xl'] = str(articulo_obj.talle_xl)
+
             username = self.request.user
-            if username != None:
-                user_obj = User.objects.filter(username=username)
-                if user_obj.first() != None:
-                    wish_obj = WishList.objects.filter(
-                        user_id=user_obj[0].id, art_id = art_obj)
-                    if wish_obj.first() != None:
+            if username is not None:
+                user_obj = User.objects.filter(username = username)
+                if user_obj.first() is not None:
+                    wish_obj = WishList.objects.filter(user_id=user_obj[0].id, art_id = articulo_obj)
+                    
+                    if wish_obj.first() is not None:
                         context["favorite"] = wish_obj.first().favorite
                         context["cart"] = wish_obj.first().cart
                         context["wished_qty"] = wish_obj.first().wished_qty
@@ -134,8 +161,10 @@ class DetailsView(TemplateView):
                         context["favorite"] = False
                         context["cart"] = False
                         context["wished_qty"] = 0
+        
         except:
             return context
+        
         return context
 
 

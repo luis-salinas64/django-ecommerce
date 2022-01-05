@@ -6,8 +6,9 @@
 {% load static %}
 <div class="articulo-grid">
 
+    
     <div class="articulo-item">
-        <img src="{{articulo.picture.url}}" alt="Not Found">
+        <img src="{{ articulo.picture.url }}" alt="Not Found">
     </div>
     <div class="articulo-item">
         <h1>
@@ -15,15 +16,47 @@
         </h1>
         
            
-        </h2>
-        <div class="precio-item">
+    
+    <div class="precio-item">
             Precio: $ {{articulo.precio}}
         </div>
         <h2>
+    <div class="talles">
+        <h2>
+            Elegi tu talle:
+            
+            <select name="OS">    
+                <option value="1">{{articulo.talle_xs}}</option>
+                <option value="1">{{articulo.talle_s}}</option>
+                <option value="1">{{articulo.talle_m}}</option>
+                <option value="1">{{articulo.talle_l}}</option>
+                <option value="1">{{articulo.talle_xl}}</option>
+                
+                
+        <div>
+             </select>
+        </h2>
+        <h2>
+            Color:
+            <select name="OS">
+                <option value="1">{{articulo.color_id}}</option> 
+                
+                
+             </select>
+
+        </h2>
         
-
-
+        <h2>
+            Cantidad:
+            <select name="OS">
+                <option value="1">{{articulo.stock_qty}}</option> 
+                
+                
+             </select>
+             
+        </h2>
         <div id="grid-buttons">
+            
             
 
                 <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
@@ -34,9 +67,9 @@
                     <input type="hidden" name="type_button" value="cart">
                     <input type="hidden" name="actual_value" value="{{cart}}">  
                     <input type="hidden" name="path" value="{% url 'detail' %}">  
-                    
+                
                     {% if cart %}
-                    <h3>Agregar al carrito</h3><input type="image" src="{% static 'e-shop/img/cart-true.png' %}" width="60px" height="60px">
+                    <input type="image" src="{% static 'e-shop/img/cart-true.png' %}" width="60px" height="60px"><h2>Agregado!</h2>
                     {% else %}
                     <input type="image" src="{% static 'e-shop/img/cart-false.png' %}"width="60px" height="60px">
                     {% endif %}
@@ -45,6 +78,7 @@
                 
             </div>
             <div id="grid-buttons">
+                <h3>Me encanta</h3>
                 
                 <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
                     
