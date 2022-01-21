@@ -65,7 +65,7 @@ class Articulo(models.Model):
     talle_m = models.PositiveIntegerField(verbose_name='m',default=0)
     talle_l = models.PositiveIntegerField(verbose_name='l',default=0)
     talle_xl = models.PositiveIntegerField(verbose_name='xl',default=0)
-
+    
     color_id = models.ForeignKey(Color, on_delete=models.CASCADE,
                                 verbose_name='color_id', max_length=20, default='')
     

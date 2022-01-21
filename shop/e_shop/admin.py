@@ -24,7 +24,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 class CategoriaAdmin(admin.ModelAdmin):
     
     
-    list_display = ('id','color','picture')
+    list_display = ('id','color')
     '''
     fieldsets = (
         (None, {
@@ -60,7 +60,7 @@ class ArticuloAdmin(admin.ModelAdmin):
    
 
 # NOTE: Para seleccionar los campos en la tabla de registros
-    list_display = ('art_id','nombre')
+    list_display = ('art_id','nombre','color_id','talle_xs','talle_s','talle_m','talle_l','talle_xl')
 
     # NOTE: Filtro lateral de elementos:
     list_filter= ('nombre','art_id')
@@ -81,5 +81,6 @@ class ArticuloAdmin(admin.ModelAdmin):
         }),
     )
     def imagen(self,obj):
-        return format_html('<img src={} width="100" height="130" /> ', obj.picture.url)
+        return format_html('<img src={} width="50" height="100" /> ', obj.picture.url, obj.picture_1.url,
+                            obj.picture_2.url, obj.picture_3.url)
         

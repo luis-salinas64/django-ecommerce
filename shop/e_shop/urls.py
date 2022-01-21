@@ -16,7 +16,7 @@ urlpatterns = [
     path('base',BaseView.as_view(), name = 'base'),
 
     # NOTE: Manejo de sesión:
-    path('login', auth_views.LoginView.as_view(template_name='e_shop/login.html', redirect_authenticated_user=True, redirect_field_name='index'), name='login'
+    path('login', auth_views.LoginView.as_view(template_name='e_shop/bootstrap-login.html', redirect_authenticated_user=True, redirect_field_name='index'), name='login'
          ),
 
     path('logout', auth_views.LogoutView.as_view(next_page='/e-shop/index', redirect_field_name='index'),

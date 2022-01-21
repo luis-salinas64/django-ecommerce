@@ -22,7 +22,7 @@
         <div id="logo">    
     
         </center>
-         <img src="{% static 'e-shop/img/corazon.png' %}"width="28px" height="28px" >DANIEL CASSIN<img src="{% static 'e-shop/img/corazon.png' %}" width="28px" height="28px"> 
+         <img src="{% static 'e-shop/img/corazon.png' %}"width="28px" height="28px" >  DANIEL CASSIN  <img src="{% static 'e-shop/img/corazon.png' %}" width="28px" height="28px"> 
          
         </center>
         
@@ -32,7 +32,7 @@
         
         <nav class="navegacion">   
             <ul class="menu">
-                <li><a href = "/e-shop/index">Inicio</a></li>    
+                
             <li><a href = "">Productos</a>
                 <ul class="submenu">  
                     <left>
@@ -48,28 +48,34 @@
                     <li><a href = "">Vestidos</a></li>
                     </left>
                 </ul>         
+            <li><a href = "/e-shop/index">Inicio</a></li>    
             {% if user.is_authenticated %}  
             
             <li><a href = "/e-shop/wish">Favoritos</a></li>
             <li><a href = "/e-shop/cart">Carrito</a></li>
             <li><a href = "/e-shop/logout">Salir</a></li>
-            <li><a href = "/e-shop/signup">Registrarse</a></li>
+            <li><a href = "/e-shop/bootstrap-signup">Registrarse</a></li>
 
             {% else %}
-            <li><a href = "/e-shop/login">Login</a></li>
-            <li><a href = "/e-shop/signup">Registrarse</a></li>
+            <li><a href = "/e-shop/bootstrap-login">Ingresar</a></li>
+            <li><a href = "/e-shop/bootstrap-signup">Registrarse</a></li>
             {% endif %}
         </ul>
 
         </nav>
     </header>
     
-    <div id="content">
+    <div id="content"> 
         {% block content %}{% endblock %}
     </div>
 
     <footer>
-        <div>
+        <div class= "footer">
+            <a href="https://www.instagram.com/danielcassinargentina/?hl=es">
+            <img src="{% static 'e-shop/img/ig.png'%}" width="60px" height="60px" ></a>
+
+            <a href="https://api.whatsapp.com/message/ZW6TRIKZXVBKJ1">
+            <img src="{% static 'e-shop/img/whatsapp_logo.png'%}" width="60px" height="60px" ></a>
     
         </div>
     </footer>

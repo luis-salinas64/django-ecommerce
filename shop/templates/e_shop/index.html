@@ -15,15 +15,13 @@
             <h3>
                 {{articulo.nombre}}
             </h3>
-            <div class="precio"><br>
-                <p>
+            <div>
+                
+                <h5>
                     Precio: $ {{articulo.precio}}
-                <p> 
-                <!--
-                <p>
-                    Color : {{articulo.color_id}}
-                <p>
-                -->
+                </h5>
+         
+                
             </div>
         </div>
     </div>
@@ -37,7 +35,7 @@
     <ul class= pagination>
         {% if page_obj.has_previous %}
         <li class="page-item">
-            <a href="?page={{ page_obj.previous_number_page }}" class="page-link">Prev</a>
+            <a href="?page={{ page_obj.previous_number_page }}" class="page-link"><<</a>
         </li>
         {% endif %}
 
@@ -59,7 +57,7 @@
 
         {% if page_obj.has_next %}
         <li class="page-item">
-            <a href="?page={{ page_obj.next_number_page }}" class="page-link">Next</a>
+            <a href="?page={{ page_obj.next_number_page }}" class="page-link">>></a>
         </li>
         {% endif %}
     
@@ -78,4 +76,4 @@
     
 
 
-{% endblock %}-->
+{% endblock %}

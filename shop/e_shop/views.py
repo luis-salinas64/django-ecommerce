@@ -28,7 +28,7 @@ class LoginUserView(TemplateView):
     '''    
     Formulario de inicio de sesión.
     '''
-    template_name = 'e_shop/login.html'
+    template_name = 'e_shop/bootstrap-login.html'
 
     
 class UserForm(UserCreationForm):
@@ -116,26 +116,47 @@ class DetailsView(TemplateView):
             # eso te devuelve el artículo que esté en la db que coincida con el id 
 
             articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
-
-            if articulo_obj.talle_xs > 0:
-                articulo_obj.talle_xs = 'xs'        
-            if articulo_obj.talle_s > 0:
-                articulo_obj.talle_s = 's'
-            if articulo_obj.talle_m > 0:
-                articulo_obj.talle_m = 'm'
-            if articulo_obj.talle_l > 0:
-                articulo_obj.talle_l = 'l'
-            if articulo_obj.talle_xl > 0:
-                articulo_obj.talle_xl = 'xl'
+            
+            
             
             # A partir de acá, articulo_obj es un objeto articulo con todos los datos del articulo
             
             # context es lo que muestra el articulo al usuario, le tenemos que dar todos los valores
             # que necesita
 
+            
+            if articulo_obj.talle_xs > 0:
+                articulo_obj.talle_xs = 'xs'
+            else:
+                articulo_obj.talle_xs = 'xs-agotado-'
+
+            if articulo_obj.talle_s > 0:
+                articulo_obj.talle_s = 's'
+            else:
+                articulo_obj.talle_s = 's-agotado-'
+
+            if articulo_obj.talle_m > 0:
+                articulo_obj.talle_m = 'm'
+            else:
+                articulo_obj.talle_m = 'm-agotado-'
+
+            if articulo_obj.talle_l > 0:
+                articulo_obj.talle_l = 'l'
+            else:
+                articulo_obj.talle_l = 'l-agotado-'
+
+            if articulo_obj.talle_xl > 0:
+                articulo_obj.talle_xl = 'xl'
+            else:
+                articulo_obj.talle_xl = 'xl-agotado-'
+            
+
             context["articulo"] = articulo_obj
 
             context['articulo_picture_full'] = str(articulo_obj.picture)
+            context['articulo_picture_1full'] = str(articulo_obj.picture_1)
+            context['articulo_picture_2full'] = str(articulo_obj.picture_2)
+            context['articulo_picture_3full'] = str(articulo_obj.picture_3)
 
             context['articulo_nombre'] = str(articulo_obj.nombre).replace('<br>', '\n')
             
@@ -146,7 +167,7 @@ class DetailsView(TemplateView):
             context['articulo_talle_m'] = str(articulo_obj.talle_m)
             context['articulo_talle_l'] = str(articulo_obj.talle_l)
             context['articulo_talle_xl'] = str(articulo_obj.talle_xl)
-
+            
             username = self.request.user
             if username is not None:
                 user_obj = User.objects.filter(username = username)

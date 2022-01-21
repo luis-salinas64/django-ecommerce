@@ -7,72 +7,81 @@
 
 
 body{
-    background-color:chartreuse;
-    color:rgb(143, 140, 140);
+    /*background-color: var(--main-bg-color);*/
+    color:rgb(5, 4, 4);
     background-size:auto;
     font-family:Arial, Helvetica, sans-serif;
+    
 }
 
 
 #content{
-    color:rgb(99, 94, 94);
-    padding: 1%;
-    border-radius: 5px;
-    background-color: rgb(233, 27, 27);
+    color:rgb(36, 35, 35);
     
+    border-radius: 5px;
+    background-color: rgb(248, 248, 250);
+    gap: 10px;
+    /* background-color: var(--main-content-color); */
 }
 #logo{
-    border-radius: 5px;
-    font-size: 40px;
+    
+    font-size: 45px;
     font-style: helvetica;
     text-align: center;
-    background-color: magenta;
+    
+    
 }
-
-.footer{
-    align-content: center;
-    background-color: rgb(250, 252, 151);
-    text-align: center;
-}
-
 
 .grid-container{
-    text-align: center;
-    display:grid;
-    padding: 20px ;/* Achica el contenedor de imagenes*/
-    grid-gap: 10px ;/* Separacion entre bloques*/
-    grid-template-columns: 33% 33% 33%;
-    background-color: rgb(3, 10, 22);
+    /* 
+    align-content:center;
+    height: 100%;
+    grid-template-columns: auto auto auto;
+    /*background: blue;
+    text-align: center; */
+
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+    
+    
     
 }
 
 
 .grid-item {
     
-    max-height:470px;
     padding: 3px;
+    font-size: 15px;
     text-align: center;
-    background-color: rgb(250, 226, 93);
-    border:1px solid rgb(223, 41, 41);
- 
+    grid-template-columns: auto auto auto;
+    background: chartreuse;
+    gap: 5px;
+    height: 100%;
+    
+    
+    
 }
-
+*/
 .articulo-img{
-    object-fit:cover;
+    object-fit: cover;
     width:100%;
-    height:100%;
-    background-color: rgb(81, 81, 247);
+    height:73%;
+    background-color: rgb(226, 240, 40);
     
 }
 
 .articulo-block{
-    background-color: rgb(50, 197, 241); 
+    background-color: rgb(231, 88, 212); 
     border-radius: 5px;
-    border: 2px solid rgba(117, 247, 11, 0.925);
-    height: 80%;        /* contenedor de imagen*/
+    border: 2px solid rgba(209, 31, 31, 0.925);
+    height: 100%;
+    
     
 }   
-/*
+
 form{
 font-size: 15px;
 }
@@ -80,15 +89,19 @@ font-size: 15px;
 .articulo-grid{
     text-align: center;
     display: grid;
-    grid-template-columns: 20% 40% 40% ;
-    border:1px solid black
-    
+    grid-template-columns: 20% 50% 30%;
+    grid-template-rows: auto;
+    border-radius: 2px solid;
+    gap: 5px;
+    margin:auto;
 }
 .articulo-item{
     padding: 2%;
     font-size: 20px;
-    border: 3px solid rgba(36, 34, 35, 0.884);
-    background-color: rgb(43, 55, 226);
+    border: 2.5px solid rgba(36, 34, 35, 0.884);
+    
+    grid-template-rows: auto;
+    
 }
 
 .articulo-item img{
@@ -100,6 +113,7 @@ font-size: 15px;
 .articulo-item h1{
     font-family:Arial, Helvetica, sans-serif;
     color:dimgrey;
+    
 }
 .articulo-item h2{
 
@@ -111,14 +125,14 @@ font-size: 15px;
 .precio-item{
     font-family:Arial, Helvetica, sans-serif;
     color:rgb(105, 100, 100);
-    font-size: 30px;
+    font-size: 27px;
     text-align:center;
 }
-
 #grid-buttons{ 
     font-family: Arial, Helvetica, sans-serif;
     border: navy;
     background: rgb(250, 251, 252);
+    grid-template-rows: auto;
     display:grid;
     padding: auto;
 
@@ -130,7 +144,7 @@ font-size: 15px;
     font-family: 'Marvel', 'italic';
 
 }
-*/
+
 
 
 .navegacion {
@@ -157,9 +171,9 @@ font-size: 15px;
     text-decoration: none;
 }
 .menu li a:hover{
-    color: rgb(32, 32, 228);
+    color: rgb(238, 13, 88);
     transition: 
-    all ,3s;
+    all ,2s;
 }
 
 /* Submenu */
@@ -185,46 +199,35 @@ font-size: 15px;
     visibility: visible;
     opacity: 1;
 }
-/*
+
 .talles{
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
-    color: rgb(102, 102, 110);
+    color: rgb(80, 80, 88);
 }
-*/
+
 .mt-2{
-    display:grid;
-    
+    display: grid;
     justify-content: center;
-    font-size: 16px;
-    background-color: cadetblue;
-    
     
 }
-/*
 #pictures{
     
     grid-template-columns: 1fr;
     width: 100%;
-    margin:5px;
-    
-    border: 1px solid black;
-    background-color: magenta;
-    
+    margin: auto;
+    grid-gap: 5px;
+
 }
 
 #pictures img{
-    margin: auto;
     width: 80%;
     transition: all 300ms;
     position: relative;
-    
+
 }
 
 #pictures img:hover{
-    transform: scale(1.50);
-    
+    transform: scale(1.15);
 }
 
-
-/*
