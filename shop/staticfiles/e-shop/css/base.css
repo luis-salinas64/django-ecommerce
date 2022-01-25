@@ -11,6 +11,7 @@ body{
     color:rgb(143, 140, 140);
     background-size:auto;
     font-family:Arial, Helvetica, sans-serif;
+    gap: 1px;
 }
 
 
@@ -19,7 +20,7 @@ body{
     padding: 1%;
     border-radius: 5px;
     background-color: rgb(233, 27, 27);
-    
+
 }
 #logo{
     border-radius: 5px;
@@ -34,27 +35,27 @@ body{
     background-color: rgb(250, 252, 151);
     text-align: center;
 }
-
+/* -----------------index----------------- */
 
 .grid-container{
     text-align: center;
     display:grid;
-    padding: 20px ;/* Achica el contenedor de imagenes*/
+    padding: 10px ;/* Achica el contenedor */
     grid-gap: 10px ;/* Separacion entre bloques*/
     grid-template-columns: 33% 33% 33%;
     background-color: rgb(3, 10, 22);
-    
+
 }
 
 
 .grid-item {
-    
+
     max-height:470px;
     padding: 3px;
     text-align: center;
     background-color: rgb(250, 226, 93);
     border:1px solid rgb(223, 41, 41);
- 
+
 }
 
 .articulo-img{
@@ -62,45 +63,56 @@ body{
     width:100%;
     height:100%;
     background-color: rgb(81, 81, 247);
-    
+
 }
 
 .articulo-block{
-    background-color: rgb(50, 197, 241); 
+    background-color: rgb(50, 197, 241);
     border-radius: 5px;
     border: 2px solid rgba(117, 247, 11, 0.925);
     height: 80%;        /* contenedor de imagen*/
-    
-}   
-/*
+
+}
+
+
 form{
 font-size: 15px;
+grid-template-rows:max-content;
+
 }
+/* ----------detail--------------- */
 
 .articulo-grid{
     text-align: center;
     display: grid;
-    grid-template-columns: 20% 40% 40% ;
-    border:1px solid black
-    
+    grid-template-columns: 20% 45% 35% ;
+    padding: 2%;
+    max-height: fit-content;
+    gap: 10px;
+    border:1px solid black;
+    background-color: cornflowerblue;
+
 }
+
 .articulo-item{
     padding: 2%;
     font-size: 20px;
     border: 3px solid rgba(36, 34, 35, 0.884);
-    background-color: rgb(43, 55, 226);
+    background-color: rgb(71, 250, 235);
 }
 
 .articulo-item img{
-    width: 100%;
+    width: 80%;
     border-radius: 10px;
 
 }
 
 .articulo-item h1{
+
     font-family:Arial, Helvetica, sans-serif;
-    color:dimgrey;
+    color:rgb(75, 74, 74);
 }
+
 .articulo-item h2{
 
     font-size: 20px;
@@ -111,33 +123,25 @@ font-size: 15px;
 .precio-item{
     font-family:Arial, Helvetica, sans-serif;
     color:rgb(105, 100, 100);
-    font-size: 30px;
+    font-size: 20px;
     text-align:center;
 }
 
-#grid-buttons{ 
+#grid-buttons{
     font-family: Arial, Helvetica, sans-serif;
     border: navy;
-    background: rgb(250, 251, 252);
+    background: rgb(221, 5, 221);
     display:grid;
-    padding: auto;
-
-    
+    padding: 18px;
 }
 
-.tarea{
-    color:var(--font-color-tarea);
-    font-family: 'Marvel', 'italic';
 
-}
-*/
-
-
+/* -----------MENU--------------- */
 .navegacion {
     width: 1000px;
     margin:auto;
     background-color:rgba(245, 235, 226, 0.891);
-    
+
 }
 
 .navegacion ul{
@@ -158,7 +162,7 @@ font-size: 15px;
 }
 .menu li a:hover{
     color: rgb(32, 32, 228);
-    transition: 
+    transition:
     all ,3s;
 }
 
@@ -178,53 +182,91 @@ font-size: 15px;
     color: rgb(95, 93, 93);
     font-family:Arial, Helvetica, sans-serif;
     text-decoration: none;
-    
+
 }
 
 .menu li:hover .submenu {
     visibility: visible;
     opacity: 1;
 }
-/*
-.talles{
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(102, 102, 110);
-}
-*/
+/* Paginator */
 .mt-2{
     display:grid;
-    
     justify-content: center;
     font-size: 16px;
-    background-color: cadetblue;
-    
-    
+    background-color: rgb(160, 95, 109);
 }
-/*
-#pictures{
-    
-    grid-template-columns: 1fr;
+
+
+/* -------------Img detail----------------- */
+
+.pictures{
+
+    grid-template-columns:repeat(1, 3fr);
     width: 100%;
-    margin:5px;
-    
-    border: 1px solid black;
+    margin:2px;
+    border: 1px solid rgb(243, 13, 13);
     background-color: magenta;
-    
+
 }
 
-#pictures img{
-    margin: auto;
-    width: 80%;
-    transition: all 300ms;
-    position: relative;
-    
+.pictures img{
+    margin:auto;
+    width: 100%;
+    transition: all 250ms;
+    position:static;
+    padding: 2px;
+    border: #353535;
+
 }
 
-#pictures img:hover{
-    transform: scale(1.50);
-    
+.pictures img:hover{
+    transform: scale(1.40);
+
 }
 
+.articulo-item h5{
 
-/*
+    font-size: 20px;
+    text-align:center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+/* ------ Cart ------- */
+
+.cart-artic{
+    text-align: center;
+    display: grid;
+    max-height: 340px;
+    grid-template-columns: 50% 50%;
+    padding: 2%;
+    border:1px solid black;
+    background-color: rgb(240, 209, 13);
+
+}
+.cart-artic-img{
+        max-height:300px;
+        border-radius: 2px solid rgb(126, 2, 163);
+        background-color: aqua;
+        padding: 1px;
+        
+
+} 
+.boton {
+    border:2px solid #101113; /*anchura, estilo y color borde*/
+    padding: 10px; /*espacio alrededor texto*/
+    background-color: #0942d4; /*color botón*/
+    color: #ffffff; /*color texto*/
+    text-align: center;
+    text-decoration: none; /*decoración texto*/
+    text-transform: uppercase; /*capitalización texto*/
+    font-family: 'Helvetica', sans-serif; /*tipografía texto*/
+    border-radius: 50px; /*bordes redondos*/
+    width: 100px;
+    
+    }
+
+    .login{
+        grid-template-rows: 50px;
+        font-size: 10px;
+    }

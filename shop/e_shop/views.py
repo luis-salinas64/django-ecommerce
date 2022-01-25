@@ -25,12 +25,12 @@ class BaseView(TemplateView):
 
 
 class LoginUserView(TemplateView):
-    '''    
+    '''
     Formulario de inicio de sesión.
     '''
-    template_name = 'e_shop/bootstrap-login.html'
+    template_name = 'e_shop/login.html'
 
-    
+
 class UserForm(UserCreationForm):
     '''
     Formulario de creación de usuario.
@@ -41,19 +41,19 @@ class UserForm(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
-    
-    
+
+
 
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('first_name','last_name','username','email','password1','password2')
 
 
 def register(request):
     '''
     Función que complementa el formulario de registro de usuario.
     Al completar el formulario, se envía la información a esta función que espera
-    una petición de tipo `POST`, si la información enviada no es valida o la petición no es POST, 
+    una petición de tipo `POST`, si la información enviada no es valida o la petición no es POST,
     se redirige nuevamente a la página de registro. Si el registro fue exitoso,
     el usuario será redirigido a la página de logueo.
     '''
@@ -63,7 +63,7 @@ def register(request):
         # Pasandole los datos del request:
         form = UserForm(request.POST)
         # Luego, utilizamos el método que viene en en la clase UserCreationForm
-        # para validar los datos del formulario: 
+        # para validar los datos del formulario:
         [print('',item) for item in form] # NOTE: Imprimimos para ver el contenido del formulario COMPLETO
         if form.is_valid():
             # Si los datos son validos, el formulario guarda los datos en la base de datos.
@@ -72,15 +72,15 @@ def register(request):
             form.save()
             # Con todo terminado, redirigimos a la página de inicio de sesión,
             # porque por defecto, registrar un usuario no es iniciar una sesión.
-            return redirect('/e-shop/login')
+            return redirect('/e-shop/bootstrap-login')
     else:
         # Si el método no es de tipo POST, se crea un objeto de tipo formulario
-        # Y luego se envía al contexto de renderización. 
+        # Y luego se envía al contexto de renderización.
         form = UserForm()
     # Si los datos del POST son invalidos o si el método es distinto a POST
     # retornamos el render de la página de registro, con el formulario de registro en el contexto.
     [print('',item) for item in form] # NOTE: Imprimimos para ver el contenido del formulario vacío
-    return render(request, 'e_shop/signup.html', {'form': form})
+    return render(request, 'e_shop/bootstrap-signup.html', {'form': form})
 
 class IndexView(ListView):
     '''
@@ -88,15 +88,15 @@ class IndexView(ListView):
     Utilizamos `ListView` para poder aprovechar sus funciones de paginado.
     Para ello tenemos que utilizar sus atributos:
     \n'''
-    
+
     queryset = Articulo.objects.all().order_by('-art_id')
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
-    
+
 
     template_name = 'e_shop/index.html'
     paginate_by = 6
-    
+
 
     # NOTE: Examinamos qué incluye nuestro contexto:
     def get_context_data(self, **kwargs):
@@ -111,20 +111,20 @@ class DetailsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            # Buscar el articulo en la base de datos TUYA, usas la funcion Articulo.objects.get y le 
+            # Buscar el articulo en la base de datos TUYA, usas la funcion Articulo.objects.get y le
             # mandas la id del articulo, por eso art_id=self.request.GET.get('art_id')
-            # eso te devuelve el artículo que esté en la db que coincida con el id 
+            # eso te devuelve el artículo que esté en la db que coincida con el id
 
             articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
-            
-            
-            
+
+
+
             # A partir de acá, articulo_obj es un objeto articulo con todos los datos del articulo
-            
+
             # context es lo que muestra el articulo al usuario, le tenemos que dar todos los valores
             # que necesita
 
-            
+
             if articulo_obj.talle_xs > 0:
                 articulo_obj.talle_xs = 'xs'
             else:
@@ -149,7 +149,7 @@ class DetailsView(TemplateView):
                 articulo_obj.talle_xl = 'xl'
             else:
                 articulo_obj.talle_xl = 'xl-agotado-'
-            
+
 
             context["articulo"] = articulo_obj
 
@@ -159,21 +159,21 @@ class DetailsView(TemplateView):
             context['articulo_picture_3full'] = str(articulo_obj.picture_3)
 
             context['articulo_nombre'] = str(articulo_obj.nombre).replace('<br>', '\n')
-            
+
             context['articulo_color'] = str(articulo_obj.color_id)
-            
+
             context['articulo_talle_xs'] = str(articulo_obj.talle_xs)
             context['articulo_talle_s'] = str(articulo_obj.talle_s)
             context['articulo_talle_m'] = str(articulo_obj.talle_m)
             context['articulo_talle_l'] = str(articulo_obj.talle_l)
             context['articulo_talle_xl'] = str(articulo_obj.talle_xl)
-            
+
             username = self.request.user
             if username is not None:
                 user_obj = User.objects.filter(username = username)
                 if user_obj.first() is not None:
                     wish_obj = WishList.objects.filter(user_id=user_obj[0].id, art_id = articulo_obj)
-                    
+
                     if wish_obj.first() is not None:
                         context["favorite"] = wish_obj.first().favorite
                         context["cart"] = wish_obj.first().cart
@@ -182,10 +182,10 @@ class DetailsView(TemplateView):
                         context["favorite"] = False
                         context["cart"] = False
                         context["wished_qty"] = 0
-        
+
         except:
             return context
-        
+
         return context
 
 
@@ -236,7 +236,7 @@ def check_button(request):
             # Componemos los endpoints segun la página:
             if 'detail' in path:
                 path += f'?art_id={art_id}'
-            
+
             # Una vez terminada la modificación, volvemos a la misma página.
             return redirect(path)
         else:
@@ -250,7 +250,7 @@ def check_button(request):
 class CartView(TemplateView):
     '''
     Vista de carrito de compras.
-    Aquí se listará el total de elementos del carrito del usuario, 
+    Aquí se listará el total de elementos del carrito del usuario,
     luego en el template se colocará un formulario en cada elemento del carrito
     para darlo de baja, y un boton general para concretar el pedido.
     '''
@@ -259,17 +259,19 @@ class CartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         '''
-        En el contexto, devolvemos la lista total de elementos en el carrito de compras, 
+        En el contexto, devolvemos la lista total de elementos en el carrito de compras,
         y el precio total calculado para la compra.
         '''
-        
+
         context = super().get_context_data(**kwargs)
         username = self.request.user
         user_obj = User.objects.get(username=username)
         wish_obj = WishList.objects.filter(user_id=user_obj, cart=True)
         cart_items = [obj.art_id for obj in wish_obj]
         context['cart_items'] = cart_items
-        context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])), 2)
+        context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])),2)
+        
+        
         print(context['cart_items'])
         return context
 
@@ -277,16 +279,16 @@ class CartView(TemplateView):
 class WishView(TemplateView):
     '''
     En esta vista vamos a traer todos los articulos favoritos de un usuario en particular.
-    Luego en el Template vamos a colocar un formulario por cada favorito, 
+    Luego en el Template vamos a colocar un formulario por cada favorito,
     para eliminarlo de la lista de favoritos.
     '''
-    
+
     template_name = 'e_shop/wish.html'
 
     def get_context_data(self, **kwargs):
-       
+
         # Preparamos en nuestro contexto la lista de articulos del usuario registrado.
-       
+
         context = super().get_context_data(**kwargs)
         username = self.request.user
         user_obj = User.objects.get(username=username)
@@ -302,22 +304,22 @@ class ThanksView(TemplateView):
     Página de agradecimiento. Esta es la página de respuesta una vez realizado el pedido.
     El Template tiene que tener un botón de redireccionamiento al index.
     '''
-    
+
     template_name = 'e_shop/gracias.html'
 
 
 class UpdateUserView(TemplateView):
-    
+
     # Esta vista tiene como objetivo, proporcionar un formulario de actualización de los campos de usuario.
-    
+
     template_name = 'e_shop/update-user.html'
-    
-    
-    def get_context_data(self, **kwargs):        
-        
+
+
+    def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
-        
-        
+
+
 
         # TODO: Realizar la lógica de actualización de los datos de usuario.
 
@@ -332,23 +334,23 @@ class UserView(TemplateView):
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
-        
-        
-        
-        
 
-     
+
+
+
+
+
 
 # NOTE: Vistas con Bootstrap:
 
 class BootstrapLoginUserView(TemplateView):
-    
+
    # Vista para Template de login con estilo de bootstrap.
-    
+
     template_name = 'e_shop/bootstrap-login.html'
 
 class BootstrapSignupView(TemplateView):
-    
+
     # Vista para Template de registro de usuario con estilo de bootstrap.
-    
+
     template_name = 'e_shop/bootstrap-signup.html'

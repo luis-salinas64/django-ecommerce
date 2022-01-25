@@ -63,7 +63,7 @@ class ArticuloAdmin(admin.ModelAdmin):
     list_display = ('art_id','nombre','color_id','talle_xs','talle_s','talle_m','talle_l','talle_xl')
 
     # NOTE: Filtro lateral de elementos:
-    list_filter= ('nombre','art_id')
+    list_filter= ('nombre','art_id','categoria_id')
     
     # NOTE: Buscador de elementos en la columna:
     search_fields = ['nombre']

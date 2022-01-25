@@ -3,7 +3,10 @@
 {% block title %}Agradecemos su compra{% endblock %}
 
 {% block content %}
-<p>Gracias por su compra!, por favor, haga click
-    <a href="{% url 'index' %}">Aquí</a> para continuar navegando por el sitio
-</p>
+<center><p>Gracias por su compra!, te enviaremos un mail a {{user.email}} con las instrucciones de pago</p><center>
+<br>
+<div>
+    <center><a class="boton" href="{% url 'index' %}" style=>Volver</a></center>
+</div>
+<br>
 {% endblock %}
