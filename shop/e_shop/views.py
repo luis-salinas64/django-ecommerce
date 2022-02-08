@@ -1,12 +1,16 @@
+from re import template
+from unicodedata import name
 from django.shortcuts import render
 # Create your views here.
 # Importo vistas genericas:
 from django.db.models.query import QuerySet
 from django.db.models import Count
+# from django.db import filters
 from django.views.generic import TemplateView, ListView
 
 # Importamos los modelos que vamos a usar:
 from django.contrib.auth.models import User
+from matplotlib.style import context
 from e_shop.models import *
 
 
@@ -89,20 +93,23 @@ class IndexView(ListView):
     Para ello tenemos que utilizar sus atributos:
     \n'''
 
-    queryset = Articulo.objects.all().order_by('-art_id')
+
+    queryset = Articulo.objects.all().order_by('art_id')
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
 
 
     template_name = 'e_shop/index.html'
-    paginate_by = 6
+    paginate_by = 9
 
 
     # NOTE: Examinamos qué incluye nuestro contexto:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        [print(f'{element}\n') for element in context.items()]
+
         return context
+
+
 
 
 class DetailsView(TemplateView):
@@ -117,8 +124,6 @@ class DetailsView(TemplateView):
 
             articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
 
-
-
             # A partir de acá, articulo_obj es un objeto articulo con todos los datos del articulo
 
             # context es lo que muestra el articulo al usuario, le tenemos que dar todos los valores
@@ -127,29 +132,14 @@ class DetailsView(TemplateView):
 
             if articulo_obj.talle_xs > 0:
                 articulo_obj.talle_xs = 'xs'
-            else:
-                articulo_obj.talle_xs = 'xs-agotado-'
-
             if articulo_obj.talle_s > 0:
-                articulo_obj.talle_s = 's'
-            else:
-                articulo_obj.talle_s = 's-agotado-'
-
+                articulo_obj.talle_s = 's'    
             if articulo_obj.talle_m > 0:
                 articulo_obj.talle_m = 'm'
-            else:
-                articulo_obj.talle_m = 'm-agotado-'
-
             if articulo_obj.talle_l > 0:
                 articulo_obj.talle_l = 'l'
-            else:
-                articulo_obj.talle_l = 'l-agotado-'
-
             if articulo_obj.talle_xl > 0:
                 articulo_obj.talle_xl = 'xl'
-            else:
-                articulo_obj.talle_xl = 'xl-agotado-'
-
 
             context["articulo"] = articulo_obj
 
@@ -186,7 +176,10 @@ class DetailsView(TemplateView):
         except:
             return context
 
+
+
         return context
+
 
 
 def check_button(request):
@@ -198,6 +191,14 @@ def check_button(request):
         # NOTE: Obtenemos los datos necesarios:
         username = request.POST.get('username')
         art_id = request.POST.get('art_id')
+        nombre = request.POST.get('nombre')
+        precio = request.POST.get('precio')
+        color_id = request.POST.get('color_id')
+        talle_xs = request.POST.get('talle_xs')
+        talle_s = request.POST.get('talle_s')
+        talle_m = request.POST.get('talle_m')
+        talle_l = request.POST.get('talle_l')
+        talle_xl = request.POST.get('talle_xl')
         user_authenticated = request.POST.get('user_authenticated')
         type_button = request.POST.get('type_button')
         actual_value = request.POST.get('actual_value')
@@ -206,10 +207,29 @@ def check_button(request):
         # Validamos los datos y les damos formato:
         username = username if username != '' else None
         art_id = art_id if art_id != '' else None
+        nombre =nombre if nombre != '' else None
+        color_id = color_id if color_id != '' else None
+        precio = precio if precio != '' else None
+        talle_xs = talle_xs if talle_xs != '' else None
+        talle_s = talle_s if talle_s != '' else None
+        talle_m = talle_m if talle_m != '' else None
+        talle_l = talle_l if talle_l != '' else None
+        talle_xl = talle_xl if talle_xl != '' else None
         user_authenticated = True if user_authenticated == 'True' else False
         type_button = type_button if type_button != '' else None
         actual_value = True if actual_value == 'True' else False
         path = path if path != None else 'index'
+
+        print(f'Username:{username}')
+        print(f'art_id:{art_id}')
+        print(f'Nombre:{nombre}')
+        print(f'Color:{color_id}')
+        print(f'Precio:{precio}')
+        print(f'Talle xs:{talle_xs}')
+        print(f'Talle s:{talle_s}')
+        print(f'Talle m:{talle_m}')
+        print(f'Talle l:{talle_l}')
+        print(f'Talle xl:{talle_xl}')
 
         if user_authenticated and username != None:
             # Si el usuario está autenticado, traemos su "wishlist"
@@ -231,6 +251,7 @@ def check_button(request):
                 wish_obj.favorite = not actual_value
                 print('wish_obj.favorite :', wish_obj.favorite)
                 wish_obj.save()
+
             else:
                 pass
             # Componemos los endpoints segun la página:
@@ -239,6 +260,7 @@ def check_button(request):
 
             # Una vez terminada la modificación, volvemos a la misma página.
             return redirect(path)
+
         else:
             # Si el usuario no está autenticado, lo redirigimos a la página de logueo.
             return redirect('login')
@@ -270,8 +292,8 @@ class CartView(TemplateView):
         cart_items = [obj.art_id for obj in wish_obj]
         context['cart_items'] = cart_items
         context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])),2)
-        
-        
+
+
         print(context['cart_items'])
         return context
 
@@ -337,9 +359,160 @@ class UserView(TemplateView):
 
 
 
+def gracias_compra(request):
+    '''
+    Incluye la lógica de guardar lo pedido en la base de datos
+    y devuelve el detalle de lo adquirido
+    '''
+
+    if request.method == 'POST':
+
+    # Obtenemos los datos del request:
+        username = request.POST.get('username')
+        art_id = request.POST.get('art_id')
+        nombre = request.POST.get('nombre')
+        precio = request.POST.get('precio')
+        color_id = request.POST.get('color_id')
+        talle_xs = request.POST.get('talle_xs')
+        talle_s = request.POST.get('talle_s')
+        talle_m = request.POST.get('talle_m')
+        talle_l = request.POST.get('talle_l')
+        talle_xl = request.POST.get('talle_xl')
+        user_authenticated = request.POST.get('user_authenticated')
+        type_button = request.POST.get('type_button')
+        actual_value = request.POST.get('actual_value')
+        path = request.POST.get('path')
+
+        # Obtener valores:
+        print(f'Username:{username}')
+        print(f'art_id:{art_id}')
+        print(f'Nombre:{nombre}')
+        print(f'Precio:{precio}')
+        print(f'Color:{color_id}')
+        print(f'Talle xs:{talle_xs}')
+        print(f'Talle s:{talle_s}')
+        print(f'Talle l:{talle_l}')
+        print(f'Talle xl:{talle_xl}')
 
 
+        # Validamos los datos y les damos formato:
+        username = username if username != '' else None
+        art_id = art_id if art_id != '' else None
+        nombre = nombre if nombre != '' else None
+        color_id = color_id if color_id != '' else None
+        talle_xs = talle_xs if talle_xs != '' else None
+        talle_s = talle_s if talle_s != '' else None
+        talle_m = talle_m if talle_m != '' else None
+        talle_l = talle_l if talle_l != '' else None
+        talle_xl = talle_xl if talle_xl != '' else None
+        user_authenticated = True if user_authenticated == 'True' else False
+        type_button = type_button if type_button != '' else None
+        actual_value = True if actual_value == 'True' else False
+        path = path if path != None else 'index'
 
+        user_obj = User.objects.get(username=username)
+        art_obj = Articulo.objects.get(art_id=art_id)
+        wish_obj = WishList.objects.filter(user_id=user_obj, art_id=art_obj).first()
+
+        if type_button == "cart":
+                wish_obj.cart = not actual_value
+                wish_obj.save()
+                print('wish_obj.cart :', wish_obj.cart)
+        elif type_button == "favorite":
+                wish_obj.favorite = not actual_value
+                print('wish_obj.favorite :', wish_obj.favorite)
+                wish_obj.save()
+        else:
+            pass
+
+        return redirect(path)
+    else:
+        return redirect('index')
+
+
+# ------------------------------- NOTE: Categorias --------------------------
+
+class CamisasView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=7)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/camisas.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
+class PantalonesView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=12)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/pantalones.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+class RemerasView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=8)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/remeras.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+class VestidosView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=10)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/vestidos.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
+class CamperasView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=9)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/camperas.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
+class JeansView(ListView):
+
+    queryset = Articulo.objects.filter(categoria_id=11)
+
+    # Esta Api nos devuelve una lista de articulos por categorias
+
+    template_name = 'e_shop/jeans.html'
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
 
 # NOTE: Vistas con Bootstrap:
 

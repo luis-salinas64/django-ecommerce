@@ -1,6 +1,6 @@
 {% extends "e_shop/base.html" %}
 
-{% block title %}E-SHOP{% endblock %}
+{% block title %}DANIEL CASSIN{% endblock %}
 
 {% block content %}
 <!-- Lista de articulos: -->
@@ -35,7 +35,8 @@
     <ul class= pagination>
         {% if page_obj.has_previous %}
         <li class="page-item">
-            <a href="?page={{ page_obj.previous_number_page }}" class="page-link"><<</a>
+            
+            <a class="page-link" href="?page={{ page_obj.previous_number_page }}" ><<</a>
         </li>
         {% endif %}
 
@@ -57,7 +58,7 @@
 
         {% if page_obj.has_next %}
         <li class="page-item">
-            <a href="?page={{ page_obj.next_number_page }}" class="page-link">>></a>
+            <a href="?page={{page_obj.next_number_page}}" class="page-link">>></a>
         </li>
         {% endif %}
     

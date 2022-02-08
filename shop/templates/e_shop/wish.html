@@ -1,6 +1,6 @@
 {% extends "e_shop/base.html" %}
 
-{% block title %}Favoritos{% endblock %}
+{% block title %}Daniel Cassin-Favoritos{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -9,8 +9,17 @@
 
 
 <div>
+    {% if not articulo %}
+        
+        <center><h4>NO TENES FAVORITOS</h4></center>
+        <br>
+        
+        <center><a class="boton" href="{% url 'index' %}" style=>Volver</a></center>
+    {% else %}
 
     {% for articulo in fav_items %}
+    
+
     <div class="cart-artic">
         <div class="cart-artic-img">
             <a href="/e_shop/detail?art_id={{articulo.art_id}}">
@@ -42,13 +51,16 @@
             </form>
             <p>Click</p>
             <p>Quitar de favoritos</p>
+            
         </div>
+    
     </div>
-
+    
     {% endfor %}
+    {% endif %}
 
-
-
-
+        
+    
 {% endblock %}
+
 </div>

@@ -26,14 +26,23 @@ urlpatterns = [
     # NOTE: Páginas del sitio:
     path('detail', DetailsView.as_view(), name='detail'),
     path('index', IndexView.as_view(), name='index'),
+    path('camisas', CamisasView.as_view(), name='camisas'),
+    path('remeras', RemerasView.as_view(), name='remeras'),
+    path('vestidos', VestidosView.as_view(), name='vestidos'),
+    path('camperas', CamperasView.as_view(), name='camperas'),
+    path('jeans', JeansView.as_view(), name='jeans'),
+    path('pantalones', PantalonesView.as_view(), name='pantalones'),
     path('gracias', ThanksView.as_view(), name='gracias'),
     path('update-user', UpdateUserView.as_view(), name= 'update'),
     path('user', login_required(UserView.as_view()), name= 'user'),
     path('wish', login_required(WishView.as_view()), name='wish'),
     path('cart', login_required(CartView.as_view()), name='cart'),
+    
 
     # NOTE: Formularios ocultos
     path('checkbutton', check_button, name='checkbutton'),
+    path('gracias', gracias_compra, name='gracias'),
+    
 
     # NOTE: Ejemplos de Bootstrap HTML:
     path('bootstrap-login', BootstrapLoginUserView.as_view(), name='loginbootstrap'),

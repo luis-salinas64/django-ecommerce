@@ -16,7 +16,7 @@ class Categoria(models.Model):
         db_table = 'e_shop_categoria'
 
     def __str__(self):
-        return f'{self.categoria}'
+        return f'{self.id, self.categoria}'
 
 class Color(models.Model):
 
@@ -53,7 +53,7 @@ class Articulo(models.Model):
     '''
     id = models.BigAutoField(db_column='ID',primary_key=True)
 
-    art_id = models.PositiveIntegerField(verbose_name='codigo_art', default=0,unique=False)
+    art_id = models.PositiveIntegerField(verbose_name='codigo_art',unique=True)
 
     categoria_id = models.ForeignKey(Categoria,on_delete=models.CASCADE,
                                     verbose_name='categoria', max_length=5,blank=True)
@@ -105,10 +105,10 @@ class WishList(models.Model):
         verbose_name='Favorite', default=False)
     cart = models.BooleanField(
         verbose_name='carts', default=False)
-    wished_qty = models.PositiveIntegerField(
-        verbose_name='wished qty', default=0)
-    buied_qty = models.PositiveIntegerField(
-        verbose_name='buied qty', default=0)
+    # wished_qty = models.PositiveIntegerField(
+    #     verbose_name='wished qty', default=0)
+    # buied_qty = models.PositiveIntegerField(
+    #     verbose_name='buied qty', default=0)
 
     class Meta:
         db_table = 'e_shop_wish_list'

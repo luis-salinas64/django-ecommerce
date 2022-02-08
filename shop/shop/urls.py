@@ -40,6 +40,7 @@ urlpatterns = [
     ), name='swagger-ui'),
     path('openapi', get_schema_view(
         title=" Luiggi API",
+        description="API all things",
         version="1.0.0"
     ), name='openapi-schema'),
 

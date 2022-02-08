@@ -172,5 +172,42 @@ class PostWishListAPIView(CreateAPIView):
     permission_classes = []
 
 
-class CargarArticulo(CreateAPIView):
-    
+
+
+def purchased_item(request):
+   '''Incluye la lógica de guardar lo pedido en la base de datos 
+    y devuelve el detalle de lo adquirido 
+    '''
+    # Obtenemos los datos del request:
+    title = request.POST.get('title')
+    thumbnail = request.POST.get('thumbnail')
+    description = request.POST.get('description')
+    price = request.POST.get('prices')
+    qty = request.POST.get('qty')
+    id = request.POST.get('id')
+
+    # TODO: Construimos la Query:
+    # Verificamos que el comic no se encuentra en nuestro stock:
+
+    queryset = Comic.objects.filter(marvel_id=id)
+
+    if len(queryset.values_list()) == 0 :
+        # Si el resultado nos trae una lista vacía, creamos un nuevo registro:
+        item = Comic(title=title, description=description, price=price,
+                    stock_qty=qty, picture=thumbnail, marvel_id=id)
+        print(CIAN,queryset)
+        item.save()
+    else:
+        # Si el comic está registrado, actualizamos su cantidad:
+        comic = Comic.objects.get(marvel_id=id)
+        actual_stock = comic.stock_qty
+        actual_stock += int(qty)
+        Comic.objects.filter(marvel_id=id).update(stock_qty=actual_stock)
+
+    # NOTE: Construimos la respuesta
+    # Calculamos el precio total:
+    try:
+        total = float(price) * int(qty)
+    except:
+        total = ". . ."
+    '''
