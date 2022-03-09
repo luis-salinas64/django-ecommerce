@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'luiggi-shop.herokuapp.com']
 
 
 # Application definition
@@ -47,7 +48,10 @@ INSTALLED_APPS = [
     'e_shop',
 # Apps de terceros
     'rest_framework',
-    'rest_framework.authtoken',        
+    'rest_framework.authtoken', 
+# Deploy
+    'whitenoise.runserver_nostatic',       
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -70,7 +74,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Deploy
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'shop.urls'
 
@@ -96,17 +105,31 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+def get_env(var):
+    '''
+    Funcion para traer las variables de entorno.
+    '''
+    try:
+        environment = os.getenv(var)
+
+        return environment
+    except:
+        return ''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shop_db',           # POSTGRES DB
-        'USER': 'luiggi_user',       # POSTGRES USER
-        'PASSWORD': '123Luiggi!',    # POSTGRES PASSWORD
-        'HOST': 'db',                # Nombre del servicio
-        'PORT': '5432'               # Numero del puerto
+        'NAME': get_env('POSTGRES_DB'),           # POSTGRES DB
+        'USER': get_env('POSTGRES_USER'),         # POSTGRES USER
+        'PASSWORD': get_env('POSTGRES_PASWWORD'), # POSTGRES PASSWORD
+        'HOST': get_env('POSTGRES_HOST'),         # Nombre del servicio
+        'PORT': '5432'                            # Numero del puerto
 
     }
 }
+
+SECRET_KEY = get_env('SECRET_KEY')
+DEBUG = True if get_env('DEBUG') == 'True' else False
 
 
 # Password validation
@@ -148,6 +171,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('staticfiles')),)
+STATICFILES_STORAGE= 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Manejo de imagenes
 

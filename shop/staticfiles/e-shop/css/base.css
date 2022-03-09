@@ -17,7 +17,7 @@ body{
     color:rgb(99, 94, 94);
     padding: 1%;
     border-radius: 5px;
-    background-color: rgb(233, 27, 27);
+    /* background-color: rgb(233, 27, 27); */
     
 
 }
@@ -32,7 +32,7 @@ body{
 
 .footer{
     align-content: center;
-    background-color: rgb(250, 252, 151);
+    /* background-color: rgb(250, 252, 151); */
     text-align: center;
 }
 
@@ -41,10 +41,10 @@ body{
 .grid-container{
     text-align: center;
     display:grid;
-    padding: 10px ;/* Achica el contenedor */
-    grid-gap: 10px ;/* Separacion entre bloques*/
+    padding: 20px ;/* Achica el contenedor */
+    grid-gap: 7px ;/* Separacion entre bloques*/
     grid-template-columns: 33% 33% 33%;
-    background-color: rgb(3, 10, 22);
+    /* background-color: rgb(3, 10, 22); */
 
 }
 
@@ -53,8 +53,8 @@ body{
     max-height:470px;
     padding: 3px;
     text-align: center;
-    background-color: rgb(250, 226, 93);
-    border:1px solid rgb(223, 41, 41);
+    /* background-color: rgb(250, 226, 93); */
+    /* border:1px solid rgb(223, 41, 41); */
 
 }
 
@@ -62,14 +62,14 @@ body{
     object-fit:cover;
     width:100%;
     height:100%;
-    background-color: rgb(81, 81, 247);
+    /* background-color: rgb(81, 81, 247); */
 
 }
 
 .articulo-block{
-    background-color: rgb(21, 196, 74);
+    /* background-color: rgb(21, 196, 74); */
     border-radius: 5px;
-    border: 2px solid rgba(7, 7, 6, 0.925);
+    /* border: 2px solid rgba(7, 7, 6, 0.925); */
     height: 80%;        /* contenedor de imagen*/
 
 }
@@ -89,16 +89,16 @@ grid-template-rows:auto;
     padding: 2%;
     max-height: fit-content;
     gap: 10px;
-    border:1px solid black;
-    background-color: cornflowerblue;
+    /* border:1px solid rgb(131, 128, 128); */
+    /* background-color: cornflowerblue; */
 
 }
 
 .articulo-item{
     padding: 2%;
-    font-size: 20px;
-    border: 3px solid rgba(36, 34, 35, 0.884);
-    background-color: rgb(71, 250, 235);
+    font-size: 15px;
+    /* border: 3px solid rgba(133, 130, 131, 0.884); */
+    /* background-color: rgb(71, 250, 235); */
 }
 
 .articulo-item img{
@@ -110,7 +110,7 @@ grid-template-rows:auto;
 .articulo-item h1{
 
     font-family:Arial, Helvetica, sans-serif;
-    color:rgb(75, 74, 74);
+    color:rgb(58, 57, 57);
 }
 
 .articulo-item h2{
@@ -129,8 +129,8 @@ grid-template-rows:auto;
 
 #grid-buttons{
     font-family: Arial, Helvetica, sans-serif;
-    border: navy;
-    background: rgb(221, 5, 221);
+    border: rgb(131, 131, 134);
+    /* background: rgb(221, 5, 221); */
     display:grid;
     padding: 18px;
 }
@@ -162,7 +162,7 @@ grid-template-rows:auto;
     text-decoration: none;
 }
 .menu li a:hover{
-    color: rgb(241, 8, 8);
+    color: rgb(87, 129, 245);
     transition:
     all ,1.5s;
 }
@@ -171,7 +171,7 @@ grid-template-rows:auto;
 
 .submenu {
     position:absolute;
-    background:orange;
+    background:rgb(253, 245, 230);
     width: 120%;
     visibility: hidden;
     opacity: 0;
@@ -217,8 +217,8 @@ grid-template-rows:auto;
     grid-template-columns:repeat(1, 3fr);
     width: 80%;
     margin:2px;
-    border: 1px solid rgb(243, 13, 13);
-    background-color: magenta;
+    border: 1px solid rgb(161, 160, 160);
+    /* background-color: magenta; */
 
 }
 
@@ -253,14 +253,14 @@ grid-template-rows:auto;
     grid-template-columns: 50% 50%;
     padding: 2%;
     border:1px solid black;
-    background-color: rgb(216, 102, 36);
+    /* background-color: rgb(216, 102, 36); */
 
 }
 .cart-artic-img{
-        max-height:300px;
-        border-radius: 2px solid rgb(126, 2, 163);
-        background-color: aqua;
-        padding: 1px;
+    max-height:300px;
+    border-radius: 2px solid rgb(145, 140, 146);
+    /* background-color: aqua; */
+    padding: 1px;
 
 
 }

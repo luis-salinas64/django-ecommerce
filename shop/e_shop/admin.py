@@ -21,7 +21,7 @@ class CategoriaAdmin(admin.ModelAdmin):
     '''
 
 @admin.register(Color)
-class CategoriaAdmin(admin.ModelAdmin):
+class ColorAdmin(admin.ModelAdmin):
     
     
     list_display = ('id','color')
@@ -35,8 +35,8 @@ class CategoriaAdmin(admin.ModelAdmin):
             'fields': (),
         }),
 )
- 
-    
+
+
 @admin.register(Talle)
 class TalleAdmin(admin.ModelAdmin):
     
@@ -60,7 +60,7 @@ class ArticuloAdmin(admin.ModelAdmin):
    
 
 # NOTE: Para seleccionar los campos en la tabla de registros
-    list_display = ('art_id','nombre','color_id','talle_xs','talle_s','talle_m','talle_l','talle_xl')
+    list_display = ('art_id','nombre','color_id')
 
     # NOTE: Filtro lateral de elementos:
     list_filter= ('nombre','art_id','categoria_id')
@@ -76,8 +76,7 @@ class ArticuloAdmin(admin.ModelAdmin):
         }),
         ('Advanced options', {
             'classes': ('collapse',),
-            'fields': ('talle_xs','talle_s','talle_m','talle_l','talle_xl',
-                        'color_id','precio','picture','picture_1','picture_2','picture_3'),
+            'fields': ('color_id','talle_xs','talle_s','talle_m','talle_l','talle_xl','precio','picture','picture_1','picture_2','picture_3'),
         }),
     )
     def imagen(self,obj):

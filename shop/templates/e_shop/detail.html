@@ -37,44 +37,45 @@
 
     <div class="precio-item">
             Precio: $ {{articulo.precio}}
-
+            
         
-    <div class="talles">
+    <div class="talle">
         
         <h5>
             <br>
+            
             Elegi tu talle:
 
-        <select name = talles id="talles">
+        <select name = "talle" id="talle">
 
         {%if articulo.talle_xs == 0 %}
             <option value = "xs" disabled>xs</option>
         {%else%}
-            <option value="talle">{{articulo.talle_xs}}</option>
+            <option value="xs">{{articulo.talle_xs}}</option>
         {% endif %}
 
         {%if articulo.talle_s == 0 %}
             <option value="s" disabled>s</option>
         {%else%}
-            <option value="talle">{{articulo.talle_s}}</option>
+            <option value="s">{{articulo.talle_s}}</option>
         {% endif %}
 
         {%if articulo.talle_m == 0 %}
             <option value="m" disabled>m</option>
         {%else%}
-            <option value="talle">{{articulo.talle_m}}</option>
+            <option value="m">{{articulo.talle_m}}</option>
         {% endif %}
 
         {%if articulo.talle_l == 0 %}
             <option value="l" disabled>l</option>
         {%else%}
-            <option value="talle">{{articulo.talle_l}}</option>
+            <option value="l">{{articulo.talle_l}}</option>
         {% endif %}
 
         {%if articulo.talle_xl == 0 %}
             <option value="xl" disabled>xl</option>
         {%else%}
-            <option value="talle">{{articulo.talle_xl}}</option>
+            <option value="xl">{{articulo.talle_xl}}</option>
         {% endif %}
 
         </select>
@@ -105,11 +106,12 @@
                 <input type="hidden" name="nombre" value="{{articulo.nombre}}">
                 <input type="hidden" name="precio" value="{{articulo.precio}}">
                 <input type="hidden" name="color_id" value="{{articulo.color_id}}">
-                <input type="hidden" name="talle_xs" value="{{articulo.talle_xs}}">
+                <input type="hidden" name="talle_id" value="{{talle_id}}">
+                {% comment %} <input type="hidden" name="talle_xs" value="{{articulo.talle_xs}}">
                 <input type="hidden" name="talle_s" value="{{articulo.talle_s}}">
                 <input type="hidden" name="talle_m" value="{{articulo.talle_m}}">
                 <input type="hidden" name="talle_l" value="{{articulo.talle_l}}">
-                <input type="hidden" name="talle_xl" value="{{articulo.talle_xl}}">
+                <input type="hidden" name="talle_xl" value="{{articulo.talle_xl}}"> {% endcomment %}
                 <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                 <input type="hidden" name="type_button" value="cart">
                 <input type="hidden" name="actual_value" value="{{cart}}">
@@ -145,6 +147,8 @@
                 {% endif %}
 
             </form>
+            <br>
+        
             <center><a class="boton" href="{% url 'index' %}" style=>Volver</a></center>
         </div>
     </div>

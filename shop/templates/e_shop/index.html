@@ -6,15 +6,17 @@
 <!-- Lista de articulos: -->
 <div class='grid-container'>
     {% for articulo in articulo_list %}
+    
+    
     <div class="grid-item">
         <div class="articulo-block">
-
+            
             <a href="detail?art_id={{articulo.art_id}} ">
                 <img class='articulo-img' src="{{articulo.picture.url}}" alt="Not found">
             </a>
-            <h3>
+            <h4>
                 {{articulo.nombre}}
-            </h3>
+            </h4>
             <div>
                 
                 <h5>
@@ -23,6 +25,7 @@
          
                 
             </div>
+    
         </div>
     </div>
     {% endfor %}
@@ -36,7 +39,7 @@
         {% if page_obj.has_previous %}
         <li class="page-item">
             
-            <a class="page-link" href="?page={{ page_obj.previous_number_page }}" ><<</a>
+            <a class="page-link" href="?page={{ page_obj.previous_number_page }}" ></a>
         </li>
         {% endif %}
 
@@ -58,7 +61,7 @@
 
         {% if page_obj.has_next %}
         <li class="page-item">
-            <a href="?page={{page_obj.next_number_page}}" class="page-link">>></a>
+            <a href="?page={{page_obj.next_number_page}}" class="page-link"></a>
         </li>
         {% endif %}
     

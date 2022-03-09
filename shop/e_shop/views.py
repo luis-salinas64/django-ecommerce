@@ -1,4 +1,6 @@
+
 from re import template
+from textwrap import indent
 from unicodedata import name
 from django.shortcuts import render
 # Create your views here.
@@ -7,6 +9,8 @@ from django.db.models.query import QuerySet
 from django.db.models import Count
 # from django.db import filters
 from django.views.generic import TemplateView, ListView
+import pandas as pd
+import io
 
 # Importamos los modelos que vamos a usar:
 from django.contrib.auth.models import User
@@ -93,8 +97,8 @@ class IndexView(ListView):
     Para ello tenemos que utilizar sus atributos:
     \n'''
 
-
     queryset = Articulo.objects.all().order_by('art_id')
+    
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
 
@@ -152,7 +156,7 @@ class DetailsView(TemplateView):
 
             context['articulo_color'] = str(articulo_obj.color_id)
 
-            context['articulo_talle_xs'] = str(articulo_obj.talle_xs)
+            
             context['articulo_talle_s'] = str(articulo_obj.talle_s)
             context['articulo_talle_m'] = str(articulo_obj.talle_m)
             context['articulo_talle_l'] = str(articulo_obj.talle_l)
@@ -179,6 +183,7 @@ class DetailsView(TemplateView):
 
 
         return context
+
 
 
 
@@ -225,11 +230,8 @@ def check_button(request):
         print(f'Nombre:{nombre}')
         print(f'Color:{color_id}')
         print(f'Precio:{precio}')
-        print(f'Talle xs:{talle_xs}')
-        print(f'Talle s:{talle_s}')
-        print(f'Talle m:{talle_m}')
-        print(f'Talle l:{talle_l}')
-        print(f'Talle xl:{talle_xl}')
+        
+        
 
         if user_authenticated and username != None:
             # Si el usuario está autenticado, traemos su "wishlist"
@@ -372,8 +374,7 @@ def gracias_compra(request):
         art_id = request.POST.get('art_id')
         nombre = request.POST.get('nombre')
         precio = request.POST.get('precio')
-        color_id = request.POST.get('color_id')
-        talle_xs = request.POST.get('talle_xs')
+        color_id = request.POST.get('color_id')        
         talle_s = request.POST.get('talle_s')
         talle_m = request.POST.get('talle_m')
         talle_l = request.POST.get('talle_l')
@@ -389,10 +390,7 @@ def gracias_compra(request):
         print(f'Nombre:{nombre}')
         print(f'Precio:{precio}')
         print(f'Color:{color_id}')
-        print(f'Talle xs:{talle_xs}')
-        print(f'Talle s:{talle_s}')
-        print(f'Talle l:{talle_l}')
-        print(f'Talle xl:{talle_xl}')
+        
 
 
         # Validamos los datos y les damos formato:
@@ -434,7 +432,7 @@ def gracias_compra(request):
 
 class CamisasView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=7)
+    queryset = Articulo.objects.filter(categoria_id=1)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 
@@ -448,7 +446,7 @@ class CamisasView(ListView):
 
 class PantalonesView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=12)
+    queryset = Articulo.objects.filter(categoria_id=3)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 
@@ -459,9 +457,10 @@ class PantalonesView(ListView):
         context = super().get_context_data(**kwargs)
 
         return context
+
 class RemerasView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=8)
+    queryset = Articulo.objects.filter(categoria_id=2)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 
@@ -474,7 +473,7 @@ class RemerasView(ListView):
         return context
 class VestidosView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=10)
+    queryset = Articulo.objects.filter(categoria_id=5)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 
@@ -488,7 +487,7 @@ class VestidosView(ListView):
 
 class CamperasView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=9)
+    queryset = Articulo.objects.filter(categoria_id=6)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 
@@ -502,7 +501,7 @@ class CamperasView(ListView):
 
 class JeansView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=11)
+    queryset = Articulo.objects.filter(categoria_id=4)
 
     # Esta Api nos devuelve una lista de articulos por categorias
 

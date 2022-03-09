@@ -38,6 +38,7 @@ urlpatterns = [
     path('wish', login_required(WishView.as_view()), name='wish'),
     path('cart', login_required(CartView.as_view()), name='cart'),
     
+    
 
     # NOTE: Formularios ocultos
     path('checkbutton', check_button, name='checkbutton'),
