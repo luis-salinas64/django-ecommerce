@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'luiggi-shop.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'danielcassin-shop.herokuapp.com']
 
 
 # Application definition
