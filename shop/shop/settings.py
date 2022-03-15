@@ -20,19 +20,29 @@ from rest_framework.schemas import get_schema_view
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+def get_env(var):
+    '''
+    Funcion para traer las variables de entorno.
+    '''
+    try:
+        environment = os.getenv(var)
+
+        return environment
+    except:
+        return ''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#'
+# SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#'
+SECRET_KEY = get_env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+# DEBUG = True
+DEBUG = True if get_env('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'danielcassin-shop.herokuapp.com']
-
 
 # Application definition
 
@@ -105,16 +115,6 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-def get_env(var):
-    '''
-    Funcion para traer las variables de entorno.
-    '''
-    try:
-        environment = os.getenv(var)
-
-        return environment
-    except:
-        return ''
 
 DATABASES = {
     'default': {
@@ -127,9 +127,6 @@ DATABASES = {
 
     }
 }
-
-SECRET_KEY = get_env('SECRET_KEY')
-DEBUG = True if get_env('DEBUG') == 'True' else False
 
 
 # Password validation
@@ -154,9 +151,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
@@ -187,3 +184,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # NOTE: Para manejo de sesión.
 LOGIN_REDIRECT_URL = '/e-shop/index'
 LOGIN_URL = '/e-shop/'
+
+LOGGING_DIR = f'{BASE_DIR}/shop/logs/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'generic': {
+            'format': '[%(asctime)s] |%(levelname)s| %(message)s',
+            'datefmt': "%d/%b/%Y %H:%M:%S",
+            'style': '%'
+        }
+    },
+    'handlers': {
+        'general': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'general-batch.log'),
+            'maxBytes': 1024*1024*15,  # 15MB
+            'backupCount': 10,
+            'formatter': 'generic',        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['general'],
+            'propagate': True,
+            'level': 'DEBUG',
+        }
+    }
+}

@@ -40,9 +40,9 @@ services:
     # build es el lugar desde donde toma los archivos para generar la imagen.
     build: .
     # Imágen a utilizar:
-    image: shop_1
+    image: shop
     # Nombre del container:
-    container_name: shop_1
+    container_name: shop
     # Comportamiento ante fallos y al iniciar el sistema:
     restart: always
     # Carpetas enlazadas:
@@ -57,5 +57,7 @@ services:
     # Control de consola:
     stdin_open: true
     tty: true
-    
+    command: gunicorn --chdir /opt/back_end/shop shop.wsgi:application --bind 0.0.0.0:8000
+    depends_on:
+      - db
     

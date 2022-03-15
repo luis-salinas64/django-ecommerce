@@ -9,7 +9,6 @@ from django.db.models.query import QuerySet
 from django.db.models import Count
 # from django.db import filters
 from django.views.generic import TemplateView, ListView
-import pandas as pd
 import io
 
 # Importamos los modelos que vamos a usar:
