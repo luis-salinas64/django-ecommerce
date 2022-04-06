@@ -1,0 +1,173 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}Detalle de producto{% endblock %}
+
+{% block content %}
+{% load static %}
+{% for art_id in art_list%}
+<div class="articulo-grid">
+
+
+
+    <div class="pictures">
+
+        <img src="{{ articulo.picture_1.url }}" alt="Not Found" height="180px">
+    
+        <img src="{{ articulo.picture_2.url }}" alt="Not Found" height="180px">
+
+        <img src="{{ articulo.picture_3.url }}" alt="Not Found" height="180px">
+
+    </div>
+
+    <div class="articulo-item">
+        <div class="pictures">
+
+        <img src="{{ articulo.picture.url }}" alt="Not Found" with="350px" height="500px">
+
+        </div>
+    </div>
+    <div class="articulo-item">
+        
+        
+        <br>
+        <h1>
+            {{art_list['nombre']}}
+        </h1>
+
+
+
+    <div class="precio-item">
+            Precio: $ {{articulo.precio}}
+    <div>
+        <br>
+        <h5>
+                    
+            Color: {{articulo.color_id}}
+                    
+        
+        </h5>
+    </div>        
+    
+
+    <div class="talle">
+        
+        <h5>
+            <br>
+            
+            Elegi tu talle:
+
+        </h5>
+
+    <form name="talle" method="POST" action="{% url 'check_talle' %}">{%csrf_token%}
+        <select name = "talle" id="talle">
+
+            
+
+        {%if articulo.talle_xs == 0 %}
+            <option value = "xs" disabled>xs</option>
+        {%else%}
+            <option value="xs">{{articulo.talle_xs}}</option>
+        {% endif %}
+
+        {%if articulo.talle_s == 0 %}
+            <option value="s" disabled>s</option>
+        {%else%}
+            <option value="s">{{articulo.talle_s}}</option>
+        {% endif %}
+
+        {%if articulo.talle_m == 0 %}
+            <option value="m" disabled>m</option>
+        {%else%}
+            <option value="m">{{articulo.talle_m}}</option>
+        {% endif %}
+
+        {%if articulo.talle_l == 0 %}
+            <option value="l" disabled>l</option>
+        {%else%}
+            <option value="l">{{articulo.talle_l}}</option>
+        {% endif %}
+
+        {%if articulo.talle_xl == 0 %}
+            <option value="xl" disabled>xl</option>
+        {%else%}
+            <option value="xl">{{articulo.talle_xl}}</option>
+        {% endif %}
+
+
+
+        </select>
+        <input type = "submit" value="Elegir"/>
+        
+        <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+        <input type="hidden" name="nombre" value="{{articulo.nombre}}">
+        <input type="hidden" name="precio" value="{{articulo.precio}}">
+        <input type="hidden" name="color_id" value="{{articulo.color_id}}">
+        <input type="hidden" name="submit" value="{{talle}}">        
+        <input type="hidden" name="path" value="{% url 'detail' %}">
+
+    </form>
+        
+        
+        
+        
+    </div>
+
+    
+
+
+    <div id="grid-buttons">
+        <h3>Agregar a mi bolsa!</h3>
+
+
+            <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+
+                <input type="hidden" name="username" value="{{user.username}}">
+                <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                <input type="hidden" name="nombre" value="{{articulo.nombre}}">
+                <input type="hidden" name="precio" value="{{articulo.precio}}">
+                <input type="hidden" name="color_id" value="{{articulo.color_id}}">
+                <input type="hidden" name="talle" value="{{talle}}">
+                <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
+                <input type="hidden" name="type_button" value="cart">
+                <input type="hidden" name="actual_value" value="{{cart}}">
+                <input type="hidden" name="path" value="{% url 'detail' %}">
+
+            {% if cart %}
+                <input type="image" src="{% static 'e-shop/img/bolsa_true.png' %}" width="70px" height="70px"><h2>Agregado!</h2>
+            {% else %}
+                <input type="image" src="{% static 'e-shop/img/bolsa_false.png' %}"width="70px" height="70px">
+            {% endif %}
+
+                </form>
+    
+    </div>
+
+        <div id="grid-buttons">
+            <h3>Me encanta !</h3>
+
+            <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+
+                <input type="hidden" name="username" value="{{user.username}}">
+                <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                <input type="hidden" name="color_id" value="{{articulo.color_id}}">
+                <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
+                <input type="hidden" name="type_button" value="favorite">
+                <input type="hidden" name="actual_value" value="{{favorite}}">
+                <input type="hidden" name="path" value="{% url 'detail' %}">
+
+                {% if favorite %}
+                    <input type="image" src="{% static 'e-shop/img/favs-true.png' %}" width="60px" height="60px">
+                {% else %}
+                    <input type="image" src="{% static 'e-shop/img/favs-false.png' %}" width="60px" height="60px">
+                {% endif %}
+
+            </form>
+            <br>
+        
+            <center><a class="boton" href="{% url 'inicio' %}" style=>Volver</a></center>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

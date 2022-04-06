@@ -16,33 +16,36 @@ import os
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
 
+from celery.schedules import crontab
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+'''
 def get_env(var):
-    '''
+    
     Funcion para traer las variables de entorno.
-    '''
+    
     try:
         environment = os.getenv(var)
 
         return environment
     except:
         return ''
+    '''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#'
-SECRET_KEY = get_env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-s3l-&wp^7qg!##&yt7((9*wka1+vao2gbz%43aln77qo3l2xf#'
+# SECRET_KEY = get_env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = True if get_env('DEBUG') == 'True' else False
+DEBUG = True
+# DEBUG = True if get_env('DEBUG') == 'True' else False
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'danielcassin-shop.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -89,7 +92,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'shop.urls'
 
@@ -119,11 +122,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': get_env('POSTGRES_DB'),           # POSTGRES DB
-        'USER': get_env('POSTGRES_USER'),         # POSTGRES USER
-        'PASSWORD': get_env('POSTGRES_PASWWORD'), # POSTGRES PASSWORD
-        'HOST': get_env('POSTGRES_HOST'),         # Nombre del servicio
-        'PORT': '5432'                            # Numero del puerto
+        'NAME': 'shop_db',        #get_env('POSTGRES_DB'),           # POSTGRES DB
+        'USER': 'luiggi_user',    #get_env('POSTGRES_USER'),         # POSTGRES USER
+        'PASSWORD': '123Luiggi!', #get_env('POSTGRES_PASWWORD'),     # POSTGRES PASSWORD
+        'HOST': 'db',                 #get_env('POSTGRES_HOST'),         # Nombre del servicio
+        'PORT': '5432',                            # Numero del puerto
 
     }
 }
@@ -181,8 +184,10 @@ MEDIA_URL= 'images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+VERDE = "\033[;32m"
+
 # NOTE: Para manejo de sesión.
-LOGIN_REDIRECT_URL = '/e-shop/index'
+LOGIN_REDIRECT_URL = '/e-shop/inicio'
 LOGIN_URL = '/e-shop/'
 
 LOGGING_DIR = f'{BASE_DIR}/shop/logs/'
@@ -212,5 +217,23 @@ LOGGING = {
             'propagate': True,
             'level': 'DEBUG',
         }
+    }
+}
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Argentina/Buenos_Aires'
+
+CELERY_BEAT_SCHEDULE = {
+    'hello': {
+        'task': 'e_shop.tasks.hello_world',
+        'schedule': crontab(minute='*/2')  # Cada 2 minutos ejecutar
+    },
+    'segunda_tarea': {
+        'task': 'e_shop.tasks.segunda_tarea',
+        'schedule': crontab(minute='*/15')  # Cada 60 minutos ejecutar
     }
 }

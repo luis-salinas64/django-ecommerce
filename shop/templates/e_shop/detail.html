@@ -37,8 +37,17 @@
 
     <div class="precio-item">
             Precio: $ {{articulo.precio}}
-            
+    <div>
+        <br>
+        <h5>
+                    
+            Color: {{articulo.color_id}}
+                    
         
+        </h5>
+    </div>        
+    
+
     <div class="talle">
         
         <h5>
@@ -46,7 +55,12 @@
             
             Elegi tu talle:
 
+        </h5>
+
+    <form name="talle" method="POST" action="{% url 'check_talle' %}">{%csrf_token%}
         <select name = "talle" id="talle">
+
+            
 
         {%if articulo.talle_xs == 0 %}
             <option value = "xs" disabled>xs</option>
@@ -78,21 +92,26 @@
             <option value="xl">{{articulo.talle_xl}}</option>
         {% endif %}
 
+
+
         </select>
-        </h5>
+        <input type = "submit" value="Elegir"/>
+        
+        <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+        <input type="hidden" name="nombre" value="{{articulo.nombre}}">
+        <input type="hidden" name="precio" value="{{articulo.precio}}">
+        <input type="hidden" name="color_id" value="{{articulo.color_id}}">
+        <input type="hidden" name="submit" value="{{talle}}">        
+        <input type="hidden" name="path" value="{% url 'detail' %}">
+
+    </form>
+        
+        
         
         
     </div>
 
-    <div>
-
-        <h5>
-            
-            Color: {{articulo.color_id}}
-            
-
-        </h5>
-    </div>
+    
 
 
     <div id="grid-buttons">
@@ -106,12 +125,7 @@
                 <input type="hidden" name="nombre" value="{{articulo.nombre}}">
                 <input type="hidden" name="precio" value="{{articulo.precio}}">
                 <input type="hidden" name="color_id" value="{{articulo.color_id}}">
-                <input type="hidden" name="talle_id" value="{{talle_id}}">
-                {% comment %} <input type="hidden" name="talle_xs" value="{{articulo.talle_xs}}">
-                <input type="hidden" name="talle_s" value="{{articulo.talle_s}}">
-                <input type="hidden" name="talle_m" value="{{articulo.talle_m}}">
-                <input type="hidden" name="talle_l" value="{{articulo.talle_l}}">
-                <input type="hidden" name="talle_xl" value="{{articulo.talle_xl}}"> {% endcomment %}
+                <input type="hidden" name="talle" value="{{talle}}">
                 <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                 <input type="hidden" name="type_button" value="cart">
                 <input type="hidden" name="actual_value" value="{{cart}}">
@@ -149,7 +163,7 @@
             </form>
             <br>
         
-            <center><a class="boton" href="{% url 'index' %}" style=>Volver</a></center>
+            <center><a class="boton" href="{% url 'inicio' %}" style=>Volver</a></center>
         </div>
     </div>
 </div>

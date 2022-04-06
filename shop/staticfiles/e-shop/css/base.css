@@ -5,7 +5,7 @@
 /* Establecemos las variables globales:  */
 
 body{
-    background-color: rgb(248, 232, 223);
+    /* background-color: rgb(253, 244, 226); */
     /* background-color:chartreuse; */
     color:rgb(143, 140, 140);
     background-size:auto;
@@ -27,7 +27,7 @@ body{
     font-size: 40px;
     font-style: helvetica;
     text-align: center;
-    background-color: rgb(248, 232, 223);
+    background-color: rgb(255, 254, 254);
 }
 
 .footer{
@@ -39,36 +39,41 @@ body{
 /* -----------------index----------------- */
 
 .grid-container{
+    width: 90%;
     text-align: center;
     display:grid;
-    padding: 20px ;/* Achica el contenedor */
-    grid-gap: 7px ;/* Separacion entre bloques*/
-    grid-template-columns: 33% 33% 33%;
-    /* background-color: rgb(3, 10, 22); */
+    padding: 10px ;/* Achica el contenedor */
+    grid-gap:0px ;/* Separacion entre bloques*/
+    grid-template-columns: 25% 25% 25% 25%;
+    /* background-color: rgb(5, 78, 202); */
+    margin-left:50px;
 
 }
 
 .grid-item {
-
-    max-height:470px;
-    padding: 3px;
+    width: 90%;
+    height:350px;
+    padding: 8px;
     text-align: center;
-    /* background-color: rgb(250, 226, 93); */
+    
+    /* background-color: rgb(248, 228, 197); */
     /* border:1px solid rgb(223, 41, 41); */
 
 }
 
 .articulo-img{
-    object-fit:cover;
+    border-radius:initial;
+    object-fit:contain;
     width:100%;
     height:100%;
-    /* background-color: rgb(81, 81, 247); */
+    border-radius: 20px;
+    /* background-color: rgb(235, 38, 218); */
 
 }
 
 .articulo-block{
     /* background-color: rgb(21, 196, 74); */
-    border-radius: 5px;
+    border-radius: 15px;
     /* border: 2px solid rgba(7, 7, 6, 0.925); */
     height: 80%;        /* contenedor de imagen*/
 
@@ -122,7 +127,7 @@ grid-template-rows:auto;
 }
 .precio-item{
     font-family:Arial, Helvetica, sans-serif;
-    color:rgb(105, 100, 100);
+    color:rgb(50, 49, 49);
     font-size: 20px;
     text-align:center;
 }
@@ -140,7 +145,7 @@ grid-template-rows:auto;
 .navegacion {
     width: 1000px;
     margin:auto;
-    background-color: rgb(248, 232, 223);
+    background-color: rgb(255, 228, 211);
     /* background-color:rgba(227, 226, 245, 0.891); */
 
 }
@@ -171,12 +176,13 @@ grid-template-rows:auto;
 
 .submenu {
     position:absolute;
-    background:rgb(253, 245, 230);
+    background:rgb(236, 233, 226);
     width: 120%;
-    visibility: hidden;
+    visibility:visible;
     opacity: 0;
-    transition:opacity 1s;
+    transition:opacity 2s;
     text-align: left;
+    z-index:auto ; 
 }
 .submenu li a {
     display: block;
@@ -265,16 +271,18 @@ grid-template-rows:auto;
 
 }
 .boton {
+    
     border:2px solid #101113; /*anchura, estilo y color borde*/
-    padding: 10px; /*espacio alrededor texto*/
-    background-color: #7888b4; /*color botón*/
+    padding: 5px; /*espacio alrededor texto*/
+    background-color: #f4d6b1; /*color botón*/
     color: #030303; /*color texto*/
     text-align: center;
     text-decoration: none; /*decoración texto*/
     text-transform: uppercase; /*capitalización texto*/
     font-family: 'Helvetica', sans-serif; /*tipografía texto*/
-    border-radius: 50px; /*bordes redondos*/
-    width: 100px;
+    border-radius: 20px; /*bordes redondos*/
+    width: 80px;
+    z-index: 1;
 
     }
 
@@ -282,3 +290,195 @@ grid-template-rows:auto;
         grid-template-rows: 50px;
         font-size: 10px;
     }
+
+
+
+/* ------------------------- Slider ------------------------------------ */
+
+
+.slider {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+
+    background-color: #fadebd;
+    box-shadow: 0 0 0 10px #fadebd,
+                0 15px 50px;
+}
+
+.slider ul {
+    padding: 1px;
+    display: flex;
+    width: 300%;
+    
+    
+    /* position:static; */
+    animation: cambio 10s infinite;
+    animation-direction: alternate;
+    animation-timing-function:linear;
+    
+    
+}
+
+.slider li {
+    list-style: none;
+    width: 90%;
+
+}
+
+.slider img {
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+@keyframes cambio {
+    0% {margin-left:0;}
+    28% {margin-left:0;}
+
+    35%{margin-left: -100%;}
+    63% {margin-left:-100%;}
+
+    70% {margin-left:-200%;}
+    100% {margin-left:-200%;}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .contslider{
+    margin: 3px;
+    /* background-color: rgb(243, 239, 31);
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 0 0 10px rgb(245, 235, 209),
+                0 15px 30px;
+    position: relative;
+  }
+  
+  ul, li {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      animation: cambio 20s infinite
+      alterative ;
+      list-style: none;
+      width: 400%;
+  }
+  
+  ul.slider{
+    position: relative;
+    width: 350px;
+    height:360px;
+    
+  }
+  
+  ul.slider li {
+      position: absolute;
+      left: 20px;
+      top: 2px;
+      opacity: 0;
+      width: inherit;
+      height: inherit;
+      transition: opacity .5s;
+      /* background:rgb(175, 182, 247); 
+  }
+  
+  ul.slider li img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+  }
+  
+  ul.slider li:first-child {
+      opacity: 1; /*Mostramos el primer <li>
+  }
+  
+  ul.slider li:target {
+      opacity: 1; /*Mostramos el <li> del enlace que pulsemos
+  }
+   
+  .menuslider{
+    text-align: center;
+    margin: auto;
+  }
+  
+  .menuslider li{
+    display: inline-block;
+    text-align: center;
+  }
+ 
+  .menuslider li a{
+    display: inline-block;
+    position: absolute;
+    color: rgb(32, 30, 30);
+    text-decoration: none;
+    background-color: rgb(209, 196, 196);
+    padding: 5px;
+    width: 30px;
+    height:30px;
+    font-size: 15px;
+    border-radius: 100%;
+    top: 50%;
+  }
+  @keyframes cambio {
+      0% {margin-left: 0;}
+      30% {margin-left: 0;}
+
+      35%{margin-left: -100%;}
+      65%{margin-left: -100%;}
+
+      70%{margin-left: -200%;}
+      100%{margin-left: -200%;}
+  } */

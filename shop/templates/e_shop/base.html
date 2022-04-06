@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'e-shop/css/base.css' %}">
     
+    
 
     <title>{% block title %}E-SHOP{% endblock %}</title>
 </head>
@@ -36,7 +37,7 @@
             <li><a href = "">Categorias</a>
                 <ul class="submenu">  
                     <left>
-                    <li><a href = "/e-shop/index">Todos</a></li>
+                    <li><a href = "/e-shop/index1">Todos</a></li>
                     <li><a href = "/e-shop/jeans">Jeans</a></li>
                     <li><a href = "/e-shop/pantalones">Pantalones</a></li>
                     <li><a href = "/e-shop/camisas">Camisas</a></li>
@@ -48,13 +49,16 @@
                     <li><a href = "/e-shop/vestidos">Vestidos</a></li>
                     </left>
                 </ul>         
-            <li><a href = "/e-shop/index">Inicio</a></li>    
+            <li><a href = "/e-shop/inicio">Inicio</a></li>    
             {% if user.is_authenticated %}  
             
             <li><a href = "/e-shop/wish">Favoritos</a></li>
             <li><a href = "/e-shop/cart">Mi Bolsa</a></li>
             <li><a href = "/e-shop/logout">Salir</a></li>
             <li><a href = "/e-shop/bootstrap-signup">Registrarse</a></li>
+            {% if user.is_superuser %}
+                | <a href="/e-shop/graph">Grafico</a>
+             {% endif %}
 
             {% else %}
             <li><a href = "/e-shop/bootstrap-login">Ingresar</a></li>

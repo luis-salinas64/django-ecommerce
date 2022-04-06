@@ -9,10 +9,18 @@ uritemplate==3.0.1
 pyyaml==5.4.1
 # Para trabajar con imagenes
 Pillow==8.4.0
-
+# Tareas asincronicas
+celery==5.1
+redis==3.3.11
 # Drivers para trabajar con Postgres en linux:
 psycopg2-binary>=2.8
+plotly==5.3.1
 # Deploy
 gunicorn==20.1.0
 whitenoise==5.3.0
 django-cors-headers==3.7.0
+# Google Api
+google-api-python-client==2.19.1
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.4.6
+

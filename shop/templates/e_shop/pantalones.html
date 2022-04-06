@@ -8,7 +8,9 @@
     {% if not articulo %}
         
         <center><p>No existen productos para esta categoria</p></center>
-        <center><a class="boton" href="{% url 'index' %}" style=>Volver</a></center>
+        <br>
+        
+        <a class="boton" href="{% url 'inicio' %}" style=><left>Volver<left></a>
     {% else %}
     {% for articulo in articulo_list %}
     <div class="grid-item">

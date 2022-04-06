@@ -1,0 +1,119 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}DANIEL CASSIN{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="slider">
+  <ul>
+    
+     <li><img src="{% static 'e-shop/img/foto1_inicio.jpg'%}" alt=""/></li>
+    
+    
+      <li><img src="{% static 'e-shop/img/foto2_inicio.jpg'%}" alt=""/></li>
+    
+    
+      <li><img src="{% static 'e-shop/img/foto_inicio3.jpg'%}" alt=""/></li>
+  </ul>
+  
+</div>
+<br>
+
+<!-- Lista de articulos: -->
+<div class='grid-container'>
+    
+    <div class="grid-item">
+        <div class="articulo-block">
+            
+            <a href="/e-shop/jeans ">
+                <img class='articulo-img' src="{% static 'e-shop/img/jean-white.jpeg'%}" alt="Not found">
+            </a>
+            <h5>
+                JEANS
+            </h5>
+        </div>    
+    </div>
+    <div class="grid-item">
+      <div class="articulo-block">        
+          <a href="/e-shop/pantalones ">
+            <img class='articulo-img' src="{% static 'e-shop/img/pantalones.jpeg'%}" alt="Not found">
+        </a>
+        <h5>
+            PANTALONES
+        </h5>
+          
+  
+      </div>
+  </div>
+    <div class="grid-item">
+        <div class="articulo-block">        
+            <a href="/e-shop/camisas ">
+              <img class='articulo-img' src="{% static 'e-shop/img/camisa_ischia.jpeg'%}" alt="Not found">
+          </a>
+          <h5>
+              CAMISAS
+          </h5>
+            
+    
+        </div>
+    </div>
+    <div class="grid-item">
+      <div class="articulo-block">        
+          <a href="/e-shop/remeras ">
+            <img class='articulo-img' src="{% static 'e-shop/img/remera_abstracta.jpeg'%}" alt="Not found">
+        </a>
+        <h5>
+            REMERAS
+        </h5>
+          
+  
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="articulo-block">        
+          <a href="/e-shop/camperas ">
+            <img class='articulo-img' src="{% static 'e-shop/img/jkt_denim.jpeg'%}" alt="Not found">
+        </a>
+        <h5>
+            CAMPERAS
+        </h5>
+          
+  
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="articulo-block">        
+          <a href="/e-shop/vestidos ">
+            <img class='articulo-img' src="{% static 'e-shop/img/vestido_hudson.jpeg'%}" alt="Not found">
+        </a>
+        <h5>
+            VESTIDOS
+        </h5>
+          
+  
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="articulo-block">        
+          <a href="/e-shop/index1 ">
+            <img class='articulo-img' src="{% static 'e-shop/img/todos.jpg'%}" alt="Not found">
+        </a>
+        <h5>
+            TODOS
+        </h5>
+          
+  
+      </div>
+    </div>
+</div>
+
+
+<!-- Ejemplo de paginado con un bucle:
+{% for page in page_obj.paginator.page_range %}
+    <a href="?page={{page}}">{{page}}</a>
+{% endfor %} -->
+    
+
+
+{% endblock %}

@@ -2,6 +2,7 @@
 from re import template
 from textwrap import indent
 from unicodedata import name
+from django.http import HttpResponse
 from django.shortcuts import render
 # Create your views here.
 # Importo vistas genericas:
@@ -15,7 +16,9 @@ import io
 from django.contrib.auth.models import User
 from matplotlib.style import context
 from e_shop.models import *
-
+# Graficos
+import plotly.graph_objs as go
+from plotly.offline import plot
 
 # Formulario de registro:
 from django import forms
@@ -29,7 +32,11 @@ class BaseView(TemplateView):
     '''
     template_name = 'e_shop/base.html'
 
-
+class InicioView(TemplateView):
+    '''
+    Template base que vamos a extender para el resto de las páginas del sitio.
+    '''
+    template_name = 'e_shop/inicio.html'
 
 class LoginUserView(TemplateView):
     '''
@@ -98,11 +105,12 @@ class IndexView(ListView):
 
     queryset = Articulo.objects.all().order_by('art_id')
     
+
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
 
-
-    template_name = 'e_shop/index.html'
+    
+    template_name = 'e_shop/index1.html'
     paginate_by = 9
 
 
@@ -112,19 +120,84 @@ class IndexView(ListView):
 
         return context
 
+def check_talle(request):
+    '''
+    Esta función tiene como objetivo obtener el talle elegido por el usuario.
+    '''
+    if request.method == 'POST':
+        print(request.path)
+        # NOTE: Obtenemos los datos necesarios:
+        
+        
+        art_id = request.POST.get('art_id')
+        nombre = request.POST.get('nombre')
+        precio = request.POST.get('precio')
+        color_id = request.POST.get('color_id')
+        talle = request.POST.get('talle')
+        path = request.POST.get('path')
+        
+
+        # Validamos los datos y les damos formato:
+        
+        art_id = art_id if art_id != '' else None
+        nombre =nombre if nombre != '' else None
+        color_id = color_id if color_id != '' else None
+        precio = precio if precio != '' else None
+        talle = talle if talle != '' else None
+        path = path if path != None else 'index1'
+
+        art_list = {}
+        art_list['art_id']=art_id
+        art_list['nombre']=nombre
+        art_list['color_id']=color_id
+        art_list['precio']=precio
+        art_list['talle']=talle
+
+
+        # Igualamos los valores por talle:
+        if talle == 'xs':
+            art_list['talle_xs']=1
+        elif talle == 's':
+            art_list['talle_s']=1
+        elif talle == 'm':
+            art_list['talle_m']=1
+        elif talle == 'l':
+            art_list['talle_l']=1
+        elif talle == 'xl':
+            art_list['talle_xl']=1
+
+
+        print(art_list)
+
+        
+
+    return render('detail1.html', art_list)
+
+
+
+
+class Detail1View(TemplateView):
+    template_name = 'e_shop/detail1.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+    
+
 
 
 
 class DetailsView(TemplateView):
     template_name = 'e_shop/detail.html'
-
+    
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
             # Buscar el articulo en la base de datos TUYA, usas la funcion Articulo.objects.get y le
             # mandas la id del articulo, por eso art_id=self.request.GET.get('art_id')
             # eso te devuelve el artículo que esté en la db que coincida con el id
-
+            
             articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
 
             # A partir de acá, articulo_obj es un objeto articulo con todos los datos del articulo
@@ -185,7 +258,7 @@ class DetailsView(TemplateView):
 
 
 
-
+    
 def check_button(request):
     '''
     Esta función tiene como objetivo el cambio de estado de los botones de favoritos y carrito.
@@ -198,11 +271,7 @@ def check_button(request):
         nombre = request.POST.get('nombre')
         precio = request.POST.get('precio')
         color_id = request.POST.get('color_id')
-        talle_xs = request.POST.get('talle_xs')
-        talle_s = request.POST.get('talle_s')
-        talle_m = request.POST.get('talle_m')
-        talle_l = request.POST.get('talle_l')
-        talle_xl = request.POST.get('talle_xl')
+        talle = request.GET.get('talle')
         user_authenticated = request.POST.get('user_authenticated')
         type_button = request.POST.get('type_button')
         actual_value = request.POST.get('actual_value')
@@ -214,21 +283,18 @@ def check_button(request):
         nombre =nombre if nombre != '' else None
         color_id = color_id if color_id != '' else None
         precio = precio if precio != '' else None
-        talle_xs = talle_xs if talle_xs != '' else None
-        talle_s = talle_s if talle_s != '' else None
-        talle_m = talle_m if talle_m != '' else None
-        talle_l = talle_l if talle_l != '' else None
-        talle_xl = talle_xl if talle_xl != '' else None
+        talle = talle if talle != '' else None
         user_authenticated = True if user_authenticated == 'True' else False
         type_button = type_button if type_button != '' else None
         actual_value = True if actual_value == 'True' else False
-        path = path if path != None else 'index'
+        path = path if path != None else 'index1'
 
         print(f'Username:{username}')
         print(f'art_id:{art_id}')
         print(f'Nombre:{nombre}')
         print(f'Color:{color_id}')
         print(f'Precio:{precio}')
+        print(f'Talle:{talle}')
         
         
 
@@ -267,7 +333,7 @@ def check_button(request):
             return redirect('login')
     else:
         # Si por error quisieron acceder al recurso con otro método que no sea POST, lo redirigimos al index
-        return redirect('index')
+        return redirect('index1')
 
 
 class CartView(TemplateView):
@@ -405,7 +471,7 @@ def gracias_compra(request):
         user_authenticated = True if user_authenticated == 'True' else False
         type_button = type_button if type_button != '' else None
         actual_value = True if actual_value == 'True' else False
-        path = path if path != None else 'index'
+        path = path if path != None else 'index1'
 
         user_obj = User.objects.get(username=username)
         art_obj = Articulo.objects.get(art_id=art_id)
@@ -424,7 +490,7 @@ def gracias_compra(request):
 
         return redirect(path)
     else:
-        return redirect('index')
+        return redirect('index1')
 
 
 # ------------------------------- NOTE: Categorias --------------------------
@@ -525,3 +591,47 @@ class BootstrapSignupView(TemplateView):
     # Vista para Template de registro de usuario con estilo de bootstrap.
 
     template_name = 'e_shop/bootstrap-signup.html'
+
+
+class GraphView(TemplateView):
+    '''
+    Vista para Template de registro de usuario con estilo de bootstrap.
+    '''
+    template_name = 'e_shop/graph.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Obtenemos la lista de comics:
+        articulos = Articulo.objects.all()
+
+        # Obtenemos los nombres y precios en dos listas:
+        nombres = [articulo.nombre for articulo in articulos]
+        precios = [articulo.precio for articulo in articulos]
+
+        # Gráfico scatter tipo bar (idem plt.bar)
+        # Le pasamos como parámetros de X e Y los títulos y precios:
+        trace1 = go.Bar(
+            x=nombres,
+            y=precios,
+            name='ploty bar',
+            orientation='v',
+        )
+        data = [trace1]
+        layout = go.Layout(
+            xaxis=dict(
+                autorange=True,
+                linewidth=3,
+                categoryorder='total descending',
+                rangeslider=dict(visible=True),
+            ),
+            yaxis=dict(
+                autorange=True,
+                linewidth=3,
+            ),
+            template='plotly_dark',
+            showlegend=True
+        )
+        fig = go.Figure(data=data, layout=layout)
+        plot_div = plot(fig, output_type='div', include_plotlyjs=True)
+        context['graph'] = plot_div
+        return context

@@ -23,20 +23,20 @@ services:
     ports:
       # Enlazamos el puerto en el que trabaja Postgres, por defecto el 5432
       - 5432:5432
+  
+  # adminer:
+  #   # Una interfaz para monitoreo y gestión de nuestra base de datos.
+  #   # Se puede acceder a ella en localhost:8080
+  #   container_name: shop_adminer
+  #   image: adminer:4.8.0
+  #   restart: always
+  #   ports:
 
-  adminer:
-    # Una interfaz para monitoreo y gestión de nuestra base de datos.
-    # Se puede acceder a ella en localhost:8080
-    container_name: shop_adminer
-    image: adminer:4.8.0
-    restart: always
-    ports:
+  #     - 8080:8080
+  #   # depends_on indica que este servicio depende de que primero inicie "db"
+  #   depends_on: ["db"]
 
-      - 8080:8080
-    # depends_on indica que este servicio depende de que primero inicie "db"
-    depends_on: ["db"]
-
-  shop_1:
+  shop:
     # build es el lugar desde donde toma los archivos para generar la imagen.
     build: .
     # Imágen a utilizar:
@@ -57,7 +57,40 @@ services:
     # Control de consola:
     stdin_open: true
     tty: true
-    command: gunicorn --chdir /opt/back_end/shop shop.wsgi:application --bind 0.0.0.0:8000
+    command: python shop/manage.py runserver 0.0.0.0:8000
+    #command: gunicorn --chdir /opt/back_end/shop shop.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - db
+# +++++++++++++++++++ Configuración para tareas asincrónicas +++++++++++++++++++ #
+
+  # Base de datos tipo Key-Value redis:     
+  # redis:
+  #   image: "redis:alpine"
+  #   container_name: redis
+  #   depends_on:
+  #     - db
+
+  # Celery-worker para ejecutar las tareas (funciones) que definimos en nuestro código:
+  # celery:
+  #   build: .
+  #   command: bash -c "cd shop && celery --app shop worker -l info"
+  #   container_name: celery
+  #   volumes:
+  #     - type: bind
+  #       source: .
+  #       target: /opt/back_end
+  #   depends_on:
+  #     - redis
+
+  # # Celery-beat para organizar la
+  # celery-beat:
+  #   build: .
+  #   container_name: celery_beat
+  #   command: bash -c "cd shop && celery --app shop beat -l info"
+  #   volumes:
+  #     - type: bind
+  #       source: .
+  #       target: /opt/back_end
+  #   depends_on:
+  #     - redis
     
