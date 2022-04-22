@@ -80,11 +80,7 @@ body{
 }
 
 
-form{
-font-size: 15px;
-grid-template-rows:auto;
 
-}
 /* ----------detail--------------- */
 
 .articulo-grid{
@@ -169,20 +165,20 @@ grid-template-rows:auto;
 .menu li a:hover{
     color: rgb(87, 129, 245);
     transition:
-    all ,1.5s;
+    all ,3s;
 }
 
 /* Submenu */
 
 .submenu {
     position:absolute;
-    background:rgb(236, 233, 226);
+    /* background:rgb(236, 233, 226); */
     width: 120%;
     visibility:visible;
     opacity: 0;
     transition:opacity 2s;
     text-align: left;
-    z-index:auto ; 
+    /* z-index:auto ;  */
 }
 .submenu li a {
     display: block;
@@ -282,11 +278,12 @@ grid-template-rows:auto;
     font-family: 'Helvetica', sans-serif; /*tipografía texto*/
     border-radius: 20px; /*bordes redondos*/
     width: 80px;
-    z-index: 1;
+    /* z-index: 1; */
 
     }
 
-    .login{
+
+.login{
         grid-template-rows: 50px;
         font-size: 10px;
     }
@@ -344,141 +341,133 @@ grid-template-rows:auto;
 
 
 }
+form{
+font-size: 15px;
+grid-template-rows:auto;
+font-family: Arial, Helvetica, sans-serif;
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .contslider{
-    margin: 3px;
-    /* background-color: rgb(243, 239, 31);
-    width: 100%;
-    height: 100%;
-    padding: 2px;
-    display: flex;
-    overflow: hidden;
-    box-shadow: 0 0 0 10px rgb(245, 235, 209),
-                0 15px 30px;
-    position: relative;
-  }
-  
-  ul, li {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      animation: cambio 20s infinite
-      alterative ;
-      list-style: none;
-      width: 400%;
-  }
-  
-  ul.slider{
-    position: relative;
-    width: 350px;
-    height:360px;
+.titulo h2 {
+    background-color: rgb(202, 245, 245);
+    box-shadow: 0 0 0 10px #94acb1,
+                    0 15px 50px;
     
-  }
-  
-  ul.slider li {
-      position: absolute;
-      left: 20px;
-      top: 2px;
-      opacity: 0;
-      width: inherit;
-      height: inherit;
-      transition: opacity .5s;
-      /* background:rgb(175, 182, 247); 
-  }
-  
-  ul.slider li img{
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit:cover;
-  }
-  
-  ul.slider li:first-child {
-      opacity: 1; /*Mostramos el primer <li>
-  }
-  
-  ul.slider li:target {
-      opacity: 1; /*Mostramos el <li> del enlace que pulsemos
-  }
-   
-  .menuslider{
+
+}
+
+/* .ok a {
     text-align: center;
-    margin: auto;
-  }
-  
-  .menuslider li{
-    display: inline-block;
-    text-align: center;
-  }
- 
-  .menuslider li a{
-    display: inline-block;
-    position: absolute;
-    color: rgb(32, 30, 30);
     text-decoration: none;
-    background-color: rgb(209, 196, 196);
-    padding: 5px;
-    width: 30px;
-    height:30px;
-    font-size: 15px;
-    border-radius: 100%;
-    top: 50%;
-  }
-  @keyframes cambio {
-      0% {margin-left: 0;}
-      30% {margin-left: 0;}
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius:20% ;
+    color: #353535;
+   
 
-      35%{margin-left: -100%;}
-      65%{margin-left: -100%;}
+}
 
-      70%{margin-left: -200%;}
-      100%{margin-left: -200%;}
-  } */
+ .ok {
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #daecf0;
+    border-bottom: #94acb1;
+   
+
+} */
+
+/*-------------------------- Menu Admin ----------------------------------------*/
+
+
+.admin li{
+    list-style-type:none;
+    text-decoration: none;
+    color: #353535;
+
+}
+
+.admin li a{
+    
+    text-decoration:solid;
+    color: #3e3c3c;
+    width: 400px;
+    background-color: rgb(136, 247, 247);
+    border-radius: 4%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+
+}
+
+.volver {
+    text-decoration: none;
+    font-size: 20px;
+    background-color: rgb(119, 248, 186);
+}
+
+.grid-admin{
+    
+    text-align: center;
+    display:grid;
+    padding: 25px ;/* Achica el contenedor */
+    grid-gap:10px ;/* Separacion entre bloques*/
+    grid-template-columns: 30% 30% 30%;
+    /* background-color: rgb(5, 78, 202); */
+    margin:auto;
+
+}
+.opcion li {
+    list-style: none;
+}
+
+.opcion li a {
+
+    text-decoration: none;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    font-size: 20px;
+    color: #353535;
+    background-color: #90beec;
+    width: 100%;
+    padding: 5%;
+    border-radius: 3%;
+    list-style: none;
+    
+    
+}
+
+.list-admin {
+
+    text-align: center;
+    color: rgb(1, 1, 10);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    font-size: 18px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

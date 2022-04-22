@@ -1,0 +1,49 @@
+{% extends "e_shop/base_admin.html" %}
+{% block title %}MENU ADMINISTRADOR{% endblock title %}
+
+{% block content %}
+{% load static %}
+
+<div class = "titulo">
+    <center><h2> Menu Administrador </h2></center>
+</div>
+<br>
+<div class=grid-admin>
+    <ul class="opcion">
+        
+            <li><a href = "/e-shop/listado_art">Listado de Articulos</a></li>
+            <br>
+            <li><a href = "/e-shop/listado_cat">Listado de Categorias</a></li>
+            <br>
+            <li><a href = "/e-shop/listado_color">Listado de Colores</a></li>
+            <br>
+    </ul>
+    <ul class = "opcion">
+            <li><a href = "/e-shop/categoria">Nueva Categoria</a></li>
+            <br>
+            <li><a href = "/e-shop/color">Nuevo Color</a></li>
+            <br>
+            <li><a href = "/e-shop/carga_form">Nuevo Articulo</a></li>
+            <br>
+    </ul>
+    <ul class="opcion">
+            <li><a href = "/e-shop/graph">Grafico</a></li>
+            <br>
+    </ul>
+    <ul class="opcion">
+            <li><a href = "/e-shop/inicio">Salir</a></li>
+            <br>
+    </ul>
+           
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

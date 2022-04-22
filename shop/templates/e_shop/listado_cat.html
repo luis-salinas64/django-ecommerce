@@ -1,0 +1,54 @@
+
+{% extends "e_shop/base_admin.html" %}
+{% block title %}
+
+
+
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+<center><h2>Listado Total de Categorias</h2></center>
+<br>
+<table>
+    <thead class="list-admin">
+        <tr>
+            <td>Id</td>
+            <td>Categoria</td>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        
+        {% if object_list %}
+        {% for categoria in object_list %}
+        <center>
+        <tr>
+            <td>{{categoria.id}}</td>
+            <td>{{categoria.categoria}}</td>
+            
+            <td><a class="btn btn-info" href="{% url 'edit_categoria' categoria.id %}"  style=><left>Editar<left></a></td>
+            <td><a class="btn btn-danger" href="{% url 'cat_delete' categoria.id %}" style=><left>Eliminar<left></a></td>
+                
+        </tr>
+        </center>
+        {% endfor %}
+
+        {% else %}
+    
+        <h1>No hay articulos</h1>
+
+        {% endif %}
+    </tbody>
+
+
+</table>
+<br>
+
+<div class="volver">
+    <a href="{% url 'admin'%}" style=><center>Menu</center></a>
+    </div>
+
+
+{% endblock content %}

@@ -14,7 +14,7 @@
             <div class="cart-artic">
 
                 <div class="cart-artic-img">
-                    <a href="/e-shop/detail?art_id={{articulo.art_id}}">
+                    <a href="/e-shop/detail_nuevo?art_id={{articulo.art_id}}">
                         <img src="{{articulo.picture.url}}" with= "180px" height="300px" alt="Not found">
                     </a>
                 </div>
@@ -23,6 +23,8 @@
                         <h2>{{articulo.nombre}}</h2>
 
                         <h3>Precio: $ {{articulo.precio}}</h3>
+
+                        <h3>Talle {{ articulo.talle_seleccionado }}</h3>
 
 
                         <h3>Color: {{articulo.color_id}}</h3>

@@ -11,7 +11,7 @@ urlpatterns = [
     # Articulos API View:
     path('articulos/get', GetArticuloAPIView.as_view()),
     path('articulos/post', PostArticuloAPIView.as_view()),
-    path('articuloss/get-post', ListCreateArticuloAPIView.as_view()),
+    path('articulos/get-post', ListCreateArticuloAPIView.as_view()),
     path('articulos/<pk>/update', RetrieveUpdateArticuloAPIView.as_view()),
     path('articulos/<pk>/delete', DestroyArticuloAPIView.as_view()),
 

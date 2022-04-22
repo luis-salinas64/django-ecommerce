@@ -35,6 +35,7 @@
             <ul class="menu">
             
             <li><a href = "">Categorias</a>
+
                 <ul class="submenu">  
                     <left>
                     <li><a href = "/e-shop/index1">Todos</a></li>
@@ -42,13 +43,13 @@
                     <li><a href = "/e-shop/pantalones">Pantalones</a></li>
                     <li><a href = "/e-shop/camisas">Camisas</a></li>
                     <li><a href = "/e-shop/remeras">Remeras</a></li>
-                    <!-- <li><a href = "/e-shop/sweaters">Sweaters</a></li> -->
+                    <li><a href = "/e-shop/sweaters">Sweaters</a></li>
                     <li><a href = "/e-shop/camperas">Camperas</a></li>
-                    <!-- <li><a href = "/e-shop/sacos">Sacos</a></li> -->
-                    <!-- <li><a href = "/e-shop/faldas">Faldas</a></li> -->
+                    <li><a href = "/e-shop/sacos">Sacos</a></li> 
+                    <li><a href = "/e-shop/faldas">Faldas</a></li>
                     <li><a href = "/e-shop/vestidos">Vestidos</a></li>
                     </left>
-                </ul>         
+                </ul>
             <li><a href = "/e-shop/inicio">Inicio</a></li>    
             {% if user.is_authenticated %}  
             
@@ -57,7 +58,18 @@
             <li><a href = "/e-shop/logout">Salir</a></li>
             <li><a href = "/e-shop/bootstrap-signup">Registrarse</a></li>
             {% if user.is_superuser %}
-                | <a href="/e-shop/graph">Grafico</a>
+            <li><a href = "/e-shop/admin">Administrador</a></li>
+                {% comment %} <ul class="menu">
+                    <li><left><a href = "">Admin</left></a>
+                        <ul class="submenu">  
+                                
+                            <li><a href = "/e-shop/graph">Grafico</a></li>
+                            <li><a href = "/e-shop/carga_form">Cargar Articulo</a></li>
+                            <li><a href = "/e-shop/listado">Listado de Articulos</a></li>
+                            <li><a href = "/e-shop/carga_form">Nuevo Articulo</a></li>
+                        </ul>        {% endcomment %}
+                
+                
              {% endif %}
 
             {% else %}

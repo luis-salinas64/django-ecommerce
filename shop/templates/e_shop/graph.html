@@ -1,6 +1,6 @@
-{% extends "e_shop/base.html" %}
+{% extends "e_shop/base_admin.html" %}
 
-{% block title %}Datos de usuaio{% endblock %}
+{% block title %}Grafico de Precios{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -9,29 +9,11 @@
 
     <div id="plotly-graph">{{graph|safe}}</div>
 
-    <div id="plotly-img">
-        <a href="https://plotly.com/">
-            <img src="{% static 'e-shop/img/plotly-logo.png' %}" alt="Plotly logo" width="30%">
-        </a>
-        <p>
-            Ejemplo de reporte con <a href="https://plotly.com/">Plotly</a>.
-            <br>
-            Este gráfico puede ser de distintos tipos, por ejemplo:
-            <ul>
-                <li>
-                    <a href="https://plotly.com/python/line-charts/">line-charts</a>
-                </li>
-                <li>
-                    <a href="https://plotly.com/python/line-and-scatter/">line-and-scatter</a>
-                </li>
-                <li>
-                    <a href="https://plotly.com/python/pie-charts/">pie-charts</a>
-                </li>
-                <li>
-                    <a href="https://plotly.com/python/bubble-charts/">bubble-charts</a>
-                </li>
-            </ul>
-        </p>
-    </div>
+    
 </div>
+
+
+<div class="volver">
+    <a href="{% url 'admin'%}" style=><center>Menu</center></a>
+    </div>
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "e_shop/base.html" %}
+
+{% block title %}
+
+Eliminar Articulos
+
+{% endblock %}
+
+{% block content %}
+
+
+<form class="form " method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+<h3> Desea eliminar el articulo {{articulo.art_id}} {{articulo.nombre}}?</h3>
+
+<button class= "btn btn-danger" input type = "submit" >Eliminar</button>
+
+<a class= "btn btn-default" href="{% url 'listado_art'%}">Cancelar</a>
+
+
+</form>
+{% endblock content %}
+

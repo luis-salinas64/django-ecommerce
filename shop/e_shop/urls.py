@@ -25,8 +25,8 @@ urlpatterns = [
     path('signup', register, name='register'),
 
     # NOTE: Páginas del sitio:
-    path('detail', DetailsView.as_view(), name='detail'),
-    path('detail1', Detail1View.as_view(), name='detail1'),
+    #path('detail', DetailsView.as_view(), name='detail'),
+    path('detail_nuevo', DetailNuevoView.as_view(), name='detail_nuevo'),
     path('index1', IndexView.as_view(), name='index1'),
     path('camisas', CamisasView.as_view(), name='camisas'),
     path('remeras', RemerasView.as_view(), name='remeras'),
@@ -39,7 +39,23 @@ urlpatterns = [
     path('user', login_required(UserView.as_view()), name= 'user'),
     path('wish', login_required(WishView.as_view()), name='wish'),
     path('cart', login_required(CartView.as_view()), name='cart'),
-    # NOTE: Ejemplos de Plotly en HTML:
+
+    path('admin', login_required(AdminView.as_view()), name='admin'),
+    path('ok', login_required(OkCargaView.as_view()), name='ok'),
+    path('listado_art', login_required(ListadoView.as_view()), name='listado_art'),
+    path('listado_cat', login_required(ListadoCatView.as_view()), name='listado_cat'),
+    path('listado_color', login_required(ListadoColorView.as_view()), name='listado_color'),
+    path('categoria', login_required(register_cat), name='categoria'),
+    path('color', login_required(register_color), name='color'),
+    path('carga_form',login_required(register_art), name='carga_form'),
+    path('art_delete/<int:art_id>',login_required(art_delete),name='art_delete'),
+    path('cat_delete/<int:id>',login_required(cat_delete),name='cat_delete'),
+    path('color_delete/<int:id>',login_required(color_delete),name='color_delete'),
+    path('edit_articulo/<int:art_id>',login_required(edit_articulo),name='edit_articulo'),
+    path('edit_categoria/<int:id>',login_required(edit_categoria),name='edit_categoria'),
+    path('edit_color/<int:id>',login_required(edit_color),name='edit_color'),
+
+    # NOTE: Grafico en Plotly en HTML:
     path('graph', GraphView.as_view(), name='graph'),
     
 
@@ -47,6 +63,12 @@ urlpatterns = [
     path('checkbutton', check_button, name='checkbutton'),
     path('check_talle', check_talle,name='check_talle'),
     path('gracias', gracias_compra, name='gracias'),
+    #path('register_art',register_art, name='register_art'),
+    
+
+    # NOTE: Formularios para DB por usuarios autorizados
+
+    #path('carga_form', login_required(register_art), name='carga_form'),
     
 
     # NOTE: Ejemplos de Bootstrap HTML:

@@ -1,0 +1,22 @@
+{% extends "e_shop/base_admin.html" %}
+
+{% block title %}
+
+Eliminar Categoria
+
+{% endblock %}
+
+{% block content %}
+
+
+<form class="form " method="POST" enctype="multipart/form-data">{% csrf_token %}
+<h2>Atencion! Al eliminar la categoria se eliminaran todos los articulos asociados:
+<h3> Desea eliminar la categoria {{categoria.categoria}}?</h3>
+
+<button class= "btn btn-danger" input type = "submit" >Eliminar</button>
+
+<a class= "btn btn-default" href="{% url 'listado_cat'%}">Cancelar</a>
+
+
+</form>
+{% endblock content %}

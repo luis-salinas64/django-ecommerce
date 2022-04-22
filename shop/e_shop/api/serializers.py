@@ -24,10 +24,10 @@ class ArticuloSerializer(serializers.ModelSerializer):
     
     categoria_id = serializers.PrimaryKeyRelatedField(write_only=True,
             queryset=Categoria.objects.all())
-    
+    '''
     talle_id = serializers.PrimaryKeyRelatedField(write_only=True,
             queryset=Talle.objects.all())
-    
+    '''
     class Meta:
         model = Articulo
         fields = ("__all__")

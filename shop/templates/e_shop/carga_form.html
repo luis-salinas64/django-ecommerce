@@ -1,0 +1,36 @@
+{% extends "e_shop/base_admin.html" %}
+
+{% comment %} {% block title %}Carga Articulos{% endblock %} {% endcomment %}
+
+{% block content %}
+{% load static %}
+
+
+{% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+{% endif %}
+
+<div class= "titulo">
+
+    <center><h2>FORMULARIO DE CARGA DE PRODUCTO</h2></center>
+
+</div>
+<br>
+<form class="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+    <table>
+
+    {{form.as_table}}
+
+    </table>
+
+    <center><input type = "submit" value="Guardar"></center>
+    <br>
+    <div class="volver">
+    <a href="{% url 'admin'%}" style=><center>Menu</center></a>
+    </div>
+</form>
+{% endblock content %}
+

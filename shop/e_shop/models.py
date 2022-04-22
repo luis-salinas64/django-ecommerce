@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.deletion import CASCADE
 
@@ -61,10 +61,10 @@ class Articulo(models.Model):
     
     precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=2 )
     
-    picture = models.ImageField(null=True, blank=True)
-    picture_1 = models.ImageField(null=True, blank=True)
-    picture_2 = models.ImageField(null=True, blank=True)
-    picture_3 = models.ImageField(null=True, blank=True)
+    picture = models.ImageField(null=True, upload_to='shop/images')
+    picture_1 = models.ImageField(null=True,upload_to='shop/images')
+    picture_2 = models.ImageField(null=True,upload_to='shop/images')
+    picture_3 = models.ImageField(null=True,upload_to='shop/images')
 
     class Meta:
         '''
@@ -78,6 +78,10 @@ class Articulo(models.Model):
         es lo que retorna cuando llamamos al objeto.
         '''
         return f'{self.art_id}'
+
+    def get_absolute_url(self):
+        return reverse('e_shop/carga_form.html')
+    
 
 class WishList(models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)

@@ -1,0 +1,76 @@
+
+{% extends "e_shop/base_admin.html" %}
+{% block title %}
+
+
+Listados    
+
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+<center><h2>Listado Total de Articulos</h2></center>
+<br>
+<table>
+    <thead class=list-admin>
+        <tr>
+            <td>Id</td>
+            <td>art_id</td>
+            <td>Nombre</td>
+            <td>Categoria</td>
+            <td>Color</td>
+            <td>Talle xs</td>
+            <td>Talle s</td>
+            <td>Talle m</td>
+            <td>Talle l<td>
+            <td>Talle xl</td>
+            <td>Precio</td>
+            {% comment %} <td>Picture</td>
+            <td>Picture 1</td>
+            <td>Picture 2</td>
+            <td>Picture 3</td> {% endcomment %}
+        </tr>
+    </thead>
+
+    <tbody>
+        
+        {% if object_list %}
+        {% for articulo in object_list %}
+        <tr>
+            <td>{{articulo.id}}</td>
+            <td>{{articulo.art_id}}</td>
+            <td>{{articulo.nombre}}</td>
+            <td>{{articulo.categoria_id}}</td>
+            <td>{{articulo.color_id}}</td>
+            <td>{{articulo.talle_xs}}</td>
+            <td>{{articulo.talle_s}}</td>
+            <td>{{articulo.talle_m}}</td>
+            <td>{{articulo.talle_l}}<td>
+            <td>{{articulo.talle_xl}}</td>
+            <td>{{articulo.precio}}</td>
+            {% comment %} <td>{{articulo.picture}}</td>
+            <td>{{articulo.picture_1}}</td>
+            <td>{{articulo.picture_2}}</td>
+            <td>{{articulo.picture_3}}</td> {% endcomment %}
+            <td><a class="btn btn-info" href="{% url 'edit_articulo' articulo.art_id %}"  style=><left>Editar<left></a></td>
+            <td><a class="btn btn-danger" href="{% url 'art_delete' articulo.art_id %}" style=><left>Eliminar<left></a></td>
+                
+        </tr>
+        {% endfor %}
+
+        {% else %}
+    
+        <h1>No hay articulos</h1>
+
+        {% endif %}
+    </tbody>
+
+
+</table>
+<br>
+<div class="volver">
+<a href="{% url 'admin'%}" style=><center>Menu</center></a>
+</div>
+
+
+{% endblock content %}
