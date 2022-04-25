@@ -24,24 +24,20 @@
 
                         <h3>Precio: $ {{articulo.precio}}</h3>
 
-                        <h3>Talle {{ articulo.talle_seleccionado }}</h3>
+                        <h3>Talle: {{talle}}</h3>
 
 
                         <h3>Color: {{articulo.color_id}}</h3>
 
                         
 
-                <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+                <form action="{% url 'check_button' %}" method="POST">{%csrf_token%}
                     <input type="hidden" name="username" value="{{user.username}}">
                     <input type="hidden" name="art_id" value="{{articulo.art_id}}">
                     <input type="hidden" name="nombre" value="{{articulo.nombre}}">
                     <input type="hidden" name="precio" value="{{articulo.precio}}">
                     <input type="hidden" name="color_id" value="{{articulo.color_id}}">
-                    <input type="hidden" name="talle_xs" value="{{articulo.talle_xs}}">
-                    <input type="hidden" name="talle_s" value="{{articulo.talle_s}}">
-                    <input type="hidden" name="talle_m" value="{{articulo.talle_m}}">
-                    <input type="hidden" name="talle_l" value="{{articulo.talle_l}}">
-                    <input type="hidden" name="talle_xl" value="{{articulo.talle_xl}}">
+                    <input type="hidden" name="talle" value="{{nombre_talle}}">
                     <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                     <input type="hidden" name="type_button" value="cart">
                     <input type="hidden" name="actual_value" value="True">

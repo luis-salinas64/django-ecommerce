@@ -60,10 +60,10 @@ urlpatterns = [
     
 
     # NOTE: Formularios ocultos
-    path('checkbutton', check_button, name='checkbutton'),
-    path('check_talle', check_talle,name='check_talle'),
+    path('check_button', check_button, name='check_button'),
+    #path('check_talle', check_talle,name='check_talle'),
     path('gracias', gracias_compra, name='gracias'),
-    #path('register_art',register_art, name='register_art'),
+    
     
 
     # NOTE: Formularios para DB por usuarios autorizados

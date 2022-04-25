@@ -37,7 +37,7 @@
             
         
         
-            <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+            <form action="{% url 'check_button' %}" method="POST">{%csrf_token%}
 
                 <input type="hidden" name="username" value="{{user.username}}">
                 <input type="hidden" name="art_id" value="{{articulo.art_id}}">

@@ -368,58 +368,58 @@ class IndexView(ListView):
 
         return context
 
-def check_talle(request):
-    '''
-    Esta función tiene como objetivo obtener el talle elegido por el usuario.
-    '''
-    if request.method == 'POST':
-        print(request.path)
-        # NOTE: Obtenemos los datos necesarios:
+# def check_talle(request):
+#     '''
+#     Esta función tiene como objetivo obtener el talle elegido por el usuario.
+#     '''
+#     if request.method == 'POST':
+#         print(request.path)
+#         # NOTE: Obtenemos los datos necesarios:
         
         
-        art_id = request.POST.get('art_id')
-        nombre = request.POST.get('nombre')
-        precio = request.POST.get('precio')
-        color_id = request.POST.get('color_id')
-        talle = request.POST.get('talle')
-        path = request.POST.get('path')
+#         art_id = request.POST.get('art_id')
+#         nombre = request.POST.get('nombre')
+#         precio = request.POST.get('precio')
+#         color_id = request.POST.get('color_id')
+#         talle = request.POST.get('talle')
+#         path = request.POST.get('path')
         
 
-        # Validamos los datos y les damos formato:
+#         # Validamos los datos y les damos formato:
         
-        art_id = art_id if art_id != '' else None
-        nombre =nombre if nombre != '' else None
-        color_id = color_id if color_id != '' else None
-        precio = precio if precio != '' else None
-        talle = talle if talle != '' else None
-        path = path if path != None else 'index1'
+#         art_id = art_id if art_id != '' else None
+#         nombre =nombre if nombre != '' else None
+#         color_id = color_id if color_id != '' else None
+#         precio = precio if precio != '' else None
+#         talle = talle if talle != '' else None
+#         path = path if path != None else 'index1'
 
-        art_list = {}
-        art_list['art_id']=art_id
-        art_list['nombre']=nombre
-        art_list['color_id']=color_id
-        art_list['precio']=precio
-        art_list['talle']=talle
-
-
-        # Igualamos los valores por talle:
-        if talle == 'xs':
-            art_list['talle_xs']=1
-        elif talle == 's':
-            art_list['talle_s']=1
-        elif talle == 'm':
-            art_list['talle_m']=1
-        elif talle == 'l':
-            art_list['talle_l']=1
-        elif talle == 'xl':
-            art_list['talle_xl']=1
+#         art_list = {}
+#         art_list['art_id']=art_id
+#         art_list['nombre']=nombre
+#         art_list['color_id']=color_id
+#         art_list['precio']=precio
+#         art_list['talle']=talle
 
 
-        print(art_list)
+#         # Igualamos los valores por talle:
+#         if talle == 'xs':
+#             art_list['talle_xs']=1
+#         elif talle == 's':
+#             art_list['talle_s']=1
+#         elif talle == 'm':
+#             art_list['talle_m']=1
+#         elif talle == 'l':
+#             art_list['talle_l']=1
+#         elif talle == 'xl':
+#             art_list['talle_xl']=1
+
+
+#         print(art_list)
 
         
 
-    return render('detail_nuevo.html', art_list)
+#     return render('e_shop/detail_nuevo.html',art_list)
 
 
 ### Detail Nuevo ###
@@ -442,14 +442,14 @@ class DetailNuevoView(TemplateView):
             context["articulo"] = articulo_obj
 
             # Agrego un diccionario talles para que sea mas facil realizar la impresión
-            context["talles"] = {
+            context["talle"] = {
                 'xs': articulo_obj.talle_xs,
                 's': articulo_obj.talle_s,
                 'm': articulo_obj.talle_m,
                 'l': articulo_obj.talle_l,
                 'xl': articulo_obj.talle_xl,
             }
-
+            
             # Procedimiento para cuando un usuario NO está logueado
             username = self.request.user
             if username is not None:
@@ -564,7 +564,7 @@ def check_button(request):
         nombre = request.POST.get('nombre')
         precio = request.POST.get('precio')
         color_id = request.POST.get('color_id')
-        talle = request.GET.get('talle')
+        talle = request.POST.get('talle')
         user_authenticated = request.POST.get('user_authenticated')
         type_button = request.POST.get('type_button')
         actual_value = request.POST.get('actual_value')
@@ -587,7 +587,7 @@ def check_button(request):
         print(f'Nombre:{nombre}')
         print(f'Color:{color_id}')
         print(f'Precio:{precio}')
-        print(f'Talle:{talle}')
+        print(f'Talle_elegido:{talle}')
         
         
 
@@ -652,7 +652,7 @@ class CartView(TemplateView):
         cart_items = [obj.art_id for obj in wish_obj]
         context['cart_items'] = cart_items
         context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])),2)
-
+        
 
         print(context['cart_items'])
         return context
@@ -733,10 +733,7 @@ def gracias_compra(request):
         nombre = request.POST.get('nombre')
         precio = request.POST.get('precio')
         color_id = request.POST.get('color_id')        
-        talle_s = request.POST.get('talle_s')
-        talle_m = request.POST.get('talle_m')
-        talle_l = request.POST.get('talle_l')
-        talle_xl = request.POST.get('talle_xl')
+        talle = request.POST.get('talle')
         user_authenticated = request.POST.get('user_authenticated')
         type_button = request.POST.get('type_button')
         actual_value = request.POST.get('actual_value')
@@ -748,6 +745,7 @@ def gracias_compra(request):
         print(f'Nombre:{nombre}')
         print(f'Precio:{precio}')
         print(f'Color:{color_id}')
+        print(f'Talle:{talle}')
         
 
 
@@ -756,11 +754,7 @@ def gracias_compra(request):
         art_id = art_id if art_id != '' else None
         nombre = nombre if nombre != '' else None
         color_id = color_id if color_id != '' else None
-        talle_xs = talle_xs if talle_xs != '' else None
-        talle_s = talle_s if talle_s != '' else None
-        talle_m = talle_m if talle_m != '' else None
-        talle_l = talle_l if talle_l != '' else None
-        talle_xl = talle_xl if talle_xl != '' else None
+        talle = talle if talle != '' else None
         user_authenticated = True if user_authenticated == 'True' else False
         type_button = type_button if type_button != '' else None
         actual_value = True if actual_value == 'True' else False

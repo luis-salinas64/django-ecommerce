@@ -47,11 +47,11 @@
         <h5>Elegi tu talle:</h5>
 
         <!-- Formulario para elegir talle y comprar la prenda -->
-        <form name="comprar" method="POST" action="{% url 'checkbutton' %}">{%csrf_token%}
+        <form name="comprar" method="POST" action="{% url 'check_button' %}">{%csrf_token%}
             <!-- Select para elegir el talle -->
             <select name = "talle" id="talle">
 
-                {% for nombre_talle, stock in talles.items %}
+                {% for nombre_talle, stock in talle.items %}
                     <!-- Si el stock de un talle es 0, se va a deshabilitar la opcion -->
                     {% if stock == 0 %}
                         <!-- Deshabilito la opción con valor xs, porque es 0 -->
@@ -72,7 +72,7 @@
             <input type="hidden" name="nombre" value="{{articulo.nombre}}">
             <input type="hidden" name="precio" value="{{articulo.precio}}">
             <input type="hidden" name="color_id" value="{{articulo.color_id}}">
-            {% comment %} <input type="hidden" name="talle" value="{{articulo.color_id}}"> {% endcomment %}
+            {% comment %} <input type="hidden" name="talle" value="{{nombre_talle}}"> {% endcomment %}
             <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
             <input type="hidden" name="type_button" value="cart">
             <input type="hidden" name="actual_value" value="{{cart}}">
@@ -89,11 +89,12 @@
         <div id="grid-buttons">
             <h3>Me encanta !</h3>
 
-            <form action="{% url 'checkbutton' %}" method="POST">{%csrf_token%}
+            <form action="{% url 'check_button' %}" method="POST">{%csrf_token%}
 
                 <input type="hidden" name="username" value="{{user.username}}">
                 <input type="hidden" name="art_id" value="{{articulo.art_id}}">
                 <input type="hidden" name="color_id" value="{{articulo.color_id}}">
+                <input type="hidden" name="talle" value="{{nombre_talle}}">
                 <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                 <input type="hidden" name="type_button" value="favorite">
                 <input type="hidden" name="actual_value" value="{{favorite}}">
