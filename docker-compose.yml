@@ -24,17 +24,17 @@ services:
       # Enlazamos el puerto en el que trabaja Postgres, por defecto el 5432
       - 5432:5432
   
-  # adminer:
-  #   # Una interfaz para monitoreo y gestión de nuestra base de datos.
-  #   # Se puede acceder a ella en localhost:8080
-  #   container_name: shop_adminer
-  #   image: adminer:4.8.0
-  #   restart: always
-  #   ports:
+  adminer:
+    # Una interfaz para monitoreo y gestión de nuestra base de datos.
+    # Se puede acceder a ella en localhost:8080
+    container_name: shop_adminer
+    image: adminer:4.8.0
+    restart: always
+    ports:
 
-  #     - 8080:8080
-  #   # depends_on indica que este servicio depende de que primero inicie "db"
-  #   depends_on: ["db"]
+      - 8080:8080
+    # depends_on indica que este servicio depende de que primero inicie "db"
+    depends_on: ["db"]
 
   shop:
     # build es el lugar desde donde toma los archivos para generar la imagen.
