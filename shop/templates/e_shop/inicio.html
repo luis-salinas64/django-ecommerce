@@ -22,90 +22,29 @@
 
 <!-- Lista de articulos: -->
 <div class='grid-container'>
-    
-    <div class="grid-item">
-        <div class="articulo-block">
-            
-            <a href="/e-shop/jeans ">
-                <img class='articulo-img' src="{% static 'e-shop/img/jean-white.jpeg'%}" alt="Not found">
-            </a>
-            <h5>
-                JEANS
-            </h5>
+  {% for categoria in categorias %}
+
+  <div class="grid-item">
+    <div class="articulo-block">
+
+          <a href = "/e-shop/categorias?categoria_id= {{ categoria.id }}">
+          <img class='articulo-img' src="{{categoria.picture_cat.url}}" alt="Not found">
+          </a>
+
+          <h4> {{ categoria.categoria}}</h4>
+
+    </div>
+  </div>
+
+  {% endfor %}
+    {% comment %} <div class="grid-item">
+        <div class="articulo-block"> {% endcomment %}
+          
+          
+          
         </div>    
     </div>
-    <div class="grid-item">
-      <div class="articulo-block">        
-          <a href="/e-shop/pantalones ">
-            <img class='articulo-img' src="{% static 'e-shop/img/pantalones.jpeg'%}" alt="Not found">
-        </a>
-        <h5>
-            PANTALONES
-        </h5>
-          
-  
-      </div>
-  </div>
-    <div class="grid-item">
-        <div class="articulo-block">        
-            <a href="/e-shop/camisas ">
-              <img class='articulo-img' src="{% static 'e-shop/img/camisa_ischia.jpeg'%}" alt="Not found">
-          </a>
-          <h5>
-              CAMISAS
-          </h5>
-            
     
-        </div>
-    </div>
-    <div class="grid-item">
-      <div class="articulo-block">        
-          <a href="/e-shop/remeras ">
-            <img class='articulo-img' src="{% static 'e-shop/img/remera_abstracta.jpeg'%}" alt="Not found">
-        </a>
-        <h5>
-            REMERAS
-        </h5>
-          
-  
-      </div>
-    </div>
-    <div class="grid-item">
-      <div class="articulo-block">        
-          <a href="/e-shop/camperas ">
-            <img class='articulo-img' src="{% static 'e-shop/img/jkt_denim.jpeg'%}" alt="Not found">
-        </a>
-        <h5>
-            CAMPERAS
-        </h5>
-          
-  
-      </div>
-    </div>
-    <div class="grid-item">
-      <div class="articulo-block">        
-          <a href="/e-shop/vestidos ">
-            <img class='articulo-img' src="{% static 'e-shop/img/vestido_hudson.jpeg'%}" alt="Not found">
-        </a>
-        <h5>
-            VESTIDOS
-        </h5>
-          
-  
-      </div>
-    </div>
-    <div class="grid-item">
-      <div class="articulo-block">        
-          <a href="/e-shop/index1 ">
-            <img class='articulo-img' src="{% static 'e-shop/img/todos.jpg'%}" alt="Not found">
-        </a>
-        <h5>
-            TODOS
-        </h5>
-          
-  
-      </div>
-    </div>
 </div>
 
 

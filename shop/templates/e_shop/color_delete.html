@@ -1,0 +1,22 @@
+{% extends "e_shop/base_admin.html" %}
+
+{% block title %}
+
+Eliminar Color
+
+{% endblock %}
+
+{% block content %}
+
+
+<form class="form " method="POST" enctype="multipart/form-data">{% csrf_token %}
+<red><h2>Atencion! Al eliminar el color se eliminaran todos los articulos asociados:
+<h3> Desea eliminar la categoria {{color.color}}?</h3></red>
+
+<button class= "btn btn-danger" input type = "submit" >Eliminar</button>
+
+<a class= "btn btn-default" href="{% url 'listado_cat'%}">Cancelar</a>
+
+
+</form>
+{% endblock content %}

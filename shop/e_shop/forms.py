@@ -5,15 +5,18 @@ from e_shop.models import *
 
 
 
-# --------------- FORMULARIO DE CARGA ARTICULO -------------------------
+# --------------- FORMULARIOS DE CARGA -------------------------
 
 class CategoriaForm(forms.ModelForm):
 
     categoria = forms.CharField(label="Categoria", max_length=20, required=True)
 
+    # Imagen que sera mostrada como caratula de categoria en el inicio
+    picture_cat = forms.ImageField(label="Portada Categoria")
+
     class Meta:
         model = Categoria
-        fields = ('categoria',)
+        fields = ('categoria','picture_cat')
 
 class ColorForm(forms.ModelForm):
 
@@ -46,6 +49,7 @@ class ArticuloForm(forms.ModelForm):
     class Meta:
         model = Articulo
         fields = ('art_id','nombre','categoria_id','color_id','talle_xs',
-                    'talle_s','talle_m','talle_l','talle_xl','precio','picture','picture_1','picture_2','picture_3')
+                    'talle_s','talle_m','talle_l','talle_xl','precio',
+                    'picture','picture_1','picture_2','picture_3')
 
 

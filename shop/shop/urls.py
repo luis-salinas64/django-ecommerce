@@ -32,6 +32,7 @@ urlpatterns = [
 
 # e-shop urls:
     path('e-shop/',include ('e_shop.urls') ),
+    #path('e-shop/',include ('e_shop.api.urls') ),
 
 # swagger app urls:
     path('api-docs/', TemplateView.as_view(

@@ -9,13 +9,13 @@
 
 
 <div>
-    {% comment %} {% if not articulo in fav_items %}
+    {% if not articulo in fav_items %}
         
         <center><h4>NO TENES FAVORITOS</h4></center>
-        <br> {% endcomment %}
-        
+        <br>
+        <center><a class="boton" href="{% url 'inicio' %}" style=>Volver</a></center>            
     
-    {% comment %} {% else %} {% endcomment %}
+    {% else %}
 
     {% for articulo in fav_items %}
     
@@ -59,10 +59,10 @@
     {% endfor %}
 
 
-    {% comment %} {% endif %} {% endcomment %}
-    <br>
-    <center><a class="boton" href="{% url 'inicio' %}" style=>Volver</a></center>        
     
+    
+    
+{% endif %}
 {% endblock %}
 
 </div>

@@ -35,25 +35,9 @@ class ColorAdmin(admin.ModelAdmin):
             'fields': (),
         }),
 )
+'''
 
 
-@admin.register(Talle)
-class TalleAdmin(admin.ModelAdmin):
-    
-    
-    list_display = ('id','talle')
-    
-    fieldsets = (
-        (None, {
-            'fields': ('id','talle')
-        }),
-    
-        ('Advanced options', {
-            'classes': ('collapse',),
-            'fields': (),
-        }),
-    )
-    '''
 
 @admin.register(Articulo)
 class ArticuloAdmin(admin.ModelAdmin):

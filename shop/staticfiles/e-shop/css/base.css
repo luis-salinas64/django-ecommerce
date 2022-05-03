@@ -39,43 +39,47 @@ body{
 /* -----------------index----------------- */
 
 .grid-container{
-    width: 90%;
+    width: 100%;
+    height: auto;
     text-align: center;
     display:grid;
-    padding: 10px ;/* Achica el contenedor */
-    grid-gap:0px ;/* Separacion entre bloques*/
+    text-decoration: none;
+    padding: 5px ;/* Achica el contenedor */
+    grid-gap:5px ;/* Separacion entre bloques*/
     grid-template-columns: 25% 25% 25% 25%;
     /* background-color: rgb(5, 78, 202); */
-    margin-left:50px;
+    margin-left:5px;
 
 }
 
 .grid-item {
-    width: 90%;
-    height:350px;
+    width: 80%;
+    
     padding: 8px;
     text-align: center;
-    
-    /* background-color: rgb(248, 228, 197); */
+    text-decoration: none;
+    row-gap: 50px;
+    /* background-color: rgb(248, 228, 197);  */
     /* border:1px solid rgb(223, 41, 41); */
 
 }
 
 .articulo-img{
     border-radius:initial;
-    object-fit:contain;
+    object-fit:contain; 
     width:100%;
     height:100%;
-    border-radius: 20px;
-    /* background-color: rgb(235, 38, 218); */
+    border-radius: 10px;
+    /* background-color: rgb(235, 38, 218);  */
 
 }
 
 .articulo-block{
-    /* background-color: rgb(21, 196, 74); */
-    border-radius: 15px;
+    
+    /* background-color: rgb(21, 196, 74);  */
+    /* border-radius: 15px; */
     /* border: 2px solid rgba(7, 7, 6, 0.925); */
-    height: 80%;        /* contenedor de imagen*/
+    height: 78%;        /* contenedor de imagen*/
 
 }
 
@@ -163,9 +167,9 @@ body{
     text-decoration: none;
 }
 .menu li a:hover{
-    color: rgb(87, 129, 245);
+    color: rgb(83, 128, 252);
     transition:
-    all ,3s;
+    all ,2s;
 }
 
 /* Submenu */
@@ -270,11 +274,11 @@ body{
     
     border:2px solid #101113; /*anchura, estilo y color borde*/
     padding: 5px; /*espacio alrededor texto*/
-    background-color: #f4d6b1; /*color botón*/
+    background-color: #b1f4c2; /*color botón*/
     color: #030303; /*color texto*/
     text-align: center;
     text-decoration: none; /*decoración texto*/
-    text-transform: uppercase; /*capitalización texto*/
+    /*text-transform: uppercase; /*capitalización texto*/
     font-family: 'Helvetica', sans-serif; /*tipografía texto*/
     border-radius: 20px; /*bordes redondos*/
     width: 80px;
@@ -356,25 +360,6 @@ font-family: Arial, Helvetica, sans-serif;
 
 }
 
-/* .ok a {
-    text-align: center;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius:20% ;
-    color: #353535;
-   
-
-}
-
- .ok {
-    text-align: center;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #daecf0;
-    border-bottom: #94acb1;
-   
-
-} */
 
 /*-------------------------- Menu Admin ----------------------------------------*/
 

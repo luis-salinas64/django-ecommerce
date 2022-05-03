@@ -10,7 +10,10 @@ class Categoria(models.Model):
 
     id = models.BigAutoField(db_column='ID', primary_key=True)
     
-    categoria = models.CharField(verbose_name='categoria', max_length=20, default='')
+    categoria = models.CharField(verbose_name='categoria', unique = True, max_length=20, default='')
+
+    # Imagen que sera mostrada como caratula de categoria en el inicio
+    picture_cat = models.ImageField(null=True, upload_to='shop/images')
 
     class Meta:
         db_table = 'e_shop_categoria'
@@ -18,7 +21,8 @@ class Categoria(models.Model):
     def __str__(self):
         return f'{self.categoria}'
 
-
+    def get_absolute_url(self):
+        return reverse('e_shop/carga_form.html')
 
 class Color(models.Model):
 
@@ -81,9 +85,35 @@ class Articulo(models.Model):
 
     def get_absolute_url(self):
         return reverse('e_shop/carga_form.html')
+
+class Item(models.Model):
+
+    id = models.BigAutoField(db_column='ID', primary_key=True)
+    user_id = models.ForeignKey(User,
+                                verbose_name='User',
+                                on_delete=models.DO_NOTHING,
+                                default=1, blank=True
+                                )
+    art_id = models.ForeignKey(Articulo,
+                                 verbose_name='Articulo',
+                                 on_delete=models.CASCADE,
+                                 default=0, blank=True
+                                 )
+
+    precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=2 )
+
+    talle = models.CharField(verbose_name='talle', max_length=50, default='')
+    buyed_qty = models.PositiveIntegerField(verbose_name='buyed qty', default=0)
+
+    class Meta:
+        db_table = 'e_shop_item'
+
+    def __str__(self):
+        return f'{self.id}'
     
 
 class WishList(models.Model):
+
     id = models.BigAutoField(db_column='ID', primary_key=True)
     user_id = models.ForeignKey(User,
                                 verbose_name='User',

@@ -25,15 +25,17 @@ urlpatterns = [
     path('signup', register, name='register'),
 
     # NOTE: Páginas del sitio:
-    #path('detail', DetailsView.as_view(), name='detail'),
+    
     path('detail_nuevo', DetailNuevoView.as_view(), name='detail_nuevo'),
     path('index1', IndexView.as_view(), name='index1'),
-    path('camisas', CamisasView.as_view(), name='camisas'),
-    path('remeras', RemerasView.as_view(), name='remeras'),
-    path('vestidos', VestidosView.as_view(), name='vestidos'),
-    path('camperas', CamperasView.as_view(), name='camperas'),
-    path('jeans', JeansView.as_view(), name='jeans'),
-    path('pantalones', PantalonesView.as_view(), name='pantalones'),
+    #path('camisas', CamisasView.as_view(), name='camisas'),
+    path('categorias', CategoriasView.as_view(), name='categorias'),
+    #path('remeras', RemerasView.as_view(), name='remeras'),
+    #path('vestidos', VestidosView.as_view(), name='vestidos'),
+    #path('camperas', CamperasView.as_view(), name='camperas'),
+    #path('jeans', JeansView.as_view(), name='jeans'),
+    #path('pantalones', PantalonesView.as_view(), name='pantalones'),
+    
     path('gracias', ThanksView.as_view(), name='gracias'),
     path('update-user', UpdateUserView.as_view(), name= 'update'),
     path('user', login_required(UserView.as_view()), name= 'user'),
@@ -42,15 +44,19 @@ urlpatterns = [
 
     path('admin', login_required(AdminView.as_view()), name='admin'),
     path('ok', login_required(OkCargaView.as_view()), name='ok'),
+
     path('listado_art', login_required(ListadoView.as_view()), name='listado_art'),
     path('listado_cat', login_required(ListadoCatView.as_view()), name='listado_cat'),
     path('listado_color', login_required(ListadoColorView.as_view()), name='listado_color'),
-    path('categoria', login_required(register_cat), name='categoria'),
+    
     path('color', login_required(register_color), name='color'),
+    path('categoria',login_required(register_cat), name='categoria'),
     path('carga_form',login_required(register_art), name='carga_form'),
+
     path('art_delete/<int:art_id>',login_required(art_delete),name='art_delete'),
     path('cat_delete/<int:id>',login_required(cat_delete),name='cat_delete'),
     path('color_delete/<int:id>',login_required(color_delete),name='color_delete'),
+
     path('edit_articulo/<int:art_id>',login_required(edit_articulo),name='edit_articulo'),
     path('edit_categoria/<int:id>',login_required(edit_categoria),name='edit_categoria'),
     path('edit_color/<int:id>',login_required(edit_color),name='edit_color'),
@@ -75,6 +81,8 @@ urlpatterns = [
     path('bootstrap-login', BootstrapLoginUserView.as_view(), name='loginbootstrap'),
     path('bootstrap-signup', BootstrapSignupView.as_view(), name='signupbootstrap'),
 
+     
     
 
 ]
+
