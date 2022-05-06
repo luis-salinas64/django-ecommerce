@@ -8,36 +8,37 @@
 
 
 <div>
-    <center><h4>Hola {{user.username}}!! Puedes confirmar el pedido o quitarlo de tu carrito.</h4></center>        
-    {% for articulo in cart_items %}
+    {% for item in cart_items %}
+    <center><h4>Hola {{user.username}}!! Puedes confirmar el pedido o quitarlo de tu bolsa.</h4></center>        
+    
             
             <div class="cart-artic">
 
                 <div class="cart-artic-img">
-                    <a href="/e-shop/detail_nuevo?art_id={{articulo.art_id}}">
-                        <img src="{{articulo.picture.url}}" with= "180px" height="300px" alt="Not found">
+                    <a href="/e-shop/detail?art_id={{item.art_id.art_id}}">
+                        <img src="{{item.art_id.picture.url}}" with= "180px" height="300px" alt="Not found">
                     </a>
                 </div>
 
             <div>
-                        <h2>{{articulo.nombre}}</h2>
+                        <h2>{{item.art_id.nombre}}</h2>
 
-                        <h3>Precio: $ {{articulo.precio}}</h3>
+                        <h3>Precio: $ {{item.art_id.precio}}</h3>
+            
+                        <h3>Talle: {{item.talle_elegido}}</h3>
 
-                        <h3>Talle: {{talle}}</h3>
 
-
-                        <h3>Color: {{articulo.color_id}}</h3>
+                        <h3>Color: {{item.art_id.color_id}}</h3>
 
                         
 
                 <form action="{% url 'check_button' %}" method="POST">{%csrf_token%}
                     <input type="hidden" name="username" value="{{user.username}}">
-                    <input type="hidden" name="art_id" value="{{articulo.art_id}}">
-                    <input type="hidden" name="nombre" value="{{articulo.nombre}}">
-                    <input type="hidden" name="precio" value="{{articulo.precio}}">
-                    <input type="hidden" name="color_id" value="{{articulo.color_id}}">
-                    <input type="hidden" name="talle" value="{{nombre_talle}}">
+                    <input type="hidden" name="art_id" value="{{item.art_id.art_id}}">
+                    <input type="hidden" name="nombre" value="{{item.art_id.nombre}}">
+                    <input type="hidden" name="precio" value="{{item.art_id.precio}}">
+                    <input type="hidden" name="color_id" value="{{item.art_id.color_id}}">
+                    <input type="hidden" name="talle_elegido" value="{{item.talle_elegido}}">
                     <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                     <input type="hidden" name="type_button" value="cart">
                     <input type="hidden" name="actual_value" value="True">

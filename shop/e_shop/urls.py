@@ -26,17 +26,12 @@ urlpatterns = [
 
     # NOTE: Páginas del sitio:
     
-    path('detail_nuevo', DetailNuevoView.as_view(), name='detail_nuevo'),
+    path('detail', DetailView.as_view(), name='detail'),
     path('index1', IndexView.as_view(), name='index1'),
-    #path('camisas', CamisasView.as_view(), name='camisas'),
     path('categorias', CategoriasView.as_view(), name='categorias'),
-    #path('remeras', RemerasView.as_view(), name='remeras'),
-    #path('vestidos', VestidosView.as_view(), name='vestidos'),
-    #path('camperas', CamperasView.as_view(), name='camperas'),
-    #path('jeans', JeansView.as_view(), name='jeans'),
-    #path('pantalones', PantalonesView.as_view(), name='pantalones'),
     
-    path('gracias', ThanksView.as_view(), name='gracias'),
+    
+    #path('gracias', ThanksView.as_view(), name='gracias'),
     path('update-user', UpdateUserView.as_view(), name= 'update'),
     path('user', login_required(UserView.as_view()), name= 'user'),
     path('wish', login_required(WishView.as_view()), name='wish'),

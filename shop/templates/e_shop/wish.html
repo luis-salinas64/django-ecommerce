@@ -9,7 +9,7 @@
 
 
 <div>
-    {% if not articulo in fav_items %}
+    {% if not fav_items %}
         
         <center><h4>NO TENES FAVORITOS</h4></center>
         <br>
@@ -17,30 +17,32 @@
     
     {% else %}
 
-    {% for articulo in fav_items %}
+    {% for item in fav_items %}
     
 
     <div class="cart-artic">
         <div class="cart-artic-img">
-            <a href="/e_shop/detail?art_id={{articulo.art_id}}">
-                <img class="articulo_img" src="{{articulo.picture.url}}" with= "180px" height="300px" alt="Not found">
+            <a href="/e-shop/detail?art_id={{item.art_id.art_id}}">
+                <img class="articulo_img" src="{{item.art_id.picture.url}}" with= "180px" height="300px" alt="Not found">
             </a>
         </div>
         
             <div>
                 
-                    <h2>{{articulo.nombre}}</h2>
+                    <h2>{{item.art_id.nombre}}</h2>
                 
                 
-                    <h2>Precio: $ {{articulo.precio}}</h2>
-                
-            
-        
+                    <h2>Precio $: {{item.art_id.precio}}</h2>
+
+                    <h2>Color: {{item.art_id.color_id}}</h2>
+
+                    <h2>Talle: {{item.talle_elegido}}</h2>
+                        
         
             <form action="{% url 'check_button' %}" method="POST">{%csrf_token%}
 
                 <input type="hidden" name="username" value="{{user.username}}">
-                <input type="hidden" name="art_id" value="{{articulo.art_id}}">
+                <input type="hidden" name="art_id" value="{{item.art_id.art_id}}">
                 <input type="hidden" name="user_authenticated" value="{{user.is_authenticated}}">
                 <input type="hidden" name="type_button" value="favorite">
                 <input type="hidden" name="actual_value" value="True">

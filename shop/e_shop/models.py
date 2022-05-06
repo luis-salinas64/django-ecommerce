@@ -57,13 +57,15 @@ class Articulo(models.Model):
     talle_m = models.PositiveIntegerField(verbose_name='m',default=0)
     talle_l = models.PositiveIntegerField(verbose_name='l',default=0)
     talle_xl = models.PositiveIntegerField(verbose_name='xl',default=0)
+
+    
     
     color_id = models.ForeignKey(Color, on_delete=models.CASCADE,
                                 verbose_name='color_id', max_length=20, default='')
     
     
     
-    precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=2 )
+    precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=0 )
     
     picture = models.ImageField(null=True, upload_to='shop/images')
     picture_1 = models.ImageField(null=True,upload_to='shop/images')
@@ -85,31 +87,6 @@ class Articulo(models.Model):
 
     def get_absolute_url(self):
         return reverse('e_shop/carga_form.html')
-
-class Item(models.Model):
-
-    id = models.BigAutoField(db_column='ID', primary_key=True)
-    user_id = models.ForeignKey(User,
-                                verbose_name='User',
-                                on_delete=models.DO_NOTHING,
-                                default=1, blank=True
-                                )
-    art_id = models.ForeignKey(Articulo,
-                                 verbose_name='Articulo',
-                                 on_delete=models.CASCADE,
-                                 default=0, blank=True
-                                 )
-
-    precio = models.DecimalField(verbose_name='precio', max_digits=10, default=0,decimal_places=2 )
-
-    talle = models.CharField(verbose_name='talle', max_length=50, default='')
-    buyed_qty = models.PositiveIntegerField(verbose_name='buyed qty', default=0)
-
-    class Meta:
-        db_table = 'e_shop_item'
-
-    def __str__(self):
-        return f'{self.id}'
     
 
 class WishList(models.Model):
@@ -125,9 +102,10 @@ class WishList(models.Model):
                                  on_delete=models.CASCADE,
                                  default=0, blank=True
                                  )
+    talle_elegido = models.CharField(verbose_name='talle_elegido', max_length=5, default='',null=True)
     favorite = models.BooleanField(verbose_name='Favorite', default=False)
     cart = models.BooleanField(verbose_name='carts', default=False)
-    wished_qty = models.PositiveIntegerField(verbose_name='wished qty', default=0)
+    wished_qty = models.PositiveIntegerField(verbose_name='wished qty', default=1)
     buyed_qty = models.PositiveIntegerField(verbose_name='buyed qty', default=0)
 
     class Meta:

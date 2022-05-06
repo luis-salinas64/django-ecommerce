@@ -3,9 +3,8 @@ from re import template
 from textwrap import indent
 from unicodedata import name
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
-# Create your views here.
 # Importo vistas genericas:
 from django.db.models.query import QuerySet
 from django.db.models import Count
@@ -40,14 +39,11 @@ class BaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # Hacer un query que obtenga todas las categorias registradas en la tabla
         categorias = Categoria.objects.all()
-        
-        # for categoria in categorias:
-        #     print(categoria.categoria)
-        #     print(categoria.id)
 
+        
         context["categorias"] = categorias
 
         return context
@@ -60,10 +56,10 @@ class InicioView(TemplateView):
     template_name = 'e_shop/inicio.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # Hacer un query que obtenga todas las categorias registradas en la tabla
         categorias = Categoria.objects.all()
-        
+
         id_categoria = {}
 
 
@@ -134,7 +130,7 @@ def register(request):
 # Listado de Articulos
 
 class ListadoView(ListView):
-    
+
     model = Articulo
     template_name='e_shop/listado_art.html'
 
@@ -142,7 +138,7 @@ class ListadoView(ListView):
 
 # Listado de Categorias
 class ListadoCatView(ListView):
-    
+
     model = Categoria
     template_name='e_shop/listado_cat.html'
 
@@ -150,7 +146,7 @@ class ListadoCatView(ListView):
 
 # Listado de Colores
 class ListadoColorView(ListView):
-    
+
     model = Color
     template_name='e_shop/listado_color.html'
 
@@ -167,21 +163,21 @@ class OkCargaView(TemplateView):
     template_name = 'e_shop/ok.html'
 
 
-# Registrar nueva Categoria    
+# Registrar nueva Categoria
 def register_cat(request):
-        
+
     if request.method == 'POST':
         # Si la petición es de tipo POST, analizamos los datos del formulario:
         # Creamos un objeto de tipo Form
         # Pasandole los datos del request:
         form = CategoriaForm(request.POST, request.FILES)
-                
+
         if form.is_valid():
             form.save()
-            
-            
-            return redirect('/e-shop/ok')           
-        
+
+
+            return redirect('/e-shop/ok')
+
     else:
         # Si el método no es de tipo POST, se crea un objeto de tipo formulario
         # Y luego se envía al contexto de renderización.
@@ -191,19 +187,19 @@ def register_cat(request):
 
 # Registrar nuevo Color
 def register_color(request):
-        
+
     if request.method == 'POST':
         # Si la petición es de tipo POST, analizamos los datos del formulario:
         # Creamos un objeto de tipo Form
         # Pasandole los datos del request:
         form = ColorForm(request.POST)
-                
+
         if form.is_valid():
             form.save()
-            
-            
-            return redirect('/e-shop/ok')           
-        
+
+
+            return redirect('/e-shop/ok')
+
     else:
         # Si el método no es de tipo POST, se crea un objeto de tipo formulario
         # Y luego se envía al contexto de renderización.
@@ -211,7 +207,7 @@ def register_color(request):
 
     return render(request,'e_shop/carga_form.html', {'form':form})
 
-# Registrar nuevo articulo    
+# Registrar nuevo articulo
 def register_art(request):
     '''
     Función que complementa el formulario de registro de articulo.
@@ -226,37 +222,16 @@ def register_art(request):
         # Creamos un objeto de tipo Form
         # Pasandole los datos del request:
         form = ArticuloForm(request.POST,request.FILES)
-        
-        
-        
+
+
+
         if form.is_valid():
             form.save()
             print("valido")
 
-            # NOTE: OPCION EN LOS CASOS QUE DA ERROR form.save
-            # articulo = Articulo()
 
-            # articulo.art_id = form.cleaned_data['art_id'] 
-            # articulo.nombre= form.cleaned_data['nombre']
-            # articulo.categoria_id = form.cleaned_data['categoria_id']
-            # articulo.color_id = form.cleaned_data['color_id']
-            # articulo.talle_xs = form.cleaned_data['talle_xs']
-            # articulo.talle_s = form.cleaned_data['talle_s']
-            # articulo.talle_m = form.cleaned_data['talle_m']
-            # articulo.talle_l= form.cleaned_data['talle_l']
-            # articulo.talle_xl= form.cleaned_data['talle_xl']
-            # articulo.precio= form.cleaned_data['precio']
-            # articulo.picture= form.cleaned_data['picture']
-            # articulo.picture_1= form.cleaned_data['picture_1']
-            # articulo.picture_2= form.cleaned_data['picture_2']
-            # articulo.picture_3= form.cleaned_data['picture_3']
-            
-            # articulo.save()
+            return redirect('/e-shop/ok')
 
-            return redirect('/e-shop/ok')        
-
-        
-        
     else:
         # Si el método no es de tipo POST, se crea un objeto de tipo formulario
         # Y luego se envía al contexto de renderización.
@@ -272,7 +247,7 @@ def cat_delete (request,id):
 
         categoria.delete()
         return redirect('/e-shop/listado_cat')
-    
+
     return render(request,'e_shop/cat_delete.html',{'categoria':categoria})
 
 # Borrar color
@@ -283,9 +258,9 @@ def color_delete (request,id):
 
         color.delete()
         return redirect('/e-shop/listado_color')
-    
+
     return render(request,'e_shop/color_delete.html',{'color':color})
-    
+
 
 # Borrar articulo
 def art_delete (request,art_id):
@@ -295,84 +270,74 @@ def art_delete (request,art_id):
 
         articulo.delete()
         return redirect('/e-shop/listado_art')
-    
+
     return render(request,'e_shop/art_delete.html',{'articulo':articulo})
 
-    
-# Editar Articulo    
+
+# Editar Articulo
 
 def edit_articulo(request,art_id):
     form = None
 
     articulo = Articulo.objects.get(art_id=art_id)
-    
+
     if request.method == 'GET':
         form = ArticuloForm(instance=articulo)
 
     else:
         form = ArticuloForm(request.POST,instance=articulo)
 
-        
+
         if form.is_valid():
-            form.save()    
+            form.save()
             print("valido")
 
-            return redirect('/e-shop/ok')        
-    return render (request, 'e_shop/carga_form.html', {'form':form})    
-    
+            return redirect('/e-shop/ok')
+    return render (request, 'e_shop/carga_form.html', {'form':form})
+
 
 # Editar Categoria
 def edit_categoria(request,id):
     form = None
 
     categoria = Categoria.objects.get(id=id)
-    
+
     if request.method == 'GET':
         form = CategoriaForm(instance=categoria)
 
     else:
         form = CategoriaForm(request.POST,instance=categoria)
 
-        
+
         if form.is_valid():
-            form.save()    
+            form.save()
             print("valido")
 
-            return redirect('/e-shop/ok')        
-    return render (request, 'e_shop/carga_form.html', {'form':form})    
+            return redirect('/e-shop/ok')
+    return render (request, 'e_shop/carga_form.html', {'form':form})
 
 # Editar Color
 def edit_color(request,id):
     form = None
 
     color = Color.objects.get(id=id)
-    
+
     if request.method == 'GET':
         form = ColorForm(instance=color)
 
     else:
         form = ColorForm(request.POST,instance=color)
 
-        
+
         if form.is_valid():
-            form.save()    
+            form.save()
             print("valido")
 
-            return redirect('/e-shop/ok')        
+            return redirect('/e-shop/ok')
     return render (request, 'e_shop/carga_form.html', {'form':form})
 
 
-
-    
-
-
-
-
-
-
-
-
-
+# -----------------------------
 
 class IndexView(ListView):
     '''
@@ -382,12 +347,12 @@ class IndexView(ListView):
     \n'''
 
     queryset = Articulo.objects.all().order_by('art_id')
-    
+
 
     # NOTE: Este queryset incorporará una lista de elementos a la que le asignará
     # Automáticamente el nombre de articulo_list
 
-    
+
     template_name = 'e_shop/index1.html'
     paginate_by = 12
 
@@ -398,10 +363,6 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         # Hacer un query que obtenga todas las categorias registradas en la tabla
         categorias = Categoria.objects.all()
-        
-        # for categoria in categorias:
-        #     print(categoria.categoria)
-        #     print(categoria.id)
 
         context["categorias"] = categorias
 
@@ -409,8 +370,8 @@ class IndexView(ListView):
 
 
 
-class DetailNuevoView(TemplateView):
-    template_name = 'e_shop/detail_nuevo.html'
+class DetailView(TemplateView):
+    template_name = 'e_shop/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -418,7 +379,7 @@ class DetailNuevoView(TemplateView):
             # Buscar el articulo en la base de datos TUYA, usas la funcion Articulo.objects.get y le
             # mandas la id del articulo, por eso art_id=self.request.GET.get('art_id')
             # eso te devuelve el artículo que esté en la db que coincida con el id
-            
+
             # el art_id llega por url
             articulo_obj = Articulo.objects.get(art_id=self.request.GET.get('art_id'))
 
@@ -435,7 +396,7 @@ class DetailNuevoView(TemplateView):
                 'l': articulo_obj.talle_l,
                 'xl': articulo_obj.talle_xl,
             }
-            
+
             # Procedimiento para cuando un usuario NO está logueado
             username = self.request.user
             if username is not None:
@@ -446,12 +407,12 @@ class DetailNuevoView(TemplateView):
                     if wish_obj.first() is not None:
                         context["favorite"] = wish_obj.first().favorite
                         context["cart"] = wish_obj.first().cart
-                        context["wished_qty"] = wish_obj.first().wished_qty
+                        context["wished_qty"] = 1
                     else:
                         context["favorite"] = False
                         context["cart"] = False
                         context["wished_qty"] = 0
-            
+
             return context
 
         except:
@@ -463,17 +424,18 @@ class ReceptorCompraView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['articulo'] = self.request.POST
 
 
 
-    
+
 def check_button(request):
     '''
     Esta función tiene como objetivo el cambio de estado de los botones de favoritos y carrito.
     '''
     if request.method == 'POST':
-        print(request.path)
+
         # NOTE: Obtenemos los datos necesarios:
         username = request.POST.get('username')
         art_id = request.POST.get('art_id')
@@ -504,19 +466,21 @@ def check_button(request):
         print(f'Color:{color_id}')
         print(f'Precio:{precio}')
         print(f'Talle_elegido:{talle}')
-        
-        
+
 
         if user_authenticated and username != None:
             # Si el usuario está autenticado, traemos su "wishlist"
             user_obj = User.objects.get(username=username)
+            # Buscamos el art_id pasado en el request
             art_obj = Articulo.objects.get(art_id=art_id)
+            # Establecemos el talle elegido:
+            
             wish_obj = WishList.objects.filter(
                 user_id=user_obj, art_id=art_obj).first()
             if not wish_obj:
                 # Si no tiene "wishlist" creamos una
                 wish_obj = WishList.objects.create(
-                    user_id=user_obj, art_id=art_obj)
+                    user_id=user_obj, art_id=art_obj, talle_elegido=talle)
 
             # Remplazamos el estado del botón seleccionado:
             if type_button == "cart":
@@ -562,15 +526,21 @@ class CartView(TemplateView):
         '''
 
         context = super().get_context_data(**kwargs)
+        # Obtenemos el usuario del request
         username = self.request.user
+        # Creamos el objeto del usuario pasando el username
         user_obj = User.objects.get(username=username)
+        # Creamos un objeto obteniendo del usuario lo que puso en su carrito (check_button)
         wish_obj = WishList.objects.filter(user_id=user_obj, cart=True)
+        # Creamos una lista de objetos
         cart_items = [obj.art_id for obj in wish_obj]
-        context['cart_items'] = cart_items
-        context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])),2)
         
+        # Pasamos al contexto la lista de art deseados (wish_list)
+        context['cart_items'] = wish_obj
 
-        print(context['cart_items'])
+        
+        context['precio_total'] = round((sum([float(articulo.precio) for articulo in cart_items])),2)
+
         return context
 
 
@@ -588,22 +558,16 @@ class WishView(TemplateView):
         # Preparamos en nuestro contexto la lista de articulos del usuario registrado.
 
         context = super().get_context_data(**kwargs)
+        # Obtenemos el username del request
         username = self.request.user
+        # Creamos un objeto a partir del usuario
         user_obj = User.objects.get(username=username)
         wish_obj = WishList.objects.filter(user_id=user_obj, favorite=True)
-        cart_items = [obj.art_id for obj in wish_obj]
-        context['fav_items'] = cart_items
-        print(context['fav_items'])
+        #cart_items = [obj.art_id for obj in wish_obj]
+        context['fav_items'] = wish_obj
+
         return context
 
-
-class ThanksView(TemplateView):
-    '''
-    Página de agradecimiento. Esta es la página de respuesta una vez realizado el pedido.
-    El Template tiene que tener un botón de redireccionamiento al index.
-    '''
-
-    template_name = 'e_shop/gracias.html'
 
 
 class UpdateUserView(TemplateView):
@@ -619,7 +583,6 @@ class UpdateUserView(TemplateView):
 
 
 
-        # TODO: Realizar la lógica de actualización de los datos de usuario.
 
 class UserView(TemplateView):
     '''
@@ -648,7 +611,7 @@ def gracias_compra(request):
         art_id = request.POST.get('art_id')
         nombre = request.POST.get('nombre')
         precio = request.POST.get('precio')
-        color_id = request.POST.get('color_id')        
+        color_id = request.POST.get('color_id')
         talle = request.POST.get('talle')
         user_authenticated = request.POST.get('user_authenticated')
         type_button = request.POST.get('type_button')
@@ -662,7 +625,7 @@ def gracias_compra(request):
         print(f'Precio:{precio}')
         print(f'Color:{color_id}')
         print(f'Talle:{talle}')
-        
+
 
 
         # Validamos los datos y les damos formato:
@@ -700,124 +663,30 @@ def gracias_compra(request):
 
 class CategoriasView(ListView):
 
-    template_name = 'e_shop/categorias.html'        
+    template_name = 'e_shop/categorias.html'
 
 
     queryset = Articulo.objects.all()
-    
-        
+
+
     def get_context_data(self, **kwargs):
-        
+
         categoria_id = self.request.GET.get("categoria_id")
 
         # Filtrar articulos por categoria
         articulo_obj = Articulo.objects.all().filter(categoria_id=categoria_id)
-        
-        # categorias = {}
-        
-        # for articulo in articulo_obj:
-            
-        #     articulo.categoria_id = categoria_id
-            
-        #     print(articulo.categoria_id)
-        
+
 
         context = super().get_context_data(**kwargs)
         categorias = Categoria.objects.all()
-        
-        # for categoria in categorias:
-        #     print(categoria.categoria)
-        #     print(categoria.id)
 
         context["categorias"] = categorias
         # Agregar lista de articulos al contexto para que lo use el template
         context["articulos"] = articulo_obj
 
-        return context        
-
-    
-'''
-class CamisasView(ListView):
-    template_name = 'e_shop/camisas.html'        
-
-
-    queryset = Articulo.objects.filter(categoria_id=2)
-    
-        
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        return context        
-
-class PantalonesView(ListView):
-
-    queryset = Articulo.objects.filter(categoria_id=3)
-
-    
-
-    template_name = 'e_shop/pantalones.html'
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
         return context
 
-class RemerasView(ListView):
 
-    queryset = Articulo.objects.filter(categoria_id=2)
-
-    
-
-    template_name = 'e_shop/remeras.html'
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        return context
-class VestidosView(ListView):
-
-    queryset = Articulo.objects.filter(categoria_id=5)
-
-    
-
-    template_name = 'e_shop/vestidos.html'
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        return context
-
-class CamperasView(ListView):
-
-    queryset = Articulo.objects.filter(categoria_id=5)
-
-    
-
-    template_name = 'e_shop/camperas.html'
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        return context
-
-class JeansView(ListView):
-
-    queryset = Articulo.objects.filter(categoria_id=1)
-
-    
-
-    template_name = 'e_shop/jeans.html'
-    paginate_by = 12
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        return context
-'''
 # NOTE: Vistas con Bootstrap:
 
 class BootstrapLoginUserView(TemplateView):
@@ -832,6 +701,7 @@ class BootstrapSignupView(TemplateView):
 
     template_name = 'e_shop/bootstrap-signup.html'
 
+# --------------------------------------Grafico de precios ------------------------------
 
 class GraphView(TemplateView):
     '''
