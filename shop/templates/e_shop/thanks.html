@@ -1,0 +1,59 @@
+{% extends "e_shop/base.html" %}
+{% block title %}Daniel Cassin-Mi Bolsa{% endblock %}
+{% block content %}
+{% load static %}
+
+
+
+
+
+<div>
+    {% for item in cart_items %}
+    <center><h2>Muchas Gracias por tu compra {{user.username}}</h2></center>        
+    <h5>Te enviaremos un mail a {{user.email}} con las instrucciones de pago</h5>
+    <center><h2>Compraste:</h2></center>
+    
+            
+            <div class="cart-artic">
+
+                <div class="cart-artic-img">
+                    <a href="/e-shop/detail?art_id={{item.art_id.art_id}}">
+                        <img src="{{item.art_id.picture.url}}" with= "180px" height="300px" alt="Not found">
+                    </a>
+                </div>
+
+            <div>
+                        <h2>{{item.art_id.nombre}}</h2>
+
+                        <h3>Precio: $ {{item.art_id.precio}}</h3>
+            
+                        <h3>Talle: {{item.talle_elegido}}</h3>
+
+
+                        <h3>Color: {{item.art_id.color_id}}</h3>
+
+                        
+
+                
+                
+            </div>
+
+
+
+
+    </div>
+        
+    {% endfor %}
+    
+        <br>
+        <center><a class="boton" href="{% url 'inicio' %}" style=>Volver</a></center>
+
+    {% comment %} {% endif %} {% endcomment %}
+
+    
+    
+{% endblock %}
+
+
+
+</div>

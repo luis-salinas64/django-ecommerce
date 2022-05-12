@@ -419,17 +419,6 @@ class DetailView(TemplateView):
             return context
 
 
-class ReceptorCompraView(TemplateView):
-    template_name = 'e_shop/articulo_comprado'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['articulo'] = self.request.POST
-
-
-
-
 def check_button(request):
     '''
     Esta función tiene como objetivo el cambio de estado de los botones de favoritos y carrito.
@@ -460,20 +449,14 @@ def check_button(request):
         actual_value = True if actual_value == 'True' else False
         path = path if path != None else 'index1'
 
-        print(f'Username:{username}')
-        print(f'art_id:{art_id}')
-        print(f'Nombre:{nombre}')
-        print(f'Color:{color_id}')
-        print(f'Precio:{precio}')
-        print(f'Talle_elegido:{talle}')
 
 
         if user_authenticated and username != None:
             # Si el usuario está autenticado, traemos su "wishlist"
             user_obj = User.objects.get(username=username)
+
             # Buscamos el art_id pasado en el request
             art_obj = Articulo.objects.get(art_id=art_id)
-            # Establecemos el talle elegido:
             
             wish_obj = WishList.objects.filter(
                 user_id=user_obj, art_id=art_obj).first()
@@ -543,6 +526,50 @@ class CartView(TemplateView):
 
         return context
 
+class ThanksView(TemplateView):
+    template_name = 'e_shop/thanks.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        username = self.request.user
+        # Creamos el objeto del usuario pasando el username
+        user_obj = User.objects.get(username=username)
+        # Creamos un objeto obteniendo del usuario lo que puso en su carrito (check_button)
+        wish_obj = WishList.objects.filter(user_id=user_obj, cart=True)
+        # Creamos una lista de objetos
+
+        for articulo in wish_obj:
+
+            art_buscado = Articulo.objects.filter(art_id=articulo.art_id.art_id).first()
+            
+            if articulo.talle_elegido == 'xs':
+                art_buscado.talle_xs -= 1
+            elif articulo.talle_elegido == 's':
+                art_buscado.talle_s -= 1
+            elif articulo.talle_elegido == 'm':
+                art_buscado.talle_m -= 1
+            elif articulo.talle_elegido == 'l':
+                art_buscado.talle_l -= 1
+            elif articulo.talle_elegido == 'xl':
+                art_buscado.talle_xl -= 1
+            
+
+            art_buscado.save()
+            articulo.delete()
+            
+
+        cart_items = [obj.art_id for obj in wish_obj]
+            
+        # Pasamos al contexto la lista de art deseados (wish_list)
+        context['cart_items'] = wish_obj        
+
+        context['articulo'] = self.request.POST
+
+        
+
+        return context
+
 
 class WishView(TemplateView):
     '''
@@ -597,66 +624,6 @@ class UserView(TemplateView):
         context = super().get_context_data(**kwargs)
 
 
-
-def gracias_compra(request):
-    '''
-    Incluye la lógica de guardar lo pedido en la base de datos
-    y devuelve el detalle de lo adquirido
-    '''
-
-    if request.method == 'POST':
-
-    # Obtenemos los datos del request:
-        username = request.POST.get('username')
-        art_id = request.POST.get('art_id')
-        nombre = request.POST.get('nombre')
-        precio = request.POST.get('precio')
-        color_id = request.POST.get('color_id')
-        talle = request.POST.get('talle')
-        user_authenticated = request.POST.get('user_authenticated')
-        type_button = request.POST.get('type_button')
-        actual_value = request.POST.get('actual_value')
-        path = request.POST.get('path')
-
-        # Obtener valores:
-        print(f'Username:{username}')
-        print(f'art_id:{art_id}')
-        print(f'Nombre:{nombre}')
-        print(f'Precio:{precio}')
-        print(f'Color:{color_id}')
-        print(f'Talle:{talle}')
-
-
-
-        # Validamos los datos y les damos formato:
-        username = username if username != '' else None
-        art_id = art_id if art_id != '' else None
-        nombre = nombre if nombre != '' else None
-        color_id = color_id if color_id != '' else None
-        talle = talle if talle != '' else None
-        user_authenticated = True if user_authenticated == 'True' else False
-        type_button = type_button if type_button != '' else None
-        actual_value = True if actual_value == 'True' else False
-        path = path if path != None else 'index1'
-
-        user_obj = User.objects.get(username=username)
-        art_obj = Articulo.objects.get(art_id=art_id)
-        wish_obj = WishList.objects.filter(user_id=user_obj, art_id=art_obj).first()
-
-        if type_button == "cart":
-                wish_obj.cart = not actual_value
-                wish_obj.save()
-                print('wish_obj.cart :', wish_obj.cart)
-        elif type_button == "favorite":
-                wish_obj.favorite = not actual_value
-                print('wish_obj.favorite :', wish_obj.favorite)
-                wish_obj.save()
-        else:
-            pass
-
-        return redirect(path)
-    else:
-        return redirect('index1')
 
 
 # ------------------------------- NOTE: Categorias --------------------------

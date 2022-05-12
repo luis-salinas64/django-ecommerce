@@ -31,7 +31,7 @@ urlpatterns = [
     path('categorias', CategoriasView.as_view(), name='categorias'),
     
     
-    #path('gracias', ThanksView.as_view(), name='gracias'),
+    path('thanks', ThanksView.as_view(), name='thanks'),
     path('update-user', UpdateUserView.as_view(), name= 'update'),
     path('user', login_required(UserView.as_view()), name= 'user'),
     path('wish', login_required(WishView.as_view()), name='wish'),
@@ -62,8 +62,7 @@ urlpatterns = [
 
     # NOTE: Formularios ocultos
     path('check_button', check_button, name='check_button'),
-    #path('check_talle', check_talle,name='check_talle'),
-    path('gracias', gracias_compra, name='gracias'),
+    
     
     
 
